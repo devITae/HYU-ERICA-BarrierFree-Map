@@ -1,0 +1,114 @@
+{
+    "pos": [
+        {
+            "title": "컨퍼런스홀",
+            "lat": 37.29908027576492, 
+            "lng": 126.83684077910677,
+            "wheel": true,
+            "toilet": true,
+            "elevator": true,
+            "parking": true,
+            "dots": true
+        },
+        {
+            "title": "학생회관",
+            "lat": 37.297496146398146, 
+            "lng": 126.83481405961977,
+            "wheel": true,
+            "toilet": true,
+            "elevator": true,
+            "parking": true,
+            "dots": true
+        },
+        {
+            "title": "학생복지관",
+            "lat": 37.29801823353328, 
+            "lng": 126.83444636212754,
+            "wheel": true,
+            "toilet": true,
+            "elevator": true,
+            "parking": true,
+            "dots": true
+        },
+        {
+            "title": "학술정보관",
+            "lat": 37.29684790553162,
+            "lng": 126.83517638803356,
+            "wheel": true,
+            "toilet": true,
+            "elevator": true,
+            "parking": true,
+            "dots": true
+        },
+        {
+            "title": "제1공학관",
+            "lat": 37.297706968333955,
+            "lng": 126.83740203582373,
+            "wheel": true,
+            "toilet": true,
+            "elevator": true,
+            "parking": true,
+            "dots": true
+        },
+        {
+            "title": "제2공학관",
+            "lat": 37.297178260403186,
+            "lng": 126.83301583172646,
+            "wheel": true,
+            "toilet": true,
+            "elevator": true,
+            "parking": true,
+            "dots": true
+        },
+        {
+            "title": "제3공학관",
+            "lat": 37.29752991474457,
+            "lng": 126.83642118158264,
+            "wheel": true,
+            "toilet": true,
+            "elevator": true,
+            "parking": true,
+            "dots": true
+        },
+        {
+            "title": "제4공학관",
+            "lat": 37.296759445412775,
+            "lng": 126.8363608185112,
+            "wheel": true,
+            "toilet": true,
+            "elevator": true,
+            "parking": true,
+            "dots": true
+        },
+        {
+            "title": "제5공학관",
+            "lat": 37.296733503306996,
+            "lng": 126.83715036609057,
+            "wheel": true,
+            "toilet": true,
+            "elevator": true,
+            "parking": true,
+            "dots": true
+        },
+        {
+            "title": "학연산클러스터지원센터",
+            "lat": 37.29636197441728,
+            "lng": 126.83890495713604,
+            "wheel": true,
+            "toilet": true,
+            "elevator": true,
+            "parking": true,
+            "dots": true
+        },
+        {
+            "title": "약학대학",
+            "lat": 37.296409898047564,
+            "lng": 126.83770934451195,
+            "wheel": true,
+            "toilet": true,
+            "elevator": true,
+            "parking": true,
+            "dots": true
+        }        
+    ]
+}
