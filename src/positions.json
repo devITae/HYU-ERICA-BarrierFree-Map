@@ -16,7 +16,7 @@
             "lng": 126.83481405961977,
             "wheel": true,
             "toilet": true,
-            "elevator": true,
+            "elevator": false,
             "parking": true,
             "dots": true
         },
