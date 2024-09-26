@@ -71,7 +71,14 @@ const CategoryItem = styled.li`
 `
 
 function App() {
-
+  const openReportPage = () => {
+    window.open(
+      'https://m.naver.com',
+      '_black',
+      'noopener noreferrer',
+    )
+  }
+  
   const [isVisibleId, setIsVisibleId] = useState<string | null>(null)
 
   function success(pos) {
@@ -292,6 +299,11 @@ function App() {
             className={selectedCategory === "ramp" ? "on" : ""}
           >
             경사로
+          </CategoryItem>
+          <CategoryItem
+            onClick={openReportPage}
+          >
+            불편신고
           </CategoryItem>
         </ul>
       </div>
