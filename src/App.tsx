@@ -70,7 +70,18 @@ const CategoryItem = styled.li`
   }
 `
 
+const MoveToNowButton = styled.button`
+  display: block;
+  position: relative;
+  width: 32px;
+  height: 32px;
+  padding: 1px 3px 5px;
+  background: url(https://t1.daumcdn.net/localimg/localimages/07/2018/pc/common/img_search.png) no-repeat -152.5px -451px;
+`
+
 function App() {
+  //const mapRef = useRef<kakao.maps.Map>(null)
+  
   const openReportPage = () => {
     window.open(
       'https://m.naver.com',
@@ -92,6 +103,7 @@ function App() {
     console.warn(`Error: ${error.message}`)
   }
 
+  // 현재 위치를 저장할 state
   const [state, setState] = useState({
     center: {
       lat: 37.29781,
@@ -101,11 +113,26 @@ function App() {
     isLoading: true,
   })
 
-  const [selectedCategory, setSelectedCategory] = useState("entire")
-  //const markerImageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/category.png"
-  //const imageSize = { width: 22, height: 26 }
-  //const spriteSize = { width: 36, height: 98 }
+  // 지도의 중심을 저장할 state
+  const [mapState, setMapState] = useState({
+    center: {
+      lat: 37.29781,
+      lng: 126.835358,
+    },
+    isPanto: false,
+  })
 
+  const [selectedCategory, setSelectedCategory] = useState("entire")
+
+  function accessCurrentLocation() {
+    //현재 위치로 중심을 이동시킴
+    setMapState((prev) => ({
+      ...prev,
+      center: state.center,
+      isPanto: true,
+    }))
+  }
+  
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.permissions.query({ name:'geolocation' }).then((result) => {
@@ -227,11 +254,20 @@ function App() {
         {/* 지도 위에 표시될 마커 카테고리 */}
         <Map
           id='map'
-          center={{ lat: 37.29781, lng: 126.835358 }}   // 지도의 중심 좌표
+          center={mapState.center}   // 지도의 중심 좌표
+          isPanto={mapState.isPanto}                      // 지도의 중심 좌표를 변경할 때 애니메이션 효과를 줄지 여부
           style={{'width': '100%', 'height': '100vh'}} // 지도 크기
           level={3}                                   // 지도 확대 레벨
           minLevel={4}                                // 지도 최소 레벨
           maxLevel={2}                               // 지도 최대 레벨
+          onDragEnd={(map) => {
+            const latlng = map.getCenter()
+            setMapState((prev) => ({
+              ...prev,
+              center: { lat: latlng.getLat(), lng: latlng.getLng() },
+              isPanto: false,
+            }))
+          }}
         >
           {pos.map((value, index) => {
             const showMarker =
@@ -306,6 +342,9 @@ function App() {
             불편신고
           </CategoryItem>
         </ul>
+        <div className='absolute bottom-[10px] right-[10px] rounded-md border border-[#909090] overflow-hidden z-[2]'>
+          <MoveToNowButton onClick={() => accessCurrentLocation()} />
+        </div>
       </div>
     </>
   )
