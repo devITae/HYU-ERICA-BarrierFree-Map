@@ -77,11 +77,12 @@ const MoveToNowButton = styled.button`
   height: 32px;
   padding: 1px 3px 5px;
   background: url(https://t1.daumcdn.net/localimg/localimages/07/2018/pc/common/img_search.png) no-repeat -152.5px -451px;
+  alt: '현재 위치로 이동';
 `
 
 function App() {
   //const mapRef = useRef<kakao.maps.Map>(null)
-  
+
   const openReportPage = () => {
     window.open(
       'https://m.naver.com',
@@ -132,7 +133,31 @@ function App() {
       isPanto: true,
     }))
   }
-  
+
+  useEffect(() => {
+    const tileset = new kakao.maps.Tileset({
+      width: 256,
+      height: 256,
+      getTile: (x, y, z) => {
+        const div = document.createElement('div');
+        const whiteBox = document.createElement('div');
+
+        if (z === 4 && x >= 419 && x <= 422 && y >= 940 && y <= 942) {
+          return div
+        } else if (z === 3 && x >= 838 && x <= 844 && y >= 1879 && y <= 1885){
+          return div
+        } else if (z === 2 && x >= 1676 && x <= 1688 && y >= 3759 && y <= 3770){
+          return div
+        } else {
+          console.log(`x: ${x}, y: ${y}, out of range`);  // 범위를 벗어난 경우
+          whiteBox.style.background = '#fff';
+          return whiteBox
+        }
+      }
+    })
+    kakao.maps.Tileset.add("ROADMAP", tileset)
+  }, [])
+
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.permissions.query({ name:'geolocation' }).then((result) => {
@@ -268,6 +293,7 @@ function App() {
               isPanto: false,
             }))
           }}
+          onCreate={map => map.addOverlayMapTypeId(kakao.maps.MapTypeId['ROADMAP'])}
         >
           {pos.map((value, index) => {
             const showMarker =
