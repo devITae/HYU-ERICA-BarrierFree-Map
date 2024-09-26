@@ -204,6 +204,21 @@ function App() {
     })
   }, [])
   
+  useEffect(() => {
+    const setViewportHeight = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    };
+
+    setViewportHeight();
+
+    window.addEventListener("resize", setViewportHeight);
+
+    return () => {
+      window.removeEventListener("resize", setViewportHeight);
+    };
+  }, []);
+  
   const EventMarkerContainer = ({ id, position, content, wheel, elevator, toilet, parking, dots }: { 
     id: string, position: { lat: number, lng: number }, content: string,
     wheel: boolean, elevator: boolean, toilet: boolean, parking: boolean, dots: boolean }) => {  
@@ -275,7 +290,7 @@ function App() {
   
   return (
     <>
-      <div id='mapwrap' className='w-full h-full'>
+      <div id='mapwrap' className='w-full h-screen-vh'>
         {/* 지도 위에 표시될 마커 카테고리 */}
         <Map
           id='map'
