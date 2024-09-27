@@ -294,8 +294,8 @@ function App() {
         {/* 지도 위에 표시될 마커 카테고리 */}
         <Map
           id='map'
-          center={mapState.center}   // 지도의 중심 좌표
-          isPanto={mapState.isPanto}                      // 지도의 중심 좌표를 변경할 때 애니메이션 효과를 줄지 여부
+          center={mapState.center} // 지도의 중심 좌표
+          isPanto={mapState.isPanto} // 지도의 중심 좌표를 변경할 때 애니메이션 효과를 줄지 여부
           style={{'width': '100%', 'height': '100vh'}} // 지도 크기
           level={3}                                   // 지도 확대 레벨
           minLevel={4}                                // 지도 최소 레벨
@@ -382,6 +382,29 @@ function App() {
           >
             불편신고
           </CategoryItem>
+        </ul>
+        <ul className='absolute bottom-[30px] left-[10px] rounded-md border border-[#909090] shadow-md bg-white overflow-hidden z-[2]'>
+          <li className='flex items-center justify-between p-2'>
+            <input
+              type='text'
+              placeholder='장소를 검색해보세요'
+              className='w-full h-8 border border-[#909090] rounded-md'
+            />
+            <button className='ml-2 w-8 h-8 bg-[#909090] rounded-md'>
+              <img
+                src='https://t1.daumcdn.net/localimg/localimages/07/2018/pc/common/ico_search.png'
+                alt='검색'
+                style={{backgroundPosition: '-40px -120px'}}
+              />
+            </button>
+            <button className='ml-2 w-8 h-8 bg-[#909090] rounded-md'>
+              <img
+                src='https://t1.daumcdn.net/localimg/localimages/07/2018/pc/common/ico_search.png'
+                alt='음성인식'
+                style={{backgroundPosition: '-40px -120px'}}
+              />
+            </button>
+          </li>
         </ul>
         <div className='absolute bottom-[10px] right-[10px] rounded-md border border-[#909090] overflow-hidden z-[2]'>
           <MoveToNowButton onClick={() => accessCurrentLocation()} />
