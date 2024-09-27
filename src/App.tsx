@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import { pos } from './positions.json'
 import { Map, MapMarker } from 'react-kakao-maps-sdk'
 import Marker from './assets/marker.png'
+import MicImg from './assets/mic.png'
+import SearchImg from './assets/search.png'
 
 
 const CategoryItem = styled.li`
@@ -387,21 +389,19 @@ function App() {
           <li className='flex items-center justify-between p-2'>
             <input
               type='text'
-              placeholder='장소를 검색해보세요'
+              placeholder='  장소를 검색해보세요'
               className='w-full h-8 border border-[#909090] rounded-md'
             />
-            <button className='ml-2 w-8 h-8 bg-[#909090] rounded-md'>
+            <button className='p-1 ml-2 w-8 h-8 bg-white border border-[#909090] rounded-md'>
               <img
-                src='https://t1.daumcdn.net/localimg/localimages/07/2018/pc/common/ico_search.png'
-                alt='검색'
-                style={{backgroundPosition: '-40px -120px'}}
+                src={SearchImg}
+                alt='검색버튼'
               />
             </button>
-            <button className='ml-2 w-8 h-8 bg-[#909090] rounded-md'>
+            <button className='p-1 ml-2 w-8 h-8 bg-white border border-[#909090] rounded-md'>
               <img
-                src='https://t1.daumcdn.net/localimg/localimages/07/2018/pc/common/ico_search.png'
-                alt='음성인식'
-                style={{backgroundPosition: '-40px -120px'}}
+                src={MicImg}
+                alt='음성인식 시작 버튼'
               />
             </button>
           </li>
