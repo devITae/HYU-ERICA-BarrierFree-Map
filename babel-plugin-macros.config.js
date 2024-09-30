@@ -1,6 +1,3 @@
-// eslint-disable-next-line no-undef
-module.exports = {
-    twin: {
-        preset: 'styled-components',
-    },
-}
+export const twin = {
+    preset: 'styled-components',
+};   

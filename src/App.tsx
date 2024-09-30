@@ -6,81 +6,12 @@ import { Map, MapMarker } from 'react-kakao-maps-sdk'
 import Marker from './assets/marker.png'
 import MicImg from './assets/mic.png'
 import SearchImg from './assets/search.png'
+import LocationImg from './assets/location.svg'
 
-
-const CategoryItem = styled.li`
-  float: left;
-  list-style: none;
-  width: 50px;
-  border-right: 1px solid #acacac;
-  padding: 6px 0;
-  text-align: center;
-  cursor: pointer;
-  
-  &.on {
-    background: #eee;
-  }
-  
-  &:hover {
-    background: #ffe6e6;
-    border-left: 1px solid #acacac;
-    margin-left: -1px;
-  }
-  
-  &:last-child {
-    margin-right: 0;
-    border-right: 0;
-  }
-  
-  span {
-    display: block;
-    margin: 0 auto 3px;
-    width: 27px;
-    height: 28px;
-  }
-  
-  .category_bg {
-    background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png) no-repeat;
-  }
-  
-  .bank {
-    background-position: -10px 0;
-  }
-  
-  .mart {
-    background-position: -10px -36px;
-  }
-  
-  .pharmacy {
-    background-position: -10px -72px;
-  }
-  
-  .oil {
-    background-position: -10px -108px;
-  }
-  
-  .cafe {
-    background-position: -10px -144px;
-  }
-  
-  .store {
-    background-position: -10px -180px;
-  }
-  
-  &.on .category_bg {
-    background-position-x: -46px;
-  }
-`
-
-const MoveToNowButton = styled.button`
-  display: block;
-  position: relative;
-  width: 32px;
-  height: 32px;
-  padding: 1px 3px 5px;
-  background: url(https://t1.daumcdn.net/localimg/localimages/07/2018/pc/common/img_search.png) no-repeat -152.5px -451px;
-  alt: '현재 위치로 이동';
-`
+const CategoryItem = styled.li<{ isActive: boolean }>(({ isActive }) => [
+  tw`float-left list-none w-[50px] border-r border-[#acacac] py-[6px] text-center cursor-pointer hover:bg-[#ffe6e6] hover:border-l hover:border-[#acacac] hover:ml-[-1px] last:mr-0 last:border-r-0`,
+  isActive && tw`bg-[#eee]`,
+])
 
 function App() {
   //const mapRef = useRef<kakao.maps.Map>(null)
@@ -95,7 +26,7 @@ function App() {
   
   const [isVisibleId, setIsVisibleId] = useState<string | null>(null)
 
-  function success(pos) {
+  function success(pos: { coords: { latitude: number, longitude: number } }) {
     const coordinates = pos.coords
     console.log(
       `Your location is: ${coordinates.latitude}} ${coordinates.longitude}`
@@ -351,64 +282,72 @@ function App() {
         <ul className='absolute top-[10px] left-[10px] rounded-md border border-[#909090] shadow-md bg-white overflow-hidden z-[2]'>
           <CategoryItem
             onClick={() => setSelectedCategory("entire")}
-            className={selectedCategory === "entire" ? "on" : ""}
+            isActive={selectedCategory === "entire"}
           >
             전체
           </CategoryItem>
           <CategoryItem
             onClick={() => setSelectedCategory("parking")}
-            className={selectedCategory === "parking" ? "on" : ""}
+            isActive={selectedCategory === "parking"}
           >
             장애인 주차장
           </CategoryItem>
           <CategoryItem
             onClick={() => setSelectedCategory("toilet")}
-            className={selectedCategory === "toilet" ? "on" : ""}
+            isActive={selectedCategory === "toilet"}
           >
             장애인 화장실
           </CategoryItem>
           <CategoryItem
             onClick={() => setSelectedCategory("elevator")}
-            className={selectedCategory === "elevator" ? "on" : ""}
+            isActive={selectedCategory === "elevator"}
           >
             엘레베이터
           </CategoryItem>
           <CategoryItem
             onClick={() => setSelectedCategory("ramp")}
-            className={selectedCategory === "ramp" ? "on" : ""}
+            isActive={selectedCategory === "ramp"}
           >
             경사로
           </CategoryItem>
           <CategoryItem
             onClick={openReportPage}
+            isActive={selectedCategory === "report"}
           >
             불편신고
           </CategoryItem>
         </ul>
-        <ul className='absolute bottom-[30px] left-[10px] rounded-md border border-[#909090] shadow-md bg-white overflow-hidden z-[2]'>
-          <li className='flex items-center justify-between p-2'>
-            <input
-              type='text'
-              placeholder='  장소를 검색해보세요'
-              className='w-full h-8 border border-[#909090] rounded-md'
+      </div>
+      
+      <ul className='absolute bottom-[30px] left-[10px] rounded-md border border-[#909090] shadow-md bg-white overflow-hidden z-[2]'>
+        <li className='flex items-center justify-between p-2'>
+          <input
+            type='text'
+            placeholder='  장소를 검색해보세요'
+            className='w-full h-8 border border-[#909090] rounded-md'
+          />
+          <button className='p-1 ml-2 w-8 h-8 bg-white border border-[#909090] rounded-md'>
+            <img
+              src={SearchImg}
+              alt='검색버튼'
             />
-            <button className='p-1 ml-2 w-8 h-8 bg-white border border-[#909090] rounded-md'>
-              <img
-                src={SearchImg}
-                alt='검색버튼'
-              />
-            </button>
-            <button className='p-1 ml-2 w-8 h-8 bg-white border border-[#909090] rounded-md'>
-              <img
-                src={MicImg}
-                alt='음성인식 시작 버튼'
-              />
-            </button>
-          </li>
-        </ul>
-        <div className='absolute bottom-[10px] right-[10px] rounded-md border border-[#909090] overflow-hidden z-[2]'>
-          <MoveToNowButton onClick={() => accessCurrentLocation()} />
-        </div>
+          </button>
+          <button className='p-1 ml-2 w-8 h-8 bg-white border border-[#909090] rounded-md'>
+            <img
+              src={MicImg}
+              alt='음성인식 시작 버튼'
+            />
+          </button>
+        </li>
+      </ul>
+      <div className='absolute bottom-[30px] right-[10px] rounded-md border border-[#909090] overflow-hidden z-[2]'>
+        <button className='p-2 bg-white'>
+          <img 
+            src={LocationImg} 
+            alt='현재 위치로 이동'
+            className='p-1 h-8 w-8' 
+            onClick={() => accessCurrentLocation()} />
+        </button>
       </div>
     </>
   )
