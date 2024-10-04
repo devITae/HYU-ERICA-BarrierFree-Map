@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
+import { Map, MapMarker } from 'react-kakao-maps-sdk'
 import tw from 'twin.macro'
 import styled from 'styled-components'
+import useSpeechToText from './useSpeechToText'
 import { pos } from './positions.json'
-import { Map, MapMarker } from 'react-kakao-maps-sdk'
 import Marker from './assets/marker.png'
 import MicImg from './assets/mic.png'
 import SearchImg from './assets/search.png'
@@ -14,8 +15,9 @@ const CategoryItem = styled.li<{ isActive: boolean }>(({ isActive }) => [
 ])
 
 function App() {
+  const { transcript, listening, toggleListening } = useSpeechToText()
   //const mapRef = useRef<kakao.maps.Map>(null)
-
+  
   const openReportPage = () => {
     window.open(
       'https://m.naver.com',
@@ -325,6 +327,8 @@ function App() {
             type='text'
             placeholder='  장소를 검색해보세요'
             className='w-full h-8 border border-[#909090] rounded-md'
+            value={transcript}
+            onChange={() => {}}
           />
           <button className='p-1 ml-2 w-8 h-8 bg-white border border-[#909090] rounded-md'>
             <img
@@ -332,10 +336,13 @@ function App() {
               alt='검색버튼'
             />
           </button>
-          <button className='p-1 ml-2 w-8 h-8 bg-white border border-[#909090] rounded-md'>
+          <button
+            onClick={() => toggleListening()}
+            className='p-1 ml-2 w-8 h-8 bg-white border border-[#909090] rounded-md'
+          > 
             <img
               src={MicImg}
-              alt='음성인식 시작 버튼'
+              alt={listening ? '음성인식 중지' : '음성인식 시작'}
             />
           </button>
         </li>

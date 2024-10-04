@@ -1,3 +1,10 @@
 {
-    "plugins" : ["babel-plugin-macros"]
+    "presets": [
+        ["@babel/preset-env", {
+            "targets": {
+                "browsers": ["last 2 versions"]
+            }
+        }]
+    ],
+    "plugins": ["babel-plugin-macros", "@babel/plugin-transform-runtime"]
 }
