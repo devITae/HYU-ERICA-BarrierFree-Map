@@ -9,6 +9,11 @@ module.exports = {
         'screen-vh': 'calc(100 * var(--vh))',
       },
     },
+    fontFamily: {
+      bold: ['KoddiUDOn-Bold'],
+      medium: ['KoddiUDOn-Regular'],
+      extrabold: ['KoddiUDOn-ExtraBold'],
+    },
   },
   plugins: [],
 }

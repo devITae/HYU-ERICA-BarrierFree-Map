@@ -8,11 +8,34 @@ import Marker from './assets/marker.png'
 import MicImg from './assets/mic.png'
 import SearchImg from './assets/search.png'
 import LocationImg from './assets/location.svg'
+import CheckBoxImg from './assets/checkbox.png'
+import XBoxImg from './assets/xbox.png'
 
 const CategoryItem = styled.li<{ isActive: boolean }>(({ isActive }) => [
   tw`float-left list-none w-[50px] border-r border-[#acacac] py-[6px] text-center cursor-pointer hover:bg-[#ffe6e6] hover:border-l hover:border-[#acacac] hover:ml-[-1px] last:mr-0 last:border-r-0`,
   isActive && tw`bg-[#eee]`,
 ])
+
+const CheckboxWrapper = styled.div`
+  ${tw`flex items-center bg-blue-50 rounded-lg p-2 mb-2`}
+`
+
+const CheckboxItem = styled.input`
+  ${tw`hidden`}
+`
+
+const CheckboxLabel = styled.label`
+  ${tw`block w-4 h-4 bg-no-repeat bg-center bg-contain cursor-pointer`}
+  background-image: url(${XBoxImg});
+
+  input:checked + & {
+    background-image: url(${CheckBoxImg});
+  }
+`
+
+const CheckboxTextLabel = styled.label`
+  ${tw`ml-2 text-sm`}
+`
 
 function App() {
   const { transcript, listening, toggleListening } = useSpeechToText()
@@ -178,44 +201,66 @@ function App() {
             alt="닫기"
           />
             <div className='p-5 w-[200px]'>  
-              <div className='flex mb-5 '>{content}</div>
-
-              <div className="flex items-center mb-4">
-                <input 
-                  id="default-checkbox"
+              <div className='flex mb-4'>{content}</div>
+              <CheckboxWrapper>
+                <CheckboxItem
+                  id="wheel-checkbox"
                   checked={wheel}
                   type="checkbox" value="" 
-                  className="checked w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500" />
-                <label htmlFor="default-checkbox" className="ms-2 text-sm font-medium">휠체어 진입가능</label>
-              </div>
-              <div className="flex items-center mb-4">
-                <input id="default-checkbox"
+                />
+                <CheckboxLabel htmlFor="wheel-checkbox" />
+                  <CheckboxTextLabel>
+                    휠체어 진입가능
+                  </CheckboxTextLabel>
+              </CheckboxWrapper>
+
+              <CheckboxWrapper>
+                <CheckboxItem
+                  id="elevator-checkbox"
                   checked={elevator}
                   type="checkbox" value="" 
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500" />
-                <label htmlFor="default-checkbox" className="ms-2 text-sm font-medium">장애인 승강기</label>
-              </div>
-              <div className="flex items-center mb-4">
-                <input id="default-checkbox"
+                />
+                <CheckboxLabel htmlFor="elevator-checkbox" />
+                  <CheckboxTextLabel>
+                    승강기
+                  </CheckboxTextLabel>
+              </CheckboxWrapper>
+
+              <CheckboxWrapper>
+                <CheckboxItem
+                  id="toilet-checkbox"
                   checked={toilet}
                   type="checkbox" value="" 
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500" />
-                <label htmlFor="default-checkbox" className="ms-2 text-sm font-medium">장애인 화장실</label>
-              </div>
-              <div className="flex items-center mb-4">
-                <input id="default-checkbox"
+                />
+                <CheckboxLabel htmlFor="toilet-checkbox" />
+                <CheckboxTextLabel>
+                  장애인 화장실
+                </CheckboxTextLabel>
+              </CheckboxWrapper>
+
+              <CheckboxWrapper>
+                <CheckboxItem
+                  id="parking-checkbox"
                   checked={parking}
                   type="checkbox" value="" 
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500" />
-                <label htmlFor="default-checkbox" className="ms-2 text-sm font-medium">장애인 전용 주차장</label>
-              </div>
-              <div className="flex items-center mb-4">
-                <input id="default-checkbox"
+                />
+                <CheckboxLabel htmlFor="parking-checkbox" />
+                  <CheckboxTextLabel>
+                    장애인 주차장
+                  </CheckboxTextLabel>
+              </CheckboxWrapper>
+
+              <CheckboxWrapper>
+                <CheckboxItem
+                  id="dots-checkbox"
                   checked={dots}
                   type="checkbox" value="" 
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500" />
-                <label htmlFor="default-checkbox" className="ms-2 text-sm font-medium">점자 명판 여부</label>
-              </div>
+                />
+                <CheckboxLabel htmlFor="dots-checkbox" />
+                  <CheckboxTextLabel>
+                    점자 명판
+                  </CheckboxTextLabel>
+              </CheckboxWrapper>
             </div>
           </>
         }
@@ -225,7 +270,7 @@ function App() {
   
   return (
     <>
-      <div id='mapwrap' className='w-full h-screen-vh'>
+      <div id='mapwrap' className='w-full h-screen-vh font-medium'>
         {/* 지도 위에 표시될 마커 카테고리 */}
         <Map
           id='map'
