@@ -89,6 +89,8 @@ function App() {
           return div
         } else if (z === 2 && x >= 1676 && x <= 1688 && y >= 3759 && y <= 3770){
           return div
+        } else if (z === 5 && x >= 209 && x <= 211 && y >= 469 && y <= 471){
+          return div
         } else {
           console.log(`x: ${x}, y: ${y}, out of range`);  // 범위를 벗어난 경우
           whiteBox.style.background = '#fff';
@@ -177,14 +179,16 @@ function App() {
           <>
             {/* 세부 정보 팝업 UI */}
             {detailsPopup(content, amenityData)} 
-            <div className='flex justify-center text-xs pl-5 pr-5 pb-5'>
+            <div className='flex justify-center text-[0.8rem] pl-5 pr-5 pb-5'>
               <button 
-                className='w-full py-2 mr-3 text-white bg-blue-500 rounded-lg'>
+                className='w-full py-2 mr-3 text-white bg-blue-500 rounded-lg'
+              >
                 건물 평면도
               </button>
               <button 
                 className='w-full py-2 text-white bg-blue-500 rounded-lg' 
-                onClick={() => setIsVisibleId(null)} >
+                onClick={() => setIsVisibleId(null)}
+              >
                 닫기
               </button>
             </div>
@@ -196,7 +200,7 @@ function App() {
   
   return (
     <>
-      <div id='mapwrap' className='w-full h-screen-vh font-medium'>
+      <div id='mapwrap' className='w-full h-screen-vh font-medium tracking-tight select-none'>
         {/* 지도 위에 표시될 마커 카테고리 */}
         <Map
           id='map'
@@ -204,7 +208,7 @@ function App() {
           isPanto={mapState.isPanto} // 지도의 중심 좌표를 변경할 때 애니메이션 효과를 줄지 여부
           style={{'width': '100%', 'height': '100vh'}} // 지도 크기
           level={3}                                   // 지도 확대 레벨
-          minLevel={4}                                // 지도 최소 레벨
+          minLevel={5}                                // 지도 최소 레벨
           maxLevel={2}                               // 지도 최대 레벨
           onDragEnd={(map) => {
             const latlng = map.getCenter()
