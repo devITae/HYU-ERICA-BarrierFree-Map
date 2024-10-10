@@ -2,40 +2,19 @@ import { useState, useEffect } from 'react'
 import { Map, MapMarker } from 'react-kakao-maps-sdk'
 import tw from 'twin.macro'
 import styled from 'styled-components'
-import useSpeechToText from './useSpeechToText'
+import useSpeechToText from './components/useSpeechToText'
+import { amenities } from './data/amenities'
+import detailsPopup from './components/detailsPopup'
 import { pos } from './positions.json'
-import Marker from './assets/marker.png'
-import MicImg from './assets/mic.png'
-import SearchImg from './assets/search.png'
-import LocationImg from './assets/location.svg'
-import CheckBoxImg from './assets/checkbox.png'
-import XBoxImg from './assets/xbox.png'
+import Marker from './assets/images/marker.png'
+import MicImg from './assets/images/mic.png'
+import SearchImg from './assets/images/search.png'
+import LocationImg from './assets/images/location.svg'
 
 const CategoryItem = styled.li<{ isActive: boolean }>(({ isActive }) => [
   tw`float-left list-none w-[50px] border-r border-[#acacac] py-[6px] text-center cursor-pointer hover:bg-[#ffe6e6] hover:border-l hover:border-[#acacac] hover:ml-[-1px] last:mr-0 last:border-r-0`,
   isActive && tw`bg-[#eee]`,
 ])
-
-const CheckboxWrapper = styled.div`
-  ${tw`flex items-center bg-blue-50 rounded-lg p-2 mb-2`}
-`
-
-const CheckboxItem = styled.input`
-  ${tw`hidden`}
-`
-
-const CheckboxLabel = styled.label`
-  ${tw`block w-4 h-4 bg-no-repeat bg-center bg-contain cursor-pointer`}
-  background-image: url(${XBoxImg});
-
-  input:checked + & {
-    background-image: url(${CheckBoxImg});
-  }
-`
-
-const CheckboxTextLabel = styled.label`
-  ${tw`ml-2 text-sm`}
-`
 
 function App() {
   const { transcript, listening, toggleListening } = useSpeechToText()
@@ -177,10 +156,9 @@ function App() {
     };
   }, []);
   
-  const EventMarkerContainer = ({ id, position, content, wheel, elevator, toilet, parking, dots }: { 
-    id: string, position: { lat: number, lng: number }, content: string,
-    wheel: boolean, elevator: boolean, toilet: boolean, parking: boolean, dots: boolean }) => {  
-    
+  const EventMarkerContainer = ({ id, position, content, amenityData }: { 
+    id: string, position: { lat: number, lng: number }, content: string, amenityData: amenities
+  }) => {  
     return (
       <MapMarker
         image={{
@@ -192,7 +170,7 @@ function App() {
         clickable={true} // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정
         onClick={() => setIsVisibleId(String(id))} // 마커를 클릭했을 때 InfoWindow를 표시
       >
-        {isVisibleId === id && 
+        {isVisibleId === id &&
         <>
           <img
             className='flex absolute w-6 h-6 cursor-pointer right-2 top-1'
@@ -200,68 +178,8 @@ function App() {
             onClick={() => setIsVisibleId(null)}
             alt="닫기"
           />
-            <div className='p-5 w-[200px]'>  
-              <div className='flex mb-4'>{content}</div>
-              <CheckboxWrapper>
-                <CheckboxItem
-                  id="wheel-checkbox"
-                  checked={wheel}
-                  type="checkbox" value="" 
-                />
-                <CheckboxLabel htmlFor="wheel-checkbox" />
-                  <CheckboxTextLabel>
-                    휠체어 진입가능
-                  </CheckboxTextLabel>
-              </CheckboxWrapper>
-
-              <CheckboxWrapper>
-                <CheckboxItem
-                  id="elevator-checkbox"
-                  checked={elevator}
-                  type="checkbox" value="" 
-                />
-                <CheckboxLabel htmlFor="elevator-checkbox" />
-                  <CheckboxTextLabel>
-                    승강기
-                  </CheckboxTextLabel>
-              </CheckboxWrapper>
-
-              <CheckboxWrapper>
-                <CheckboxItem
-                  id="toilet-checkbox"
-                  checked={toilet}
-                  type="checkbox" value="" 
-                />
-                <CheckboxLabel htmlFor="toilet-checkbox" />
-                <CheckboxTextLabel>
-                  장애인 화장실
-                </CheckboxTextLabel>
-              </CheckboxWrapper>
-
-              <CheckboxWrapper>
-                <CheckboxItem
-                  id="parking-checkbox"
-                  checked={parking}
-                  type="checkbox" value="" 
-                />
-                <CheckboxLabel htmlFor="parking-checkbox" />
-                  <CheckboxTextLabel>
-                    장애인 주차장
-                  </CheckboxTextLabel>
-              </CheckboxWrapper>
-
-              <CheckboxWrapper>
-                <CheckboxItem
-                  id="dots-checkbox"
-                  checked={dots}
-                  type="checkbox" value="" 
-                />
-                <CheckboxLabel htmlFor="dots-checkbox" />
-                  <CheckboxTextLabel>
-                    점자 명판
-                  </CheckboxTextLabel>
-              </CheckboxWrapper>
-            </div>
+            {/* 세부 정보 팝업 UI */}
+            {detailsPopup(content, amenityData)} 
           </>
         }
       </MapMarker>
@@ -305,11 +223,13 @@ function App() {
                   id={`marker-${index}`}
                   position={{ lat: value.lat, lng: value.lng }}
                   content={value.title}
-                  wheel={value.wheel}
-                  elevator={value.elevator}
-                  toilet={value.toilet}
-                  parking={value.parking}
-                  dots={value.dots}
+                  amenityData={{
+                    wheel: value.wheel,
+                    elevator: value.elevator,
+                    toilet: value.toilet,
+                    parking: value.parking,
+                    dots: value.dots
+                  }}
                 />
               )
             )
