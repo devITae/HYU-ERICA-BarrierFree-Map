@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, SetStateAction } from 'react'
 import { Map, MapMarker } from 'react-kakao-maps-sdk'
 import tw from 'twin.macro'
 import styled from 'styled-components'
@@ -18,6 +18,12 @@ const CategoryItem = styled.li<{ isActive: boolean }>(({ isActive }) => [
 
 function App() {
   const { transcript, listening, toggleListening } = useSpeechToText()
+  const [isVisibleId, setIsVisibleId] = useState<string | null>(null)
+  const [inputValue, setInputValue] = useState('');
+
+  const handleChange = (e: { target: { value: SetStateAction<string> } }) => {
+    setInputValue(e.target.value)
+  }
   //const mapRef = useRef<kakao.maps.Map>(null)
   
   const openReportPage = () => {
@@ -27,8 +33,6 @@ function App() {
       'noopener noreferrer',
     )
   }
-  
-  const [isVisibleId, setIsVisibleId] = useState<string | null>(null)
 
   function success(pos: { coords: { latitude: number, longitude: number } }) {
     const coordinates = pos.coords
@@ -147,12 +151,11 @@ function App() {
       document.documentElement.style.setProperty("--vh", `${vh}px`);
     };
 
-    setViewportHeight();
-
-    window.addEventListener("resize", setViewportHeight);
+    setViewportHeight()
+    window.addEventListener("resize", setViewportHeight)
 
     return () => {
-      window.removeEventListener("resize", setViewportHeight);
+      window.removeEventListener("resize", setViewportHeight)
     };
   }, []);
   
@@ -292,8 +295,8 @@ function App() {
             type='text'
             placeholder='  장소를 검색해보세요'
             className='w-full h-8 border border-[#909090] rounded-md'
-            value={transcript}
-            onChange={() => {}}
+            value={inputValue || transcript}
+            onChange={handleChange}
           />
           <button className='p-1 ml-2 w-8 h-8 bg-white border border-[#909090] rounded-md'>
             <img
