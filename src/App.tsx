@@ -2,6 +2,7 @@ import { useState, useEffect, SetStateAction } from 'react'
 import { Map, MapMarker } from 'react-kakao-maps-sdk'
 import tw from 'twin.macro'
 import styled from 'styled-components'
+import Header from './components/Header'
 import useSpeechToText from './components/useSpeechToText'
 import { amenities } from './data/amenities'
 import detailsPopup from './components/detailsPopup'
@@ -11,9 +12,9 @@ import MicImg from './assets/images/mic.png'
 import SearchImg from './assets/images/search.png'
 import LocationImg from './assets/images/location.svg'
 
-const CategoryItem = styled.li<{ isActive: boolean }>(({ isActive }) => [
-  tw`float-left list-none w-[50px] border-r border-[#acacac] py-[6px] text-center cursor-pointer hover:bg-[#ffe6e6] hover:border-l hover:border-[#acacac] hover:ml-[-1px] last:mr-0 last:border-r-0`,
-  isActive && tw`bg-[#eee]`,
+const CategoryItem = styled.button<{ isActive: boolean }>(({ isActive }) => [
+  tw`bg-white py-1 px-3 mr-2 mb-2 border rounded-2xl cursor-pointer hover:bg-blue-100`,
+  isActive && tw`bg-blue-300`,
 ])
 
 function App() {
@@ -257,8 +258,9 @@ function App() {
             />
           )}
         </Map>
+        <Header />
         {/* 지도 위에 표시될 마커 카테고리 */}
-        <ul className='absolute top-[10px] left-[10px] rounded-md border border-[#909090] shadow-md bg-white overflow-hidden z-[2]'>
+        <div className='absolute top-[60px] left-[10px] overflow-hidden z-[2]'>
           <CategoryItem
             onClick={() => setSelectedCategory("entire")}
             isActive={selectedCategory === "entire"}
@@ -295,7 +297,7 @@ function App() {
           >
             불편신고
           </CategoryItem>
-        </ul>
+        </div>
       </div>
       
       <ul className='absolute bottom-[30px] left-[10px] rounded-md border border-[#909090] shadow-md bg-white overflow-hidden z-[2]'>

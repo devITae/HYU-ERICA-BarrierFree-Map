@@ -97,7 +97,7 @@ const detailsPopup = (content : string , data : amenities) => {
                             <div className='flex items-center rounded-lg p-2 mb-2 bg-red-100'>
                                 <img className='w-5 h-5 user-drag-none' src={CautionImg} alt='주의사항' />
                                 <div className='ml-2 text-[0.7rem]'>
-                                    제1공학관 3,4층 연결통로로 타층 이용이 가능합니다.
+                                    제1공학관 3,4층의 연결통로로 타층 이용이 가능합니다.
                                 </div>
                             </div>
                         </>
