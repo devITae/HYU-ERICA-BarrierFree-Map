@@ -174,15 +174,20 @@ function App() {
         onClick={() => setIsVisibleId(String(id))} // 마커를 클릭했을 때 InfoWindow를 표시
       >
         {isVisibleId === id &&
-        <>
-          <img
-            className='flex absolute w-6 h-6 cursor-pointer right-2 top-1'
-            src="https://t1.daumcdn.net/localimg/localimages/07/mapjsapi/2x/bt_close.gif"
-            onClick={() => setIsVisibleId(null)}
-            alt="닫기"
-          />
+          <>
             {/* 세부 정보 팝업 UI */}
             {detailsPopup(content, amenityData)} 
+            <div className='flex justify-center text-xs pl-5 pr-5 pb-5'>
+              <button 
+                className='w-full py-2 mr-3 text-white bg-blue-500 rounded-lg'>
+                건물 평면도
+              </button>
+              <button 
+                className='w-full py-2 text-white bg-blue-500 rounded-lg' 
+                onClick={() => setIsVisibleId(null)} >
+                닫기
+              </button>
+            </div>
           </>
         }
       </MapMarker>

@@ -2,6 +2,7 @@ import tw from 'twin.macro'
 import styled from 'styled-components'
 import CheckBoxImg from '../assets/images/checkbox.png'
 import XBoxImg from '../assets/images/xbox.png'
+import CautionImg from '../assets/images/caution.png'
 import { amenities } from '@/data/amenities'
 
 const CheckboxWrapper = styled.div`
@@ -28,67 +29,77 @@ const CheckboxTextLabel = styled.label`
 const detailsPopup = (content : string , data : amenities) => {
     return (
         <>
-            <div className='p-5 w-[200px]'>  
+            <div className='pl-5 pr-5 pt-5 w-[230px]'>  
                 <div className='flex mb-4'>{content}</div>
                 <CheckboxWrapper>
-                <CheckboxItem
-                    id="wheel-checkbox"
-                    checked={data.wheel}
-                    type="checkbox" value="" 
-                />
-                <CheckboxLabel htmlFor="wheel-checkbox" />
+                    <CheckboxItem
+                        id="wheel-checkbox"
+                        checked={data.wheel}
+                        type="checkbox" value="" 
+                    />
+                    <CheckboxLabel htmlFor="wheel-checkbox" />
                     <CheckboxTextLabel>
                         휠체어 진입가능
                     </CheckboxTextLabel>
                 </CheckboxWrapper>
 
                 <CheckboxWrapper>
-                <CheckboxItem
-                    id="elevator-checkbox"
-                    checked={data.elevator}
-                    type="checkbox" value="" 
-                />
-                <CheckboxLabel htmlFor="elevator-checkbox" />
+                    <CheckboxItem
+                        id="elevator-checkbox"
+                        checked={data.elevator}
+                        type="checkbox" value="" 
+                    />
+                    <CheckboxLabel htmlFor="elevator-checkbox" />
                     <CheckboxTextLabel>
                         승강기
                     </CheckboxTextLabel>
                 </CheckboxWrapper>
 
                 <CheckboxWrapper>
-                <CheckboxItem
-                    id="toilet-checkbox"
-                    checked={data.toilet}
-                    type="checkbox" value="" 
-                />
-                <CheckboxLabel htmlFor="toilet-checkbox" />
-                <CheckboxTextLabel>
-                    장애인 화장실
-                </CheckboxTextLabel>
+                    <CheckboxItem
+                        id="toilet-checkbox"
+                        checked={data.toilet}
+                        type="checkbox" value="" 
+                    />
+                    <CheckboxLabel htmlFor="toilet-checkbox" />
+                    <CheckboxTextLabel>
+                        장애인 화장실
+                    </CheckboxTextLabel>
                 </CheckboxWrapper>
 
                 <CheckboxWrapper>
-                <CheckboxItem
-                    id="parking-checkbox"
-                    checked={data.parking}
-                    type="checkbox" value="" 
-                />
-                <CheckboxLabel htmlFor="parking-checkbox" />
+                    <CheckboxItem
+                        id="parking-checkbox"
+                        checked={data.parking}
+                        type="checkbox" value="" 
+                    />
+                    <CheckboxLabel htmlFor="parking-checkbox" />
                     <CheckboxTextLabel>
                         장애인 주차장
                     </CheckboxTextLabel>
                 </CheckboxWrapper>
 
                 <CheckboxWrapper>
-                <CheckboxItem
-                    id="dots-checkbox"
-                    checked={data.dots}
-                    type="checkbox" value="" 
-                />
-                <CheckboxLabel htmlFor="dots-checkbox" />
+                    <CheckboxItem
+                        id="dots-checkbox"
+                        checked={data.dots}
+                        type="checkbox" value="" 
+                    />
+                    <CheckboxLabel htmlFor="dots-checkbox" />
                     <CheckboxTextLabel>
                         점자 명판
                     </CheckboxTextLabel>
                 </CheckboxWrapper>
+
+                <div className='flex items-center rounded-lg p-2 mb-2 bg-red-100'>
+                    {
+                        //data.special ? data.special : '없음'
+                    }
+                    <img className='w-5 h-5' src={CautionImg} alt='주의사항' />
+                    <div className='ml-2 text-[0.7rem]'>
+                        제1공학관 3,4층 연결통로로 타층 이용이 가능합니다.
+                    </div>
+                </div>
             </div>
         </>
     )
