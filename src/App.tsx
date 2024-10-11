@@ -3,14 +3,15 @@ import { Map, MapMarker } from 'react-kakao-maps-sdk'
 import tw from 'twin.macro'
 import styled from 'styled-components'
 import useSpeechToText from './components/useSpeechToText'
-import InfoAlert from './components/infoAlert'
+import Searching from './components/Searching'
+import InfoAlert from './components/InfoAlert'
 import { amenities } from './data/amenities'
-import detailsPopup from './components/detailsPopup'
+import DetailsPopup from './components/DetailsPopup'
 import { pos } from './positions.json'
 
 const CategoryItem = styled.button<{ isActive: boolean }>(({ isActive }) => [
   tw`flex-col bg-white py-1 px-3 mr-2 mb-2 border border-gray-300 shadow-sm rounded-2xl cursor-pointer 
-    focus:outline-none transition-all duration-100 text-sm justify-center items-center`,
+    focus:outline-none transition-all duration-100 text-[0.9rem] justify-center items-center`,
   isActive && tw`bg-blue-500 text-white`,
 ])
 
@@ -19,15 +20,16 @@ const CItemWrapper = styled.div`
 `
 
 const CategoryItemImg = styled.img`
-  ${tw`w-6 h-6 mr-1`}
+  ${tw`w-4 h-4 mr-1`}
 `
 
 function App() {
   const { transcript, listening, toggleListening } = useSpeechToText()
-  const [isVisibleId, setIsVisibleId] = useState<string | null>(null)
+  const [isVisibleId, setIsVisibleId] = useState<number | null>(null)
   const [inputValue, setInputValue] = useState('')
   const [isSearchVisible, setSearchVisible] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
+  const [showResults, setShowResults] = useState(false)
 
   const toggleSearch = () => {
     setSearchVisible(!isSearchVisible)
@@ -189,7 +191,7 @@ function App() {
   }, []);
   
   const EventMarkerContainer = ({ id, position, content, amenityData }: { 
-    id: string, position: { lat: number, lng: number }, content: string, amenityData: amenities
+    id: number, position: { lat: number, lng: number }, content: string, amenityData: amenities
   }) => {  
     return (
       <MapMarker
@@ -200,12 +202,12 @@ function App() {
         zIndex={-1} // 마커와의 겹침 문제 해결
         position={position} // 마커를 표시할 위치
         clickable={true} // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정
-        onClick={() => setIsVisibleId(String(id))} // 마커를 클릭했을 때 InfoWindow를 표시
+        onClick={() => setIsVisibleId(id)} // 마커를 클릭했을 때 InfoWindow를 표시
       >
         {isVisibleId === id &&
           <>
             {/* 세부 정보 팝업 UI */}
-            {detailsPopup(content, amenityData)} 
+            {DetailsPopup(content, amenityData)} 
             <div className='flex justify-center text-[0.8rem] pl-5 pr-5 pb-5'>
               <button 
                 className='w-full py-2 mr-3 text-white bg-blue-500 rounded-lg'
@@ -247,7 +249,7 @@ function App() {
           }}
           onCreate={map => map.addOverlayMapTypeId(kakao.maps.MapTypeId['ROADMAP'])}
         >
-          {pos.map((value, index) => {
+          {pos.map((value) => {
             const showMarker =
             selectedCategory === "entire" ||
             (selectedCategory === "wheel" && value.wheel) ||
@@ -259,7 +261,7 @@ function App() {
               showMarker && (
                 <EventMarkerContainer
                   key={`EventMarkerContainer-${value.lat}-${value.lng}`}
-                  id={`marker-${index}`}
+                  id={value.id}
                   position={{ lat: value.lat, lng: value.lng }}
                   content={value.title}
                   amenityData={{
@@ -307,29 +309,41 @@ function App() {
                   <input
                     type="text"
                     placeholder="장소를 검색하세요"
-                    className="w-full border border-[#002060] rounded-md p-2"
+                    className="w-full h-11 border border-[#002060] rounded-md p-2"
                     value={inputValue || transcript}
                     onChange={handleChange}
                   />
-                  <button
-                    onClick={() => toggleListening()}
-                    className='w-[3rem] h-[3rem]'
-                  > 
-                    <img
-                      className=''
-                      src='/images/mic.png'
-                      alt={listening ? '음성인식 중지' : '음성인식 시작'}
-                    />
-                  </button>
-                  <button 
-                    className='w-[3rem] h-[3rem]'
-                  >
-                    <img
-                      src='/images/search2.png'
-                      alt='검색버튼'
-                    />
-                  </button>
+                  <CItemWrapper>
+                    <button
+                      onClick={() => toggleListening()}
+                      className='h-11 w-11 bg-white border border-[#002060] rounded-md p-2'
+                    > 
+                      <img
+                        src='/images/mic.png'
+                        alt={listening ? '음성인식 중지' : '음성인식 시작'}
+                      />
+                    </button>
+                  </CItemWrapper>
+
+                  <CItemWrapper>
+                    <button 
+                      className='h-11 w-11 bg-white border border-[#002060] rounded-md p-2'
+                      onClick={() => setShowResults(true)}
+                    >
+                      <img
+                        src='/images/search2.png'
+                        alt='검색버튼'
+                      />
+                    </button>
+                  </CItemWrapper>
                 </div>
+                {showResults && 
+                  <Searching
+                    value={inputValue || transcript}
+                    setIsVisibleId={setIsVisibleId}
+                    setShowResults={setShowResults}
+                  />
+                }
               </div>
             )}
             {showAlert && (
@@ -355,14 +369,17 @@ function App() {
             onClick={() => setSelectedCategory("entire")}
             isActive={selectedCategory === "entire"}
           >
-            전체
+            <CItemWrapper>
+              <CategoryItemImg src='/images/map.svg' />
+              전체
+            </CItemWrapper>
           </CategoryItem>
           <CategoryItem
             onClick={() => setSelectedCategory("parking")}
             isActive={selectedCategory === "parking"}
           >
             <CItemWrapper>
-              <CategoryItemImg/>
+              <CategoryItemImg src='/images/parking.png'/>
               주차장
             </CItemWrapper>
           </CategoryItem>
@@ -370,35 +387,47 @@ function App() {
             onClick={() => setSelectedCategory("toilet")}
             isActive={selectedCategory === "toilet"}
           >
-            화장실
+            <CItemWrapper>
+              <CategoryItemImg src='/images/toilet.png' />
+              화장실
+            </CItemWrapper>
           </CategoryItem>
           <CategoryItem
             onClick={() => setSelectedCategory("elevator")}
             isActive={selectedCategory === "elevator"}
           >
-            승강기
+            <CItemWrapper>
+              <CategoryItemImg src='/images/elevator.png' />
+              승강기
+            </CItemWrapper>
           </CategoryItem>
           <CategoryItem
             onClick={() => setSelectedCategory("ramp")}
             isActive={selectedCategory === "ramp"}
           >
-            경사로
+            <CItemWrapper>
+              <CategoryItemImg src='/images/ramp.png' />
+              경사로
+            </CItemWrapper>
           </CategoryItem>
           <CategoryItem
             onClick={openReportPage}
             isActive={selectedCategory === "report"}
           >
-            불편신고
+            <CItemWrapper>
+              <CategoryItemImg src='/images/report.png' />
+              불편신고
+            </CItemWrapper>
           </CategoryItem>
         </div>
       </div>
       
-      <div className='bg-white absolute bottom-[15px] right-[15px] rounded-md overflow-hidden z-[2]'>
-        <button>
+      <div className='absolute bottom-[15px] right-[15px] rounded-md border border-[#909090] overflow-hidden z-[2]'>
+        <button className='p-2 bg-white flex items-center justify-center'>
           <img 
             src='/images/location.png'
             alt='현재 위치로 이동'
-            className='h-9' 
+            className='w-6' 
             onClick={() => accessCurrentLocation()} />
         </button>
       </div>
