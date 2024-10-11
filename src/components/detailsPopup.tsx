@@ -23,7 +23,7 @@ const CheckboxTextLabel = styled.label`
     ${tw`ml-2 text-sm`}
 `
 
-const detailsPopup = (content : string , data : amenities) => {
+const DetailsPopup = (content : string , data : amenities) => {
     return (
         <>
             <div className='pl-5 pr-5 pt-5 w-[230px]'>  
@@ -105,4 +105,4 @@ const detailsPopup = (content : string , data : amenities) => {
     )
 }
 
-export default detailsPopup
+export default DetailsPopup
