@@ -4,21 +4,21 @@
 
 @font-face {
     font-family: 'KoddiUDOn-Regular';
-    src: url('./assets/fonts/KoddiUDOnGothic-Regular.woff2') format('woff2');
+    src: url('/fonts/KoddiUDOnGothic-Regular.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'KoddiUDOn-Bold';
-    src: url('./assets/fonts/KoddiUDOnGothic-Bold.woff2') format('woff2');
+    src: url('/fonts/KoddiUDOnGothic-Bold.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'KoddiUDOn-ExtraBold';
-    src: url('./assets/fonts/KoddiUDOnGothic-ExtraBold.woff2') format('woff2');
+    src: url('/fonts/KoddiUDOnGothic-ExtraBold.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
 }

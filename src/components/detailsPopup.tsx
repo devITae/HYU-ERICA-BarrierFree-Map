@@ -1,8 +1,5 @@
 import tw from 'twin.macro'
 import styled from 'styled-components'
-import CheckBoxImg from '../assets/images/checkbox.png'
-import XBoxImg from '../assets/images/xbox.png'
-import CautionImg from '../assets/images/caution.png'
 import { amenities } from '@/data/amenities'
 
 const CheckboxWrapper = styled.div`
@@ -15,10 +12,10 @@ const CheckboxItem = styled.input`
 
 const CheckboxLabel = styled.label`
     ${tw`block w-4 h-4 bg-no-repeat bg-center bg-contain cursor-pointer`}
-        background-image: url(${XBoxImg});
+        background-image: url('/images/xbox.png');
 
     input:checked + & {
-        background-image: url(${CheckBoxImg});
+        background-image: url('/images/checkbox.png');
     }
 `
 
@@ -95,7 +92,7 @@ const detailsPopup = (content : string , data : amenities) => {
                     !data.elevator ? (
                         <>
                             <div className='flex items-center rounded-lg p-2 mb-2 bg-red-100'>
-                                <img className='w-5 h-5 user-drag-none' src={CautionImg} alt='주의사항' />
+                                <img className='w-5 h-5 user-drag-none' src='/images/caution.png' alt='주의사항' />
                                 <div className='ml-2 text-[0.7rem]'>
                                     제1공학관 3,4층의 연결통로로 타층 이용이 가능합니다.
                                 </div>

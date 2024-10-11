@@ -2,25 +2,44 @@ import { useState, useEffect, SetStateAction } from 'react'
 import { Map, MapMarker } from 'react-kakao-maps-sdk'
 import tw from 'twin.macro'
 import styled from 'styled-components'
-import Header from './components/Header'
 import useSpeechToText from './components/useSpeechToText'
+import InfoAlert from './components/infoAlert'
 import { amenities } from './data/amenities'
 import detailsPopup from './components/detailsPopup'
 import { pos } from './positions.json'
-import Marker from './assets/images/marker.png'
-import MicImg from './assets/images/mic.png'
-import SearchImg from './assets/images/search.png'
-import LocationImg from './assets/images/location.svg'
 
 const CategoryItem = styled.button<{ isActive: boolean }>(({ isActive }) => [
-  tw`bg-white py-1 px-3 mr-2 mb-2 border rounded-2xl cursor-pointer hover:bg-blue-100`,
-  isActive && tw`bg-blue-300`,
+  tw`flex-col bg-white py-1 px-3 mr-2 mb-2 border border-gray-300 shadow-sm rounded-2xl cursor-pointer 
+    focus:outline-none transition-all duration-100 text-sm justify-center items-center`,
+  isActive && tw`bg-blue-500 text-white`,
 ])
+
+const CItemWrapper = styled.div`
+  ${tw`flex justify-center items-center`}
+`
+
+const CategoryItemImg = styled.img`
+  ${tw`w-6 h-6 mr-1`}
+`
 
 function App() {
   const { transcript, listening, toggleListening } = useSpeechToText()
   const [isVisibleId, setIsVisibleId] = useState<string | null>(null)
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState('')
+  const [isSearchVisible, setSearchVisible] = useState(false)
+  const [showAlert, setShowAlert] = useState(false)
+
+  const toggleSearch = () => {
+    setSearchVisible(!isSearchVisible)
+  }
+
+  const handleAlertOpen = () => {
+    setShowAlert(true)
+  }
+
+  const handleAlertClose = () => {
+    setShowAlert(false)
+  }
 
   const handleChange = (e: { target: { value: SetStateAction<string> } }) => {
     setInputValue(e.target.value)
@@ -75,6 +94,13 @@ function App() {
       isPanto: true,
     }))
   }
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = 'auto'
+    }
+  }, [])
 
   useEffect(() => {
     const tileset = new kakao.maps.Tileset({
@@ -168,7 +194,7 @@ function App() {
     return (
       <MapMarker
         image={{
-          src: Marker,
+          src: '/images/marker.png',
           size: { width: 25, height: 36 },
         }}
         zIndex={-1} // 마커와의 겹침 문제 해결
@@ -241,12 +267,77 @@ function App() {
                     elevator: value.elevator,
                     toilet: value.toilet,
                     parking: value.parking,
-                    dots: value.dots
+                    dots: value.dots,
                   }}
                 />
               )
             )
           })}
+          {/* 헤더 */}
+          <header className="fixed flex justify-between items-center top-0 left-0 w-full bg-white shadow-lg h-12 px-4 z-50">
+            <div className='flex items-center'>
+                <img className='w-4 mr-3' src='/images/marker.png' />
+                <h1 className="text-lg font-bold tracking-tighter">오픈하냥</h1>
+            </div>
+            <div className='flex right-0 items-center'>
+                <button 
+                  className='p-1 ml-2 w-7 h-7 bg-white rounded-md'
+                  onClick={handleAlertOpen}
+                >
+                    <img 
+                      src='/images/info.svg'
+                      alt='사이트 정보' 
+                    />
+                </button>
+                <button 
+                  className='p-1 ml-2 w-7 h-7 bg-white rounded-md'
+                  onClick={toggleSearch}
+                >
+                    <img 
+                      src='/images/search.png'
+                      alt={!isSearchVisible ? '검색창 열기' : '검색창 닫기'} 
+                    />
+                </button>
+            </div>
+
+            {isSearchVisible && (
+              <div className="absolute top-12 left-0 w-full bg-white p-4 shadow-md z-50">
+                <h2 className="flex text-md mb-2">장소 검색</h2>
+                <div className='h-12 flex justify-center items-center gap-2'>
+                  <input
+                    type="text"
+                    placeholder="장소를 검색하세요"
+                    className="w-full border border-[#002060] rounded-md p-2"
+                    value={inputValue || transcript}
+                    onChange={handleChange}
+                  />
+                  <button
+                    onClick={() => toggleListening()}
+                    className='w-[3rem] h-[3rem]'
+                  > 
+                    <img
+                      className=''
+                      src='/images/mic.png'
+                      alt={listening ? '음성인식 중지' : '음성인식 시작'}
+                    />
+                  </button>
+                  <button 
+                    className='w-[3rem] h-[3rem]'
+                  >
+                    <img
+                      src='/images/search2.png'
+                      alt='검색버튼'
+                    />
+                  </button>
+                </div>
+              </div>
+            )}
+            {showAlert && (
+              <InfoAlert
+                onClose={handleAlertClose}
+              />
+            )}
+          </header>
           {/* 현재 위치 표시 마커 */}
           {!state.isLoading && (
             <MapMarker
@@ -258,7 +349,6 @@ function App() {
             />
           )}
         </Map>
-        <Header />
         {/* 지도 위에 표시될 마커 카테고리 */}
         <div className='absolute top-[60px] left-[10px] overflow-hidden z-[2]'>
           <CategoryItem
@@ -271,19 +361,22 @@ function App() {
             onClick={() => setSelectedCategory("parking")}
             isActive={selectedCategory === "parking"}
           >
-            장애인 주차장
+            <CItemWrapper>
+              <CategoryItemImg/>
+              주차장
+            </CItemWrapper>
           </CategoryItem>
           <CategoryItem
             onClick={() => setSelectedCategory("toilet")}
             isActive={selectedCategory === "toilet"}
           >
-            장애인 화장실
+            화장실
           </CategoryItem>
           <CategoryItem
             onClick={() => setSelectedCategory("elevator")}
             isActive={selectedCategory === "elevator"}
           >
-            엘레베이터
+            승강기
           </CategoryItem>
           <CategoryItem
             onClick={() => setSelectedCategory("ramp")}
@@ -300,38 +393,12 @@ function App() {
         </div>
       </div>
       
-      <ul className='absolute bottom-[30px] left-[10px] rounded-md border border-[#909090] shadow-md bg-white overflow-hidden z-[2]'>
-        <li className='flex items-center justify-between p-2'>
-          <input
-            type='text'
-            placeholder='  장소를 검색해보세요'
-            className='w-full h-8 border border-[#909090] rounded-md'
-            value={inputValue || transcript}
-            onChange={handleChange}
-          />
-          <button className='p-1 ml-2 w-8 h-8 bg-white border border-[#909090] rounded-md'>
-            <img
-              src={SearchImg}
-              alt='검색버튼'
-            />
-          </button>
-          <button
-            onClick={() => toggleListening()}
-            className='p-1 ml-2 w-8 h-8 bg-white border border-[#909090] rounded-md'
-          > 
-            <img
-              src={MicImg}
-              alt={listening ? '음성인식 중지' : '음성인식 시작'}
-            />
-          </button>
-        </li>
-      </ul>
-      <div className='absolute bottom-[30px] right-[10px] rounded-md border border-[#909090] overflow-hidden z-[2]'>
-        <button className='p-2 bg-white'>
+      <div className='bg-white absolute bottom-[15px] right-[15px] rounded-md overflow-hidden z-[2]'>
+        <button>
           <img 
-            src={LocationImg} 
+            src='/images/location.png'
             alt='현재 위치로 이동'
-            className='p-1 h-8 w-8' 
+            className='h-9' 
             onClick={() => accessCurrentLocation()} />
         </button>
       </div>
