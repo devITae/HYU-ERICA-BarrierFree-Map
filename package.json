@@ -19,7 +19,8 @@
     "react-router-dom": "^6.23.1",
     "react-speech-recognition": "^3.10.0",
     "regenerator-runtime": "^0.14.1",
-    "vite-plugin-babel-macros": "^1.0.6"
+    "vite-plugin-babel-macros": "^1.0.6",
+    "vite-plugin-pwa": "^0.20.5"
   },
   "devDependencies": {
     "@emotion/styled": "^11.13.0",
@@ -42,7 +43,8 @@
     "twin.macro": "^3.4.1",
     "typescript": "^5.6.2",
     "vite": "^5.2.0",
-    "vite-plugin-mkcert": "^1.17.6"
+    "vite-plugin-mkcert": "^1.17.6",
+    "workbox-cli": "^7.1.0"
   },
   "babelMacros": {
     "twin": {

@@ -419,7 +419,7 @@ function App() {
         />
       </div>
       
-      <div className='absolute bottom-[15px] right-3 rounded-md border border-gray-400 overflow-hidden z-[2]'>
+      <div className='absolute bottom-[45px] right-3 rounded-md border border-gray-400 overflow-hidden z-[2]'>
         <button className='p-2 bg-white flex items-center justify-center'>
           <img 
             src='/images/location.png'
