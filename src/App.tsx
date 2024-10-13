@@ -106,10 +106,10 @@ function App() {
     const map = mapRef.current
     if (map) {
       const level = map.getLevel()
-      if(level === 2) plusLat = 0.0010
-      else if(level === 3) plusLat = 0.0015
-      else if(level === 4) plusLat = 0.003
-      else if(level === 5) plusLat = 0.006
+      if(level === 2) plusLat = 0.001
+      else if(level === 3) plusLat = 0.002
+      else if(level === 4) plusLat = 0.0035
+      else if(level === 5) plusLat = 0.0073
     } else {
       console.log('Map reference not available');
     }
@@ -266,7 +266,7 @@ function App() {
   return (
     <>
       {/* 헤더 */}
-      <header className="fixed flex justify-between items-center top-0 left-0 w-full bg-white shadow-lg h-12 px-4 z-50">
+      <header className="fixed flex justify-between items-center top-0 left-0 w-full bg-white shadow-lg h-12 px-4 z-50 select-none">
         <div className='flex items-center'>
             <img className='w-4 mr-3' src='/images/marker.png' />
             <h1 className="text-lg font-bold tracking-tighter">오픈하냥</h1>

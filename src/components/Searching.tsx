@@ -15,10 +15,10 @@ const Searching: React.FC<SearchingProps> = (
     
     const resultHandle = (id : number, level : number, lat : number, lng : number) => {
         let plusLat = 0
-        if(level === 2) plusLat = 0.0010
-        else if(level === 3) plusLat = 0.0015
-        else if(level === 4) plusLat = 0.003
-        else if(level === 5) plusLat = 0.006
+        if(level === 2) plusLat = 0.001
+        else if(level === 3) plusLat = 0.002
+        else if(level === 4) plusLat = 0.0035
+        else if(level === 5) plusLat = 0.0073
 
         setInputValue('')
         setSearchVisible(false)
