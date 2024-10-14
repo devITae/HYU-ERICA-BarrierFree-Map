@@ -20,7 +20,8 @@
     "react-speech-recognition": "^3.10.0",
     "regenerator-runtime": "^0.14.1",
     "vite-plugin-babel-macros": "^1.0.6",
-    "vite-plugin-pwa": "^0.20.5"
+    "vite-plugin-pwa": "^0.20.5",
+    "vite-tsconfig-paths": "^5.0.1"
   },
   "devDependencies": {
     "@emotion/styled": "^11.13.0",
