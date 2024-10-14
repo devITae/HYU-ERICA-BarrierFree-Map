@@ -7,13 +7,13 @@ const CategoryItem = styled.button<{ isActive: boolean }>(({ isActive }) => [
     isActive && tw`bg-blue-500 text-white`,
   ])
   
-  const CItemWrapper = styled.div`
-    ${tw`flex justify-center items-center`}
-  `
-  
-  const CategoryItemImg = styled.img`
-    ${tw`w-4 h-4 mr-1`}
-  `
+const CItemWrapper = styled.div`
+  ${tw`flex justify-center items-center`}
+`
+
+const CategoryItemImg = styled.img`
+  ${tw`w-4 h-4 mr-1`}
+`
 
 interface CategoryTabProps {
   selectedCategory: string
