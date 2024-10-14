@@ -96,12 +96,21 @@ function App() {
   const [selectedCategory, setSelectedCategory] = useState("entire")
 
   function accessCurrentLocation() {
-    //현재 위치로 중심을 이동시킴
-    setMapState((prev) => ({
-      ...prev,
-      center: state.center,
-      isPanto: true,
-    }))
+    if (state.center === mapState.center) {
+      // 두 번 클릭 시 중심을 캠퍼스로 이동 (현재 위치 == 지도 중심 같을 때)
+      setMapState((prev) => ({
+        ...prev,
+        center: { lat: 37.29781, lng: 126.835358 },
+        isPanto: true,
+      }))
+    } else {
+      // 현재 위치로 중심을 이동시킴
+      setMapState((prev) => ({
+        ...prev,
+        center: state.center,
+        isPanto: true,
+      }))
+    }
   }
 
   function handleMapMarker(id: number, lat: number, lng: number) {
