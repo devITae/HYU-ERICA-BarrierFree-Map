@@ -2,14 +2,17 @@ import { useState, useEffect, SetStateAction, useRef } from 'react'
 import { Map, MapMarker } from 'react-kakao-maps-sdk'
 import tw from 'twin.macro'
 import styled from 'styled-components'
-import useSpeechToText from './components/useSpeechToText'
-import CategoryTab from './components/CategoryTab'
-import Searching from './components/Searching'
-import InfoAlert from './components/InfoAlert'
-import { amenities } from './data/amenities'
-import DetailsPopup from './components/DetailsPopup'
+
+import useSpeechToText from '@/components/useSpeechToText'
+import CategoryTab from '@/components/CategoryTab'
+import Searching from '@/components/Searching'
+import InfoAlert from '@/components/InfoAlert'
+import DetailsPopup from '@/components/DetailsPopup'
+import MapControls from '@/components/MapControls'
+
+import { amenities } from '@/data/amenities'
 import { pos } from './positions.json'
-import MapControls from './components/MapControls'
+
 
 const CItemWrapper = styled.div`
   ${tw`flex justify-center items-center`}
@@ -145,20 +148,21 @@ function App() {
       width: 256,
       height: 256,
       getTile: (x, y, z) => {
-        const div = document.createElement('div');
-        const whiteBox = document.createElement('div');
+        const div = document.createElement('div')
+        const whiteBox = document.createElement('div')
+        whiteBox.style.background = '#fff'
 
-        if (z === 4 && x >= 419 && x <= 422 && y >= 940 && y <= 942) {
+        if (z === 2 && x >= 1676 && x <= 1688 && y >= 3759 && y <= 3770){
           return div
         } else if (z === 3 && x >= 838 && x <= 844 && y >= 1879 && y <= 1885){
           return div
-        } else if (z === 2 && x >= 1676 && x <= 1688 && y >= 3759 && y <= 3770){
+        } else if (z === 4 && x >= 419 && x <= 422 && y >= 940 && y <= 942){
           return div
         } else if (z === 5 && x >= 209 && x <= 211 && y >= 469 && y <= 471){
           return div
         } else {
-          console.log(`x: ${x}, y: ${y}, out of range`);  // 범위를 벗어난 경우
-          whiteBox.style.background = '#fff';
+          // 범위를 벗어난 경우 흰색으로 처리
+          //console.log(`x: ${x}, y: ${y}, out of range`);  
           return whiteBox
         }
       }

@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react'
-import { pos } from '../positions.json'
+import { pos } from '../../positions.json'
 
 interface SearchingProps {
     value: string

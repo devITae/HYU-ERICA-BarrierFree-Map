@@ -13,6 +13,8 @@ const useSpeechToText = () => {
         if (listening) {
             SpeechRecognition.stopListening()
         } else {
+            // transcript를 초기화하고 음성 인식을 시작합니다.
+            SpeechRecognition.abortListening()
             SpeechRecognition.startListening({ language: 'ko-KR', continuous: true })
         }
     }
