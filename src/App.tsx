@@ -144,31 +144,52 @@ function App() {
   }, [showResults, inputValue])
 
   useEffect(() => {
-    const tileset = new kakao.maps.Tileset({
-      width: 256,
-      height: 256,
-      getTile: (x, y, z) => {
-        const div = document.createElement('div')
-        const whiteBox = document.createElement('div')
-        whiteBox.style.background = '#fff'
-
-        if (z === 2 && x >= 1676 && x <= 1688 && y >= 3759 && y <= 3770){
-          return div
-        } else if (z === 3 && x >= 838 && x <= 844 && y >= 1879 && y <= 1885){
-          return div
-        } else if (z === 4 && x >= 419 && x <= 422 && y >= 940 && y <= 942){
-          return div
-        } else if (z === 5 && x >= 209 && x <= 211 && y >= 469 && y <= 471){
-          return div
-        } else {
-          // 범위를 벗어난 경우 흰색으로 처리
-          //console.log(`x: ${x}, y: ${y}, out of range`);  
-          return whiteBox
+    // Dynamically load the Kakao Maps API script
+    const loadKakaoMapScript = () => {
+      return new Promise<void>((resolve) => {
+        if (document.getElementById('kakao-map-script')) {
+          resolve() // script already loaded
+          return
         }
-      }
-    })
-    
-    kakao.maps.Tileset.add("ROADMAP", tileset)
+
+        const script = document.createElement('script');
+        script.id = 'kakao-map-script';
+        script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VITE_KAKAOMAP_API_KEY}`
+        script.onload = () => resolve()
+        document.head.appendChild(script)
+      })
+    }
+
+    // After the script is loaded, initialize the map and the tileset
+    const initializeMapAndTileset = () => {
+      kakao.maps.load(() => {
+        const tileset = new kakao.maps.Tileset({
+          width: 256,
+          height: 256,
+          getTile: (x, y, z) => {
+            const div = document.createElement('div');
+            const whiteBox = document.createElement('div');
+            whiteBox.style.background = '#fff';
+
+            if (z === 2 && x >= 1676 && x <= 1688 && y >= 3759 && y <= 3770) {
+              return div;
+            } else if (z === 3 && x >= 838 && x <= 844 && y >= 1879 && y <= 1885) {
+              return div;
+            } else if (z === 4 && x >= 419 && x <= 422 && y >= 940 && y <= 942) {
+              return div;
+            } else if (z === 5 && x >= 209 && x <= 211 && y >= 469 && y <= 471) {
+              return div;
+            } else {
+              // 범위를 벗어난 경우 흰색으로 처리
+              return whiteBox;
+            }
+          },
+        })
+        kakao.maps.Tileset.add('ROADMAP', tileset)
+      })
+    }
+
+    loadKakaoMapScript().then(() => initializeMapAndTileset())
   }, [])
 
   useEffect(() => {
