@@ -4,6 +4,7 @@ import mkcert from'vite-plugin-mkcert'
 import macrosPlugin from 'vite-plugin-babel-macros'
 import { VitePWA } from 'vite-plugin-pwa'
 import tsconfigPaths from 'vite-tsconfig-paths'
+import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,10 +15,22 @@ export default defineConfig({
     macrosPlugin(),
     tsconfigPaths(),
     VitePWA({
+      // Service Worker
+      injectRegister: 'auto',
       registerType: 'autoUpdate',
       devOptions: {
         enabled: true,
       },
+
+      // Deployment
+      includeAssets: [
+        'favicon.svg',
+        'favicon.ico',
+        'robots.txt',
+        'safari-pinned-tab.svg',
+      ],
+
+      // PWA Settings
       manifest: {
         name: '오픈하냥',
         short_name: '오픈하냥',
@@ -40,5 +53,11 @@ export default defineConfig({
   ],  
   define: {
     'process.env': process.env
+  },
+  publicDir: './public',
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src/app/'),
+    },
   },
 })
