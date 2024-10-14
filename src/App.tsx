@@ -3,7 +3,7 @@ import { Map, MapMarker } from 'react-kakao-maps-sdk'
 import tw from 'twin.macro'
 import styled from 'styled-components'
 
-import useSpeechToText from '@/components/useSpeechToText'
+import { useSpeechToText } from '@/components/useSpeechToText'
 import CategoryTab from '@/components/CategoryTab'
 import Searching from '@/components/Searching'
 import InfoAlert from '@/components/InfoAlert'
