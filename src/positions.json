@@ -8,7 +8,6 @@
             "wheel": true,
             "toilet": true,
             "elevator": false,
-            "parking": false,
             "dots": false,
             "floorplan": true,
             "caution": "화장실이 지하에 있으며, 계단으로만 접근이 가능합니다."
@@ -21,7 +20,6 @@
             "wheel": true,
             "toilet": true,
             "elevator": true,
-
             "dots": true,
             "floorplan": true,
             "caution": ""
@@ -34,7 +32,6 @@
             "wheel": true,
             "toilet": false,
             "elevator": true,
-            "parking": false,
             "dots": false,
             "floorplan": true,
             "caution": ""
@@ -47,7 +44,6 @@
             "wheel": true,
             "toilet": false,
             "elevator": false,
-            "parking": false,
             "dots": false,
             "floorplan": true,
             "caution": "휠체어 이용 시 1층 이용만 가능합니다."
@@ -60,7 +56,6 @@
             "wheel": true,
             "toilet": false,
             "elevator": false,
-
             "dots": false,
             "floorplan": true,
             "caution": "제2공학관을 통해 휠체어 진입이 가능합니다."
@@ -73,7 +68,6 @@
             "wheel": true,
             "toilet": true,
             "elevator": true,
-
             "dots": true,
             "floorplan": true,
             "caution": ""
@@ -86,7 +80,6 @@
             "wheel": true,
             "toilet": true,
             "elevator": true,
-
             "dots": true,
             "floorplan": true,
             "caution": ""
@@ -99,7 +92,6 @@
             "wheel": true,
             "toilet": true,
             "elevator": false,
-
             "dots": false,
             "floorplan": true,
             "caution": ""
@@ -112,7 +104,6 @@
             "wheel": true,
             "toilet": true,
             "elevator": true,
-
             "dots": false,
             "floorplan": true,
             "caution": "화장실 입구가 협소합니다."
@@ -125,7 +116,6 @@
             "wheel": true,
             "toilet": true,
             "elevator": true,
-
             "dots": false,
             "floorplan": true,
             "caution": ""
@@ -138,7 +128,6 @@
             "wheel": true,
             "toilet": false,
             "elevator": false,
-
             "dots": false,
             "floorplan": true,
             "caution": "이용에 불편함이 있습니다."
@@ -151,7 +140,6 @@
             "wheel": true,
             "toilet": true,
             "elevator": true,
-
             "dots": false,
             "floorplan": true,
             "caution": ""
@@ -164,7 +152,6 @@
             "wheel": true,
             "toilet": true,
             "elevator": true,
-
             "dots": false,
             "floorplan": true,
             "caution": "화장실 입구가 많이 협소합니다."
@@ -177,7 +164,6 @@
             "wheel": true,
             "toilet": true,
             "elevator": true,
-
             "dots": false,
             "floorplan": true,
             "caution": ""
@@ -190,20 +176,18 @@
             "wheel": true,
             "toilet": false,
             "elevator": true,
-
             "dots": false,
             "floorplan": true,
             "caution": ""
         },
         {   
             "id": 208,
-            "title": "HY-IPT의약연구원",
+            "title": "HY-IPT 의약연구원",
             "lat": 37.298529917465736,
             "lng": 126.83631468790092,
             "wheel": true,
             "toilet": true,
             "elevator": true,
-
             "dots": true,
             "floorplan": true,
             "caution": ""
@@ -216,7 +200,6 @@
             "wheel": true,
             "toilet": false,
             "elevator": false,
-
             "dots": false,
             "floorplan": true,
             "caution": ""
@@ -229,7 +212,6 @@
             "wheel": true,
             "toilet": true,
             "elevator": true,
-
             "dots": true,
             "floorplan": true,
             "caution": ""
@@ -242,7 +224,6 @@
             "wheel": true,
             "toilet": true,
             "elevator": true,
-
             "dots": true,
             "floorplan": true,
             "caution": ""
@@ -255,7 +236,6 @@
             "wheel": true,
             "toilet": false,
             "elevator": false,
-
             "dots": true,
             "floorplan": true,
             "caution": "제1공학관 3,4층의 연결통로로 타층 이용이 가능합니다."
@@ -268,7 +248,6 @@
             "wheel": true,
             "toilet": false,
             "elevator": true,
-
             "dots": true,
             "floorplan": true,
             "caution": ""
@@ -281,7 +260,6 @@
             "wheel": true,
             "toilet": true,
             "elevator": true,
-
             "dots": true,
             "floorplan": true,
             "caution": "지하 1층에는 장애인 화장실이 없습니다."
@@ -294,7 +272,6 @@
             "wheel": true,
             "toilet": true,
             "elevator": false,
-
             "dots": false,
             "floorplan": true,
             "caution": "입구 왼쪽의 경사로로 출입이 가능합니다."
@@ -307,7 +284,6 @@
             "wheel": true,
             "toilet": true,
             "elevator": true,
-
             "dots": true,
             "floorplan": true,
             "caution": "장애인 화장실은 1층에 있습니다."
@@ -320,7 +296,6 @@
             "wheel": true,
             "toilet": true,
             "elevator": true,
-
             "dots": false,
             "floorplan": true,
             "caution": "1층에 장애인 화장실이 있습니다."
@@ -333,7 +308,6 @@
             "wheel": true,
             "toilet": true,
             "elevator": true,
-
             "dots": true,
             "floorplan": true,
             "caution": "1층에 장애인 화장실이 있습니다."
@@ -346,7 +320,6 @@
             "wheel": true,
             "toilet": true,
             "elevator": true,
-
             "dots": true,
             "floorplan": true,
             "caution": ""
@@ -359,7 +332,6 @@
             "wheel": true,
             "toilet": true,
             "elevator": false,
-
             "dots": true,
             "floorplan": true,
             "caution": ""
@@ -372,7 +344,6 @@
             "wheel": true,
             "toilet": false,
             "elevator": true,
-
             "dots": true,
             "floorplan": true,
             "caution": "1층 남자화장실에만 장애인 화장실이 있습니다."
@@ -382,13 +353,12 @@
             "title": "예체능대학 (체육관)",
             "lat": 37.296379506469854,
             "lng": 126.83366610508483,
-            "wheel": false,
+            "wheel": true,
             "toilet": false,
             "elevator": false,
-
             "dots": false,
             "floorplan": true,
-            "caution": ""
+            "caution": "본 건물과 뮤즈홀 사이에 경사로가 있습니다."
         },
         {
             "id": 403,
@@ -398,7 +368,6 @@
             "wheel": true,
             "toilet": true,
             "elevator": false,
-
             "dots": true,
             "floorplan": true,
             "caution": "1층에 장애인 화장실이 있습니다."
@@ -411,7 +380,6 @@
             "wheel": true,
             "toilet": true,
             "elevator": true,
-
             "dots": true,
             "floorplan": true,
             "caution": ""
@@ -424,7 +392,6 @@
             "wheel": true,
             "toilet": true,
             "elevator": true,
-
             "dots": true,
             "floorplan": true,
             "caution": ""
@@ -437,7 +404,6 @@
             "wheel": true,
             "toilet": true,
             "elevator": true,
-
             "dots": true,
             "floorplan": true,
             "caution": ""
@@ -450,7 +416,6 @@
             "wheel": true,
             "toilet": true,
             "elevator": true,
-
             "dots": false,
             "floorplan": true,
             "caution": ""
@@ -458,9 +423,79 @@
     ],
     "parking" : [
         {
-            "lat": 37.29902786948328,
-            "lng": 126.83318092474559,
-            "memo": ""
+            "lat": 37.29939928882698,
+            "lng": 126.83785800590576,
+            "memo": "제1주차장"
+        },
+        {
+            "lat": 37.29757963377262,
+            "lng": 126.83817771193193,
+            "memo": "제2주차장"
+        },
+        {
+            "lat": 37.29608903990252,
+            "lng": 126.83536131700423,
+            "memo": "제3주차장"
+        },
+        {
+            "lat": 37.29958786127015,
+            "lng": 126.83414121199365,
+            "memo": "제4주차장"
+        },
+        {
+            "lat": 37.30098052536594,
+            "lng": 126.8345442007746,
+            "memo": "제5주차장"
+        },
+        {
+            "lat": 37.29447067337153,
+            "lng": 126.83144570072926,
+            "memo": "제6주차장"
+        },
+        {
+            "lat": 37.29657171550388,
+            "lng": 126.84243747640944,
+            "memo": "제7주차장"
+        },
+        {
+            "lat": 37.296209727145296,
+            "lng": 126.8412596416726,
+            "memo": "라이언스홀"
+        },
+        {
+            "lat": 37.295736433375076,
+            "lng": 126.83775308495197,
+            "memo": "창업보육센터"
+        },
+        {
+            "lat": 37.29644547365383,
+            "lng": 126.83252402135068,
+            "memo": "실험동"
+        },
+        {
+            "lat": 37.29323012459176,
+            "lng": 126.83671525937633,
+            "memo": "행복관"
+        },
+        {
+            "lat": 37.297841787655436,
+            "lng": 126.83880311341079,
+            "memo": "컨벤션센터"
+        },
+        {
+            "lat": 37.298055066534005,
+            "lng": 126.83663715828247,
+            "memo": "1공앞"
+        },
+        {
+            "lat": 37.298711667864445,
+            "lng": 126.83258666937625,
+            "memo": "본관"
+        },
+        {
+            "lat": 37.29647498242867,
+            "lng": 126.83109723719475,
+            "memo": "디대"
         }
     ],
     "ramp" : [
