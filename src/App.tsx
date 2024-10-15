@@ -1,4 +1,4 @@
-import { useState, useEffect, SetStateAction, useRef, lazy } from 'react'
+import { useState, useEffect, SetStateAction, useRef, lazy, Suspense } from 'react'
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
 import { Map, MapMarker } from 'react-kakao-maps-sdk'
 import tw from 'twin.macro'
@@ -282,16 +282,13 @@ function App() {
             {/* 세부 정보 팝업 UI */}
             {DetailsPopup(content, amenityData)}
             <div className='flex justify-center text-[0.8rem] px-5 pb-5 pt-2'>
-                <button 
-                  className='w-full py-2 mr-3 text-white bg-blue-500 rounded-lg'
-                >
-                  <Link 
-                    to='/floorplan'
-                    state={{ id: id }}
-                  >
-                    건물 평면도
-                  </Link>
-                </button>
+              <Link 
+                className='w-full py-2 mr-3 text-white text-center bg-blue-500 rounded-lg'
+                to={`/floorplan/${id}`}
+                state={{ id: id }}
+              >
+                건물 평면도
+              </Link>
               <button 
                 className='w-full py-2 text-white bg-blue-500 rounded-lg' 
                 onClick={() => setIsVisibleId(null)}
@@ -453,6 +450,7 @@ function App() {
                               size: { width: 22, height: 22 },
                             }}
                             position={{ lat: value.lat, lng: value.lng }}
+                            zIndex={-1}
                           />
                         )
                       )
@@ -470,6 +468,7 @@ function App() {
                               size: { width: 32, height: 32 },
                             }}
                             position={{ lat: value.lat, lng: value.lng }}
+                            zIndex={-1}
                           />
                         )
                       )
@@ -511,7 +510,12 @@ function App() {
               </div>
             </>
           } />
-          <Route path="/floorplan" element={<FloorPlan />} />
+          <Route path="/floorplan/:id" element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <FloorPlan />
+              </Suspense>
+            } 
+          />
         </Routes>
       </BrowserRouter>
     </>
