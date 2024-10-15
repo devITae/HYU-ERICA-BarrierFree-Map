@@ -1,5 +1,174 @@
 {
     "pos": [
+        {   
+            "id": 100,
+            "title": "아고라 홍보관",
+            "lat": 37.3003040337446, 
+            "lng": 126.83727801591303,
+            "wheel": true,
+            "toilet": true,
+            "elevator": false,
+            "parking": false,
+            "dots": false,
+            "floorplan": true,
+            "caution": "화장실이 지하에 있으며, 계단으로만 접근이 가능합니다."
+        },
+        {   
+            "id": 101,
+            "title": "본관",
+            "lat": 37.29902786948328, 
+            "lng": 126.83318092474559,
+            "wheel": true,
+            "toilet": true,
+            "elevator": true,
+
+            "dots": true,
+            "floorplan": true,
+            "caution": ""
+        },
+        {
+            "id": 102,
+            "title": "학생복지관",
+            "lat": 37.29801823353328, 
+            "lng": 126.83444636212754,
+            "wheel": true,
+            "toilet": false,
+            "elevator": true,
+            "parking": false,
+            "dots": false,
+            "floorplan": true,
+            "caution": ""
+        },
+        {   
+            "id": 103,
+            "title": "학생회관",
+            "lat": 37.297496146398146, 
+            "lng": 126.83481405961977,
+            "wheel": true,
+            "toilet": false,
+            "elevator": false,
+            "parking": false,
+            "dots": false,
+            "floorplan": true,
+            "caution": "휠체어 이용 시 1층 이용만 가능합니다."
+        },
+        {   
+            "id": 105,
+            "title": "건축디자인관",
+            "lat": 37.297013463533645, 
+            "lng": 126.83276243000171,
+            "wheel": true,
+            "toilet": false,
+            "elevator": false,
+
+            "dots": false,
+            "floorplan": true,
+            "caution": "제2공학관을 통해 휠체어 진입이 가능합니다."
+        },
+        {   
+            "id": 109,
+            "title": "디자인문화관",
+            "lat": 37.29684064414487, 
+            "lng": 126.83161804854504,
+            "wheel": true,
+            "toilet": true,
+            "elevator": true,
+
+            "dots": true,
+            "floorplan": true,
+            "caution": ""
+        },
+        {   
+            "id": 110,
+            "title": "디자인교육관",
+            "lat": 37.297029355162685, 
+            "lng": 126.8312623554136,
+            "wheel": true,
+            "toilet": true,
+            "elevator": true,
+
+            "dots": true,
+            "floorplan": true,
+            "caution": ""
+        },
+        {   
+            "id": 111,
+            "title": "디자인연구관",
+            "lat": 37.29738189703901, 
+            "lng": 126.83206234456621,
+            "wheel": true,
+            "toilet": true,
+            "elevator": false,
+
+            "dots": false,
+            "floorplan": true,
+            "caution": ""
+        },
+        {   
+            "id": 201,
+            "title": "경상관",
+            "lat": 37.299876497421025, 
+            "lng": 126.835976221991,
+            "wheel": true,
+            "toilet": true,
+            "elevator": true,
+
+            "dots": false,
+            "floorplan": true,
+            "caution": "화장실 입구가 협소합니다."
+        },
+        {   
+            "id": 202,
+            "title": "국제문화관",
+            "lat": 37.29958034372007, 
+            "lng": 126.83520990172566,
+            "wheel": true,
+            "toilet": true,
+            "elevator": true,
+
+            "dots": false,
+            "floorplan": true,
+            "caution": ""
+        },
+        {   
+            "id": 203,
+            "title": "사회교육관/학군단",
+            "lat": 37.2999756726293, 
+            "lng": 126.83440259558338,
+            "wheel": true,
+            "toilet": false,
+            "elevator": false,
+
+            "dots": false,
+            "floorplan": true,
+            "caution": "이용에 불편함이 있습니다."
+        },
+        {   
+            "id": 204,
+            "title": "언론정보관",
+            "lat": 37.30035040472291, 
+            "lng": 126.83497700240054,
+            "wheel": true,
+            "toilet": true,
+            "elevator": true,
+
+            "dots": false,
+            "floorplan": true,
+            "caution": ""
+        },
+        {   
+            "id": 205,
+            "title": "제1과학기술관",
+            "lat": 37.29884259713409,
+            "lng": 126.83600384433757,
+            "wheel": true,
+            "toilet": true,
+            "elevator": true,
+
+            "dots": false,
+            "floorplan": true,
+            "caution": "화장실 입구가 많이 협소합니다."
+        },
         {
             "id": 206,
             "title": "컨퍼런스홀",
@@ -8,41 +177,49 @@
             "wheel": true,
             "toilet": true,
             "elevator": true,
-            "parking": true,
-            "dots": true
+
+            "dots": false,
+            "floorplan": true,
+            "caution": ""
         },
         {   
-            "id": 103,
-            "title": "학생회관",
-            "lat": 37.297496146398146, 
-            "lng": 126.83481405961977,
+            "id": 207,
+            "title": "제2과학기술관",
+            "lat": 37.29869117284439,
+            "lng": 126.83727303141559,
+            "wheel": true,
+            "toilet": false,
+            "elevator": true,
+
+            "dots": false,
+            "floorplan": true,
+            "caution": ""
+        },
+        {   
+            "id": 208,
+            "title": "HY-IPT의약연구원",
+            "lat": 37.298529917465736,
+            "lng": 126.83631468790092,
             "wheel": true,
             "toilet": true,
+            "elevator": true,
+
+            "dots": true,
+            "floorplan": true,
+            "caution": ""
+        },
+        {   
+            "id": 209,
+            "title": "제1학술관",
+            "lat": 37.29829501621543,
+            "lng": 126.83585841032942,
+            "wheel": true,
+            "toilet": false,
             "elevator": false,
-            "parking": true,
-            "dots": true
-        },
-        {
-            "id": 102,
-            "title": "학생복지관",
-            "lat": 37.29801823353328, 
-            "lng": 126.83444636212754,
-            "wheel": true,
-            "toilet": true,
-            "elevator": true,
-            "parking": true,
-            "dots": true
-        },
-        {   
-            "id": 401,
-            "title": "학술정보관",
-            "lat": 37.29684790553162,
-            "lng": 126.83517638803356,
-            "wheel": true,
-            "toilet": true,
-            "elevator": true,
-            "parking": true,
-            "dots": true
+
+            "dots": false,
+            "floorplan": true,
+            "caution": ""
         },
         {
             "id": 301,
@@ -52,8 +229,10 @@
             "wheel": true,
             "toilet": true,
             "elevator": true,
-            "parking": true,
-            "dots": true
+
+            "dots": true,
+            "floorplan": true,
+            "caution": ""
         },
         {
             "id": 104,
@@ -63,8 +242,10 @@
             "wheel": true,
             "toilet": true,
             "elevator": true,
-            "parking": true,
-            "dots": true
+
+            "dots": true,
+            "floorplan": true,
+            "caution": ""
         },
         {
             "id": 303,
@@ -72,10 +253,12 @@
             "lat": 37.29752991474457,
             "lng": 126.83642118158264,
             "wheel": true,
-            "toilet": true,
+            "toilet": false,
             "elevator": false,
-            "parking": true,
-            "dots": true
+
+            "dots": true,
+            "floorplan": true,
+            "caution": "제1공학관 3,4층의 연결통로로 타층 이용이 가능합니다."
         },
         {
             "id": 304,
@@ -83,10 +266,12 @@
             "lat": 37.296759445412775,
             "lng": 126.8363608185112,
             "wheel": true,
-            "toilet": true,
+            "toilet": false,
             "elevator": true,
-            "parking": true,
-            "dots": true
+
+            "dots": true,
+            "floorplan": true,
+            "caution": ""
         },
         {
             "id": 305,
@@ -96,19 +281,49 @@
             "wheel": true,
             "toilet": true,
             "elevator": true,
-            "parking": true,
-            "dots": true
+
+            "dots": true,
+            "floorplan": true,
+            "caution": "지하 1층에는 장애인 화장실이 없습니다."
         },
         {
-            "id": 311,
-            "title": "학연산클러스터지원센터",
-            "lat": 37.29636197441728,
-            "lng": 126.83890495713604,
+            "id": 306,
+            "title": "셔틀콕 옆 건물",
+            "lat": 37.29868342662439,
+            "lng": 126.83819508506697,
+            "wheel": true,
+            "toilet": true,
+            "elevator": false,
+
+            "dots": false,
+            "floorplan": true,
+            "caution": "입구 왼쪽의 경사로로 출입이 가능합니다."
+        },
+        {
+            "id": 307,
+            "title": "ERICA컨벤션센터",
+            "lat": 37.29800365085161,
+            "lng": 126.83856591659219,
             "wheel": true,
             "toilet": true,
             "elevator": true,
-            "parking": true,
-            "dots": true
+
+            "dots": true,
+            "floorplan": true,
+            "caution": "장애인 화장실은 1층에 있습니다."
+        },
+        {
+            "id": 308,
+            "title": "보육센터",
+            "lat": 37.29567714611954,
+            "lng": 126.83722877176577,
+            "wheel": true,
+            "toilet": true,
+            "elevator": true,
+
+            "dots": false,
+            "floorplan": true,
+            "caution": "1층에 장애인 화장실이 있습니다."
         },
         {
             "id": 309,
@@ -118,8 +333,141 @@
             "wheel": true,
             "toilet": true,
             "elevator": true,
-            "parking": true,
-            "dots": true
-        }        
+
+            "dots": true,
+            "floorplan": true,
+            "caution": "1층에 장애인 화장실이 있습니다."
+        },
+        {
+            "id": 311,
+            "title": "학연산클러스터지원센터",
+            "lat": 37.29636197441728,
+            "lng": 126.83890495713604,
+            "wheel": true,
+            "toilet": true,
+            "elevator": true,
+
+            "dots": true,
+            "floorplan": true,
+            "caution": ""
+        },
+        {
+            "id": 316,
+            "title": "라이언스홀 (Lion's Hall)",
+            "lat": 37.29585812722627,
+            "lng": 126.8411137623597,
+            "wheel": true,
+            "toilet": true,
+            "elevator": false,
+
+            "dots": true,
+            "floorplan": true,
+            "caution": ""
+        },
+        {   
+            "id": 401,
+            "title": "학술정보관",
+            "lat": 37.29684790553162,
+            "lng": 126.83517638803356,
+            "wheel": true,
+            "toilet": false,
+            "elevator": true,
+
+            "dots": true,
+            "floorplan": true,
+            "caution": "1층 남자화장실에만 장애인 화장실이 있습니다."
+        },
+        {
+            "id": 402,
+            "title": "예체능대학 (체육관)",
+            "lat": 37.296379506469854,
+            "lng": 126.83366610508483,
+            "wheel": false,
+            "toilet": false,
+            "elevator": false,
+
+            "dots": false,
+            "floorplan": true,
+            "caution": ""
+        },
+        {
+            "id": 403,
+            "title": "뮤즈홀 (실용음악관)",
+            "lat": 37.29600438583241,
+            "lng": 126.83282105562597,
+            "wheel": true,
+            "toilet": true,
+            "elevator": false,
+
+            "dots": true,
+            "floorplan": true,
+            "caution": "1층에 장애인 화장실이 있습니다."
+        },
+        {
+            "id": 501,
+            "title": "창의관 (기숙사)",
+            "lat": 37.29139595927094,
+            "lng": 126.83631322785831,
+            "wheel": true,
+            "toilet": true,
+            "elevator": true,
+
+            "dots": true,
+            "floorplan": true,
+            "caution": ""
+        },
+        {
+            "id": 502,
+            "title": "인재관 (기숙사)",
+            "lat": 37.292531977418825,
+            "lng": 126.83520272076568,
+            "wheel": true,
+            "toilet": true,
+            "elevator": true,
+
+            "dots": true,
+            "floorplan": true,
+            "caution": ""
+        },
+        {
+            "id": 503,
+            "title": "행복관 (기숙사)",
+            "lat": 37.292583547045524,
+            "lng": 126.83665462872044,
+            "wheel": true,
+            "toilet": true,
+            "elevator": true,
+
+            "dots": true,
+            "floorplan": true,
+            "caution": ""
+        },
+        {
+            "id": 504,
+            "title": "창의인재원 교육관",
+            "lat": 37.29303204485333,
+            "lng": 126.83682282748633,
+            "wheel": true,
+            "toilet": true,
+            "elevator": true,
+
+            "dots": false,
+            "floorplan": true,
+            "caution": ""
+        }
+    ],
+    "parking" : [
+        {
+            "lat": 37.29902786948328,
+            "lng": 126.83318092474559,
+            "memo": ""
+        }
+    ],
+    "ramp" : [
+        {
+            "lat": 37.29902786948328,
+            "lng": 126.83318092474559,
+            "memo": ""
+        }
     ]
 }

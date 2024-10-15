@@ -63,19 +63,7 @@ const DetailsPopup = (content : string , data : amenities) => {
                         장애인 화장실
                     </CheckboxTextLabel>
                 </CheckboxWrapper>
-
-                <CheckboxWrapper>
-                    <CheckboxItem
-                        id="parking-checkbox"
-                        checked={data.parking}
-                        type="checkbox" value="" 
-                    />
-                    <CheckboxLabel htmlFor="parking-checkbox" />
-                    <CheckboxTextLabel>
-                        장애인 주차장
-                    </CheckboxTextLabel>
-                </CheckboxWrapper>
-
+                
                 <CheckboxWrapper>
                     <CheckboxItem
                         id="dots-checkbox"
@@ -84,17 +72,17 @@ const DetailsPopup = (content : string , data : amenities) => {
                     />
                     <CheckboxLabel htmlFor="dots-checkbox" />
                     <CheckboxTextLabel>
-                        점자 명판
+                        점자 안내도
                     </CheckboxTextLabel>
                 </CheckboxWrapper>
 
                 {
-                    !data.elevator ? (
+                    data.caution !== '' ? (
                         <>
                             <div className='flex items-center rounded-lg p-2 mb-2 bg-red-100'>
                                 <img className='w-5 h-5 user-drag-none' src='/images/caution.png' alt='주의사항' />
                                 <div className='ml-2 text-[0.7rem]'>
-                                    제1공학관 3,4층의 연결통로로 타층 이용이 가능합니다.
+                                    {data.caution}
                                 </div>
                             </div>
                         </>
