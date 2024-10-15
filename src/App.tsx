@@ -272,7 +272,7 @@ function App() {
           src: '/images/marker.png',
           size: { width: 25, height: 36 },
         }}
-        zIndex={-1} // 마커와의 겹침 문제 해결
+        zIndex={-2} // 마커와의 겹침 문제 해결
         position={position} // 마커를 표시할 위치
         clickable={true} // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정
         onClick={() => handleMapMarker(id, position.lat, position.lng)} // 마커를 클릭했을 때 InfoWindow를 표시
@@ -450,7 +450,7 @@ function App() {
                               size: { width: 22, height: 22 },
                             }}
                             position={{ lat: value.lat, lng: value.lng }}
-                            zIndex={-1}
+                            zIndex={-2}
                           />
                         )
                       )
@@ -468,7 +468,7 @@ function App() {
                               size: { width: 32, height: 32 },
                             }}
                             position={{ lat: value.lat, lng: value.lng }}
-                            zIndex={-1}
+                            zIndex={-2}
                           />
                         )
                       )
@@ -483,6 +483,7 @@ function App() {
                         size: { width: 30, height: 30 },
                       }}
                       position={state.center}
+                      zIndex={-1}
                     />
                   )}
                 </Map>
