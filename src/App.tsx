@@ -1,4 +1,5 @@
-import { useState, useEffect, SetStateAction, useRef } from 'react'
+import { useState, useEffect, SetStateAction, useRef, lazy } from 'react'
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
 import { Map, MapMarker } from 'react-kakao-maps-sdk'
 import tw from 'twin.macro'
 import styled from 'styled-components'
@@ -11,8 +12,9 @@ import DetailsPopup from '@/components/DetailsPopup'
 import MapControls from '@/components/MapControls'
 
 import { amenities } from '@/data/amenities'
-import { pos } from './positions.json'
+import { pos, parking, ramp } from './positions.json'
 
+const FloorPlan = lazy(() => import('@/components/FloorPlans'))
 
 const CItemWrapper = styled.div`
   ${tw`flex justify-center items-center`}
@@ -261,7 +263,7 @@ function App() {
     };
   }, []);
   
-  const EventMarkerContainer = ({ id, position, content, amenityData }: { 
+  const EventMarkerContainer = ({ id, position, content, amenityData }: {
       id: number, position: { lat: number, lng: number }, content: string, amenityData: amenities
     }) => {  
     return (
@@ -280,11 +282,13 @@ function App() {
             {/* 세부 정보 팝업 UI */}
             {DetailsPopup(content, amenityData)} 
             <div className='flex justify-center text-[0.8rem] pl-5 pr-5 pb-5'>
-              <button 
-                className='w-full py-2 mr-3 text-white bg-blue-500 rounded-lg'
-              >
-                건물 평면도
-              </button>
+                <button 
+                  className='w-full py-2 mr-3 text-white bg-blue-500 rounded-lg'
+                >
+                  <Link to={`/floorplan/${id}`}>
+                    건물 평면도
+                  </Link>
+                </button>
               <button 
                 className='w-full py-2 text-white bg-blue-500 rounded-lg' 
                 onClick={() => setIsVisibleId(null)}
@@ -297,172 +301,216 @@ function App() {
       </MapMarker>
     )
   }
-  
+
   return (
     <>
-      {/* 헤더 */}
-      <header className="fixed flex justify-between items-center top-0 left-0 w-full bg-white shadow-lg h-12 px-4 z-50 select-none">
-        <div className='flex items-center'>
-            <img className='w-4 mr-3' src='/images/marker.png' />
-            <h1 className="text-lg font-bold tracking-tighter">오픈하냥</h1>
-        </div>
-        <div className='flex right-0 items-center'>
-            <button 
-              className='p-1 ml-2 w-7 h-7 bg-white rounded-md'
-              onClick={handleAlertOpen}
-            >
-                <img 
-                  src='/images/info.svg'
-                  alt='사이트 정보' 
-                />
-            </button>
-            <button 
-              className='p-1 ml-2 w-7 h-7 bg-white rounded-md'
-              onClick={toggleSearch}
-            >
-                <img 
-                  src='/images/search.png'
-                  alt={!isSearchVisible ? '검색창 열기' : '검색창 닫기'} 
-                />
-            </button>
-        </div>
-
-        {isSearchVisible && (
-          <div className="absolute top-12 left-0 w-full bg-white p-4 shadow-md z-50">
-            <h2 className="flex text-md mb-2">장소 검색</h2>
-            <div className='h-12 flex justify-center items-center gap-2'>
-              <input
-                type="text"
-                placeholder="장소를 검색하세요"
-                className="w-full h-11 border border-[#002060] rounded-md p-2"
-                value={inputValue || transcript}
-                onChange={handleChange}
-                onKeyDown={(e) => { if (e.key === 'Enter') setShowResults(true) }}
-              />
-              <CItemWrapper>
-                <button
-                  onClick={() => toggleListening()}
-                  className='h-11 w-11 bg-white border border-[#002060] rounded-md p-2'
-                > 
-                  <img
-                    src='/images/mic.png'
-                    alt={listening ? '음성인식 중지' : '음성인식 시작'}
-                  />
-                </button>
-              </CItemWrapper>
-
-              <CItemWrapper>
-                <button 
-                  className='h-11 w-11 bg-white border border-[#002060] rounded-md p-2'
-                  onClick={() => setShowResults(true)}
-                >
-                  <img
-                    src='/images/search2.png'
-                    alt='검색버튼'
-                  />
-                </button>
-              </CItemWrapper>
-            </div>
-            {showResults && 
-              <Searching
-                value={inputValue || transcript}
-                level={mapRef.current?.getLevel() || 3}
-                setIsVisibleId={setIsVisibleId}
-                setSearchVisible={setSearchVisible}
-                setInputValue={setInputValue}
-                setMapState={setMapState}
-              />
-            }
-          </div>
-        )}
-        {showAlert && (
-          <InfoAlert
-            onClose={handleAlertClose}
-          />
-        )}
-      </header>
-        
-      {/* 지도 */}
-      <div id='mapwrap' className='w-full h-screen-vh font-medium tracking-tight select-none'>
-        {/* 지도 위에 표시될 마커 카테고리 */}
-        <Map
-          id='map'
-          ref={mapRef}
-          center={mapState.center} // 지도의 중심 좌표
-          isPanto={mapState.isPanto} // 지도의 중심 좌표를 변경할 때 애니메이션 효과를 줄지 여부
-          style={{'width': '100%', 'height': '100vh'}} // 지도 크기
-          level={3}                                   // 지도 확대 레벨
-          minLevel={5}                                // 지도 최소 레벨
-          maxLevel={2}                               // 지도 최대 레벨
-          onDragEnd={(map) => {
-            const latlng = map.getCenter()
-            setMapState((prev) => ({
-              ...prev,
-              center: { lat: latlng.getLat(), lng: latlng.getLng() },
-              isPanto: false,
-            }))
-          }}
-          onCreate={map => map.addOverlayMapTypeId(kakao.maps.MapTypeId['ROADMAP'])}
-        >
-          {pos.map((value) => {
-            const showMarker =
-            selectedCategory === "entire" ||
-            (selectedCategory === "wheel" && value.wheel) ||
-            (selectedCategory === "elevator" && value.elevator) ||
-            (selectedCategory === "toilet" && value.toilet) ||
-            (selectedCategory === "parking" && value.parking)
-            
-            return (
-              showMarker && (
-                <EventMarkerContainer
-                  key={`EventMarkerContainer-${value.lat}-${value.lng}`}
-                  id={value.id}
-                  position={{ lat: value.lat, lng: value.lng }}
-                  content={value.title}
-                  amenityData={{
-                    wheel: value.wheel,
-                    elevator: value.elevator,
-                    toilet: value.toilet,
-                    parking: value.parking,
-                    dots: value.dots,
-                  }}
-                />
-              )
-            )
-          })}
-          {/* 현재 위치 표시 마커 */}
-          {!state.isLoading && (
-            <MapMarker
-              image={{
-                src: "https://t1.daumcdn.net/localimg/localimages/07/2018/mw/m640/ico_marker.png",
-                size: { width: 30, height: 30 },
-              }}
-              position={state.center}
-            />
-          )}
-        </Map>
-        {/* 지도 확대, 축소 컨트롤 div 입니다 */}
-        <MapControls 
-          zoomIn={zoomIn} 
-          zoomOut={zoomOut} 
-        />
-        {/* 지도 위에 표시될 마커 카테고리 */}
-        <CategoryTab 
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-          onclick={openReportPage}
-        />
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={
+            <>
+            {/* 헤더 */}
+            <header className="fixed flex justify-between items-center top-0 left-0 w-full bg-white shadow-lg h-12 px-4 z-50 select-none">
+              <div className='flex items-center'>
+                  <img className='w-5 mr-2' src='/images/logo.png' />
+                  <h1 className="text-lg font-bold tracking-tighter">오픈하냥</h1>
+              </div>
+              <div className='flex right-0 items-center'>
+                  <button 
+                    className='p-1 ml-2 w-7 h-7 bg-white rounded-md'
+                    onClick={handleAlertOpen}
+                  >
+                      <img 
+                        src='/images/info.svg'
+                        alt='사이트 정보' 
+                      />
+                  </button>
+                  <button 
+                    className='p-1 ml-2 w-7 h-7 bg-white rounded-md'
+                    onClick={toggleSearch}
+                  >
+                      <img 
+                        src='/images/search.png'
+                        alt={!isSearchVisible ? '검색창 열기' : '검색창 닫기'} 
+                      />
+                  </button>
+              </div>
+    
+              {isSearchVisible && (
+                <div className="absolute top-12 left-0 w-full bg-white p-4 shadow-md z-50">
+                  <h2 className="flex text-md mb-2">장소 검색</h2>
+                    <div className='h-12 flex justify-center items-center gap-2'>
+                      <input
+                        type="text"
+                        placeholder="장소를 검색하세요"
+                        className="w-full h-11 border border-[#002060] rounded-md p-2"
+                        value={inputValue || transcript}
+                        onChange={handleChange}
+                        onKeyDown={(e) => { if (e.key === 'Enter') setShowResults(true) }}
+                      />
+                      <CItemWrapper>
+                        <button
+                          onClick={() => toggleListening()}
+                          className='h-11 w-11 bg-white border border-[#002060] rounded-md p-2'
+                        > 
+                          <img
+                            src='/images/mic.png'
+                            alt={listening ? '음성인식 중지' : '음성인식 시작'}
+                          />
+                        </button>
+                      </CItemWrapper>
       
-      <div className='absolute bottom-[45px] right-3 rounded-md border border-gray-400 overflow-hidden z-[2]'>
-        <button className='p-2 bg-white flex items-center justify-center'>
-          <img 
-            src='/images/location.png'
-            alt='현재 위치로 이동'
-            className='w-6' 
-            onClick={() => accessCurrentLocation()} />
-        </button>
-      </div>
+                      <CItemWrapper>
+                        <button 
+                          className='h-11 w-11 bg-white border border-[#002060] rounded-md p-2'
+                          onClick={() => setShowResults(true)}
+                        >
+                          <img
+                            src='/images/search2.png'
+                            alt='검색버튼'
+                          />
+                        </button>
+                      </CItemWrapper>
+                    </div>
+                    {showResults && 
+                      <Searching
+                        value={inputValue || transcript}
+                        level={mapRef.current?.getLevel() || 3}
+                        setIsVisibleId={setIsVisibleId}
+                        setSearchVisible={setSearchVisible}
+                        setInputValue={setInputValue}
+                        setMapState={setMapState}
+                      />
+                    }
+                  </div>
+                )}
+                {showAlert && (
+                  <InfoAlert
+                    onClose={handleAlertClose}
+                  />
+                )}
+              </header>
+              
+              {/* 지도 */}
+              <div id='mapwrap' className='w-full h-screen-vh font-medium tracking-tight select-none'>
+                {/* 지도 위에 표시될 마커 카테고리 */}
+                <Map
+                  id='map'
+                  ref={mapRef}
+                  center={mapState.center} // 지도의 중심 좌표
+                  isPanto={mapState.isPanto} // 지도의 중심 좌표를 변경할 때 애니메이션 효과를 줄지 여부
+                  style={{'width': '100%', 'height': '100vh'}} // 지도 크기
+                  level={3}                                   // 지도 확대 레벨
+                  minLevel={5}                                // 지도 최소 레벨
+                  maxLevel={2}                               // 지도 최대 레벨
+                  onDragEnd={(map) => {
+                    const latlng = map.getCenter()
+                    setMapState((prev) => ({
+                      ...prev,
+                      center: { lat: latlng.getLat(), lng: latlng.getLng() },
+                      isPanto: false,
+                    }))
+                  }}
+                  onCreate={map => map.addOverlayMapTypeId(kakao.maps.MapTypeId['ROADMAP'])}
+                >
+                  {pos.map((value) => {
+                    const showMarker =
+                    selectedCategory === "entire" ||
+                    (selectedCategory === "wheel" && value.wheel) ||
+                    (selectedCategory === "elevator" && value.elevator) ||
+                    (selectedCategory === "toilet" && value.toilet)
+                    
+                    return (
+                      showMarker && (
+                        <EventMarkerContainer
+                          key={`EventMarkerContainer-${value.lat}-${value.lng}`}
+                          id={value.id}
+                          position={{ lat: value.lat, lng: value.lng }}
+                          content={value.title}
+                          amenityData={{
+                            wheel: value.wheel,
+                            elevator: value.elevator,
+                            toilet: value.toilet,
+                            dots: value.dots,
+                            floorplan: value.floorplan,
+                            caution: value.caution
+                          }}
+                        />
+                      )
+                    )
+                  })}
+
+                  { /** 경사로 마커 */
+                    ramp.map((value) => {
+                      const showMarker = (selectedCategory === "entire" || selectedCategory === "ramp")
+                      return (
+                        showMarker && (
+                          <MapMarker
+                            image={{
+                              src: "/images/rampMarker.png",
+                              size: { width: 22, height: 22 },
+                            }}
+                            position={{ lat: value.lat, lng: value.lng }}
+                          />
+                        )
+                      )
+                    }
+                  )}
+
+                  { /** 장애인 주차장 마커 */
+                    parking.map((value) => {
+                      const showMarker = (selectedCategory === "entire" || selectedCategory === "parking")
+                      return (
+                        showMarker && (
+                          <MapMarker
+                            image={{
+                              src: "/images/parking.png",
+                              size: { width: 22, height: 22 },
+                            }}
+                            position={{ lat: value.lat, lng: value.lng }}
+                          />
+                        )
+                      )
+                    }
+                  )}
+                  
+                  {/* 현재 위치 표시 마커 */}
+                  {!state.isLoading && (
+                    <MapMarker
+                      image={{
+                        src: "https://t1.daumcdn.net/localimg/localimages/07/2018/mw/m640/ico_marker.png",
+                        size: { width: 30, height: 30 },
+                      }}
+                      position={state.center}
+                    />
+                  )}
+                </Map>
+                {/* 지도 확대, 축소 컨트롤 div 입니다 */}
+                <MapControls 
+                  zoomIn={zoomIn} 
+                  zoomOut={zoomOut} 
+                />
+                {/* 지도 위에 표시될 마커 카테고리 */}
+                <CategoryTab 
+                  selectedCategory={selectedCategory}
+                  setSelectedCategory={setSelectedCategory}
+                  onclick={openReportPage}
+                />
+              </div>
+            
+              <div className='absolute bottom-[45px] right-3 rounded-md border border-gray-400 overflow-hidden z-[2]'>
+                <button className='p-2 bg-white flex items-center justify-center'>
+                  <img 
+                    src='/images/location.png'
+                    alt='현재 위치로 이동'
+                    className='w-6' 
+                    onClick={() => accessCurrentLocation()} />
+                </button>
+              </div>
+            </>
+          } />
+          <Route path="/floorplan/:id" element={<FloorPlan />} />
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
