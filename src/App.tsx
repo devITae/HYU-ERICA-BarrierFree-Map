@@ -280,12 +280,15 @@ function App() {
         {isVisibleId === id &&
           <>
             {/* 세부 정보 팝업 UI */}
-            {DetailsPopup(content, amenityData)} 
-            <div className='flex justify-center text-[0.8rem] pl-5 pr-5 pb-5'>
+            {DetailsPopup(content, amenityData)}
+            <div className='flex justify-center text-[0.8rem] px-5 pb-5 pt-2'>
                 <button 
                   className='w-full py-2 mr-3 text-white bg-blue-500 rounded-lg'
                 >
-                  <Link to={`/floorplan/${id}`}>
+                  <Link 
+                    to='/floorplan'
+                    state={{ id: id }}
+                  >
                     건물 평면도
                   </Link>
                 </button>
@@ -463,8 +466,8 @@ function App() {
                         showMarker && (
                           <MapMarker
                             image={{
-                              src: "/images/parking.png",
-                              size: { width: 22, height: 22 },
+                              src: "/images/parkingMarker.png",
+                              size: { width: 32, height: 32 },
                             }}
                             position={{ lat: value.lat, lng: value.lng }}
                           />
@@ -508,7 +511,7 @@ function App() {
               </div>
             </>
           } />
-          <Route path="/floorplan/:id" element={<FloorPlan />} />
+          <Route path="/floorplan" element={<FloorPlan />} />
         </Routes>
       </BrowserRouter>
     </>
