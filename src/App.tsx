@@ -148,7 +148,7 @@ function App() {
 
   useEffect(() => {
     if(mapLevel === 2) {
-      setRampSize(21)
+      setRampSize(19)
       setPlusLat(0.001)
       setParkingSize(35)
     } else if(mapLevel === 3) {
@@ -324,7 +324,7 @@ function App() {
             <header className="fixed flex justify-between items-center top-0 left-0 w-full bg-white shadow-lg h-12 px-4 z-50 select-none">
               <div className='flex items-center'>
                   <img className='w-5 mr-2' src='/images/logo.png' />
-                  <h1 className="text-lg font-bold tracking-tighter">길편한대</h1>
+                  <h1 className="text-lg font-bold tracking-tighter">길편하냥</h1>
               </div>
               <div className='flex right-0 items-center'>
                   <button 
