@@ -29,28 +29,30 @@ const Searching: React.FC<SearchingProps> = (
     
     return (
         <>
-            <ul className='w-full mt-3'>
-                {pos && pos.map(({id, title, lat, lng}) => {
-                    if (title.includes(value)) {
-                        return (
-                            <li 
-                                key={id} 
-                                className='border-b border-gray-300 cursor-pointer hover:bg-gray-200' 
-                                onClick={() => resultHandle(id, lat, lng)}
-                            >
-                                <div className='p-2'>
-                                    {title}
-                                </div>
-                            </li>
-                        )
-                    }
-                })}
-                {pos === undefined && (
-                    <li className='p-2'>
-                        검색 결과가 없습니다.
-                    </li>
-                )}
-            </ul>
+            {value &&
+                <ul className='w-full mt-3'>
+                    {pos && pos.map(({id, title, lat, lng}) => {
+                        if (title.includes(value)) {
+                            return (
+                                <li 
+                                    key={id} 
+                                    className='border-b border-gray-300 cursor-pointer hover:bg-gray-200' 
+                                    onClick={() => resultHandle(id, lat, lng)}
+                                >
+                                    <div className='p-2'>
+                                        {title}
+                                    </div>
+                                </li>
+                            )
+                        }
+                    })}
+                    {pos === undefined && (
+                        <li className='p-2'>
+                            검색 결과가 없습니다.
+                        </li>
+                    )}
+                </ul>
+            }
         </>
     )
 }
