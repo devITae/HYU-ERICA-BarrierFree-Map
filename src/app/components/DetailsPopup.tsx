@@ -63,7 +63,7 @@ const DetailsPopup = (content : string , data : amenities) => {
                         장애인 화장실
                     </CheckboxTextLabel>
                 </CheckboxWrapper>
-                
+
                 <CheckboxWrapper>
                     <CheckboxItem
                         id="dots-checkbox"
@@ -72,16 +72,16 @@ const DetailsPopup = (content : string , data : amenities) => {
                     />
                     <CheckboxLabel htmlFor="dots-checkbox" />
                     <CheckboxTextLabel>
-                        점자 안내도
+                        점자안내판 (촉지도)
                     </CheckboxTextLabel>
                 </CheckboxWrapper>
 
                 {
                     data.caution !== '' ? (
                         <>
-                            <div className='flex items-center rounded-lg p-2 mb-2 bg-red-100'>
-                                <img className='w-5 h-5 user-drag-none' src='/images/caution.png' alt='주의사항' />
-                                <div className='ml-2 text-[0.7rem]'>
+                            <div className='flex items-center rounded-lg px-3 py-2 mb-2 bg-red-100'>
+                                <img className='w-6 h-6 user-drag-none' src='/images/caution.png' alt='주의사항' />
+                                <div className='ml-2 text-[0.75rem]'>
                                     {data.caution}
                                 </div>
                             </div>
