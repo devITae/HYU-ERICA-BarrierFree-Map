@@ -28,7 +28,8 @@ function App() {
   const [isSearchVisible, setSearchVisible] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [showResults, setShowResults] = useState(false)
-  const [rampSize, setRampSize] = useState(32)
+  const [rampSize, setRampSize] = useState(17)
+  const [parkingSize, setParkingSize] = useState(27)
   const [mapLevel, setMapLevel] = useState(3)
   const [plusLat, setPlusLat] = useState(0.002)
 
@@ -149,15 +150,19 @@ function App() {
     if(mapLevel === 2) {
       setRampSize(21)
       setPlusLat(0.001)
+      setParkingSize(35)
     } else if(mapLevel === 3) {
       setRampSize(17)
       setPlusLat(0.002)
+      setParkingSize(27)
     } else if(mapLevel === 4) {
       setRampSize(14)
       setPlusLat(0.0035)
+      setParkingSize(22)
     } else if(mapLevel === 5) {
       setRampSize(10)
       setPlusLat(0.0073)
+      setParkingSize(18)
     }
   }, [mapLevel])
 
@@ -476,10 +481,10 @@ function App() {
                           <MapMarker
                             image={{
                               src: "/images/parkingMarker.png",
-                              size: { width: 32, height: 32 },
+                              size: { width: parkingSize, height: parkingSize },
                             }}
                             position={{ lat: value.lat, lng: value.lng }}
-                            zIndex={-2}
+                            zIndex={-1}
                           />
                         )
                       )
