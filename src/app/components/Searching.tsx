@@ -7,19 +7,13 @@ interface SearchingProps {
     setSearchVisible: Dispatch<SetStateAction<boolean>>
     setMapState: Dispatch<SetStateAction<{center: {lat: number, lng: number}, isPanto: boolean}>>
     setInputValue: Dispatch<SetStateAction<string>>
-    level: number
+    plusLat: number
 }
 
 const Searching: React.FC<SearchingProps> = (
-    { value, setIsVisibleId, setSearchVisible, setInputValue, setMapState, level }) => {
+    { value, setIsVisibleId, setSearchVisible, setInputValue, setMapState, plusLat }) => {
     
-    const resultHandle = (id : number, level : number, lat : number, lng : number) => {
-        let plusLat = 0
-        if(level === 2) plusLat = 0.001
-        else if(level === 3) plusLat = 0.002
-        else if(level === 4) plusLat = 0.0035
-        else if(level === 5) plusLat = 0.0073
-
+    const resultHandle = (id : number, lat : number, lng : number) => { 
         setInputValue('')
         setSearchVisible(false)
         setMapState(() => ({
@@ -42,7 +36,7 @@ const Searching: React.FC<SearchingProps> = (
                             <li 
                                 key={id} 
                                 className='border-b border-gray-300 cursor-pointer hover:bg-gray-200' 
-                                onClick={() => resultHandle(id, level, lat, lng)}
+                                onClick={() => resultHandle(id, lat, lng)}
                             >
                                 <div className='p-2'>
                                     {title}

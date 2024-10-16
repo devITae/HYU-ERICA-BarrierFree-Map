@@ -28,6 +28,9 @@ function App() {
   const [isSearchVisible, setSearchVisible] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [showResults, setShowResults] = useState(false)
+  const [rampSize, setRampSize] = useState(32)
+  const [mapLevel, setMapLevel] = useState(3)
+  const [plusLat, setPlusLat] = useState(0.002)
 
   const toggleSearch = () => {
     setSearchVisible(!isSearchVisible)
@@ -115,19 +118,7 @@ function App() {
     }
   }
 
-  function handleMapMarker(id: number, lat: number, lng: number) {
-    let plusLat = 0
-    const map = mapRef.current
-    if (map) {
-      const level = map.getLevel()
-      if(level === 2) plusLat = 0.001
-      else if(level === 3) plusLat = 0.002
-      else if(level === 4) plusLat = 0.0035
-      else if(level === 5) plusLat = 0.0073
-    } else {
-      console.log('Map reference not available');
-    }
-    
+  function handleMapMarker(id: number, lat: number, lng: number) {  
     setMapState(() => ({
       center: { 
         lat: lat + plusLat, 
@@ -153,6 +144,22 @@ function App() {
     if(inputValue === '' && showResults === true)
       setShowResults(false)
   }, [showResults, inputValue])
+
+  useEffect(() => {
+    if(mapLevel === 2) {
+      setRampSize(21)
+      setPlusLat(0.001)
+    } else if(mapLevel === 3) {
+      setRampSize(17)
+      setPlusLat(0.002)
+    } else if(mapLevel === 4) {
+      setRampSize(14)
+      setPlusLat(0.0035)
+    } else if(mapLevel === 5) {
+      setRampSize(10)
+      setPlusLat(0.0073)
+    }
+  }, [mapLevel])
 
   useEffect(() => {
     // Dynamically load the Kakao Maps API script
@@ -261,7 +268,7 @@ function App() {
     return () => {
       window.removeEventListener("resize", setViewportHeight)
     };
-  }, []);
+  }, [])
   
   const EventMarkerContainer = ({ id, position, content, amenityData }: {
       id: number, position: { lat: number, lng: number }, content: string, amenityData: amenities
@@ -312,7 +319,7 @@ function App() {
             <header className="fixed flex justify-between items-center top-0 left-0 w-full bg-white shadow-lg h-12 px-4 z-50 select-none">
               <div className='flex items-center'>
                   <img className='w-5 mr-2' src='/images/logo.png' />
-                  <h1 className="text-lg font-bold tracking-tighter">오픈하냥</h1>
+                  <h1 className="text-lg font-bold tracking-tighter">길편한대</h1>
               </div>
               <div className='flex right-0 items-center'>
                   <button 
@@ -374,7 +381,7 @@ function App() {
                     {showResults && 
                       <Searching
                         value={inputValue || transcript}
-                        level={mapRef.current?.getLevel() || 3}
+                        plusLat={plusLat}
                         setIsVisibleId={setIsVisibleId}
                         setSearchVisible={setSearchVisible}
                         setInputValue={setInputValue}
@@ -409,6 +416,10 @@ function App() {
                       center: { lat: latlng.getLat(), lng: latlng.getLng() },
                       isPanto: false,
                     }))
+                  }}
+                  onZoomChanged={(map) => {
+                    const level = map.getLevel()
+                    setMapLevel(level)
                   }}
                   onCreate={map => map.addOverlayMapTypeId(kakao.maps.MapTypeId['ROADMAP'])}
                 >
@@ -447,7 +458,7 @@ function App() {
                           <MapMarker
                             image={{
                               src: "/images/rampMarker.png",
-                              size: { width: 22, height: 22 },
+                              size: { width: rampSize, height: rampSize },
                             }}
                             position={{ lat: value.lat, lng: value.lng }}
                             zIndex={-2}
