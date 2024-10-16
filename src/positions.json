@@ -10,7 +10,7 @@
             "elevator": false,
             "dots": false,
             "floorplan": true,
-            "caution": "화장실이 지하에 있으며, 계단으로만 접근이 가능합니다."
+            "caution": "화장실이 지하에 있으며, 계단 이용만 가능합니다."
         },
         {   
             "id": 101,
@@ -182,7 +182,7 @@
         },
         {   
             "id": 208,
-            "title": "HY-IPT 의약연구원",
+            "title": "HY-IPT 맞춤의약연구원",
             "lat": 37.298529917465736,
             "lng": 126.83631468790092,
             "wheel": true,
@@ -238,7 +238,7 @@
             "elevator": false,
             "dots": true,
             "floorplan": true,
-            "caution": "제1공학관 3,4층의 연결통로로 타층 이용이 가능합니다."
+            "caution": "3,4층은 제1공학관의 연결통로로 이용이 가능합니다."
         },
         {
             "id": 304,
