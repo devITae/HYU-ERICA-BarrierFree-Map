@@ -111,7 +111,10 @@ function FloorPlans() {
                 </div>
             </header>
             {/* 지도 이미지를 표시하는 div 입니다 */}
-            <div className='absolute w-full h-screen-vh touch-none'>
+            <div 
+                className='absolute w-full h-screen-vh' 
+                style={{ touchAction: 'pan-x pan-y' }}
+            >
                 <TransformWrapper 
                     initialScale={1} 
                     minScale={1} 
@@ -130,7 +133,7 @@ function FloorPlans() {
                             <img
                                 src="/images/test.png"
                                 alt="floorplan"
-                                className={`pt-12 object-contain ${rotate ? 'rotate-90' : ''}`}
+                                className={`p-12 object-contain ${rotate ? 'rotate-90' : ''}`}
                                 style={{ width: imageSize.width, height: imageSize.height }}
                             />
                         </TransformComponent>
