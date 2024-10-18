@@ -32,12 +32,22 @@ function App() {
   const [parkingSize, setParkingSize] = useState(27)
   const [mapLevel, setMapLevel] = useState(3)
   const [plusLat, setPlusLat] = useState(0.002)
+  const [targetAlertName, setTargetAlertName] = useState('info')
+
+  const isAndroidPWA = window.matchMedia('(display-mode: standalone)').matches
+  if (isAndroidPWA) {
+    const installAboutElement = document.getElementById('install-about')
+    if (installAboutElement) {
+      installAboutElement.classList.add('invisible')
+    }
+  }
 
   const toggleSearch = () => {
     setSearchVisible(!isSearchVisible)
   }
 
-  const handleAlertOpen = () => {
+  const handleAlertOpen = ( target : string ) => {
+    setTargetAlertName(target)
     setShowAlert(true)
   }
 
@@ -265,14 +275,14 @@ function App() {
     const setViewportHeight = () => {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty("--vh", `${vh}px`);
-    };
+    }
 
     setViewportHeight()
     window.addEventListener("resize", setViewportHeight)
 
     return () => {
       window.removeEventListener("resize", setViewportHeight)
-    };
+    }
   }, [])
   
   const EventMarkerContainer = ({ id, position, content, amenityData }: {
@@ -297,7 +307,9 @@ function App() {
               <Link 
                 className='w-full py-2 mr-3 text-white text-center bg-blue-500 rounded-lg'
                 to={`/floorplan/${id}`}
-                state={{ id: id }}
+                state={{
+                  title: content
+                }}
               >
                 건물 평면도
               </Link>
@@ -327,24 +339,35 @@ function App() {
                   <h1 className="text-lg font-bold tracking-tighter">길편하냥</h1>
               </div>
               <div className='flex right-0 items-center'>
-                  <button 
-                    className='p-1 ml-2 w-7 h-7 bg-white rounded-md'
-                    onClick={handleAlertOpen}
-                  >
-                      <img 
-                        src='/images/info.svg'
-                        alt='사이트 정보' 
-                      />
-                  </button>
-                  <button 
-                    className='p-1 ml-2 w-7 h-7 bg-white rounded-md'
-                    onClick={toggleSearch}
-                  >
-                      <img 
-                        src='/images/search.png'
-                        alt={!isSearchVisible ? '검색창 열기' : '검색창 닫기'} 
-                      />
-                  </button>
+                <button 
+                  id='install-about'
+                  className='p-1 ml-2 w-7 h-7 pwa:invisible'
+                  onClick={() => handleAlertOpen('pwa')}
+                >
+                    <img 
+                      src='/images/download-square.svg'
+                      className='fill-black'
+                      alt='앱 설치' 
+                    />
+                </button>
+                <button 
+                  className='p-1 ml-2 w-7 h-7'
+                  onClick={() => handleAlertOpen('info')}
+                >
+                    <img 
+                      src='/images/info.svg'
+                      alt='사이트 정보' 
+                    />
+                </button>
+                <button 
+                  className='p-1 ml-2 w-7 h-7'
+                  onClick={toggleSearch}
+                >
+                    <img 
+                      src='/images/search.svg'
+                      alt={!isSearchVisible ? '검색창 열기' : '검색창 닫기'} 
+                    />
+                </button>
               </div>
     
               {isSearchVisible && (
@@ -398,6 +421,7 @@ function App() {
                 {showAlert && (
                   <InfoAlert
                     onClose={handleAlertClose}
+                    targetName={targetAlertName}
                   />
                 )}
               </header>

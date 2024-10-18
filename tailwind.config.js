@@ -11,6 +11,9 @@ module.exports = {
       userDrag: {
         none: 'none',
       },
+      screens: {
+        pwa: { raw: '(display-mode: standalone)' },
+      },
     },
     fontFamily: {
       bold: ['KoddiUDOn-Bold'],
