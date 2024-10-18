@@ -2,7 +2,7 @@ import tw from 'twin.macro';
 import styled from 'styled-components';
 
 const CustomZoomControl = styled.div`
-  ${tw`absolute bottom-[100px] right-3 w-[2.625rem] h-20 overflow-hidden z-10 bg-white rounded-lg border border-gray-400 bg-center`}
+  ${tw`absolute bottom-[100px] right-3 w-[2.625rem] h-20 overflow-hidden z-10 bg-white rounded-lg border border-gray-400 bg-center touch-none`}
 `
 
 const ZoomButton = styled.button`

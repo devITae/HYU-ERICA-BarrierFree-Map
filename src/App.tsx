@@ -333,7 +333,7 @@ function App() {
           <Route path="/" element={
             <>
             {/* 헤더 */}
-            <header className="fixed flex justify-between items-center top-0 left-0 w-full bg-white shadow-lg h-12 px-4 z-50 select-none">
+            <header className="fixed flex justify-between items-center top-0 left-0 w-full bg-white shadow-lg h-12 px-4 z-50 select-none touch-none">
               <div className='flex items-center'>
                   <img className='w-5 mr-2' src='/images/logo.png' />
                   <h1 className="text-lg font-bold tracking-tighter">길편하냥</h1>
@@ -427,7 +427,7 @@ function App() {
               </header>
               
               {/* 지도 */}
-              <div id='mapwrap' className='w-full h-screen-vh font-medium tracking-tight select-none'>
+              <div id='mapwrap' className='w-full h-screen-vh font-medium tracking-tight select-none touch-none'>
                 {/* 지도 위에 표시될 마커 카테고리 */}
                 <Map
                   id='map'

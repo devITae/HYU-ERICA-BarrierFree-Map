@@ -95,7 +95,7 @@ function FloorPlans() {
 
     return (
         <>
-            <header className="fixed flex justify-between items-center top-0 left-0 w-full bg-white shadow-lg h-12 px-4 z-50 select-none">
+            <header className="fixed flex justify-between items-center top-0 left-0 w-full bg-white shadow-lg h-12 px-4 z-50 select-none touch-none">
                 <div className='flex items-center'>
                     <button 
                         className='cursor-pointer' 
@@ -111,7 +111,7 @@ function FloorPlans() {
                 </div>
             </header>
             {/* 지도 이미지를 표시하는 div 입니다 */}
-            <div className='absolute w-full h-screen-vh'>
+            <div className='absolute w-full h-screen-vh touch-none'>
                 <TransformWrapper 
                     initialScale={1} 
                     minScale={1} 
