@@ -71,7 +71,7 @@ function FloorPlans() {
                     zoomIn={() => zoomIn()} 
                     zoomOut={() => zoomOut()}
                 />
-                <div className='absolute bottom-[45px] right-3 rounded-md border border-gray-400 overflow-hidden z-[2]'>
+                <div className='absolute bottom-[45px] right-3 rounded-md border border-gray-400 overflow-hidden z-[2] touch-none'>
                     <button className='p-2 bg-white flex items-center justify-center'>
                     <img 
                         src='/images/rotate.svg'
@@ -111,28 +111,29 @@ function FloorPlans() {
                 </div>
             </header>
             {/* 지도 이미지를 표시하는 div 입니다 */}
-            <div 
-                className='absolute w-full h-screen-vh' 
-                style={{ touchAction: 'pan-x pan-y' }}
-            >
+            <div>
                 <TransformWrapper 
                     initialScale={1} 
                     minScale={1} 
-                    maxScale={10}
+                    maxScale={5}
+                    centerOnInit={true}
+                    centerZoomedOut={true}
+                    limitToBounds={true} // 이미지 바깥을 벗어난 줌을 막기 위해 추가
                 >
                     {({ setTransform }) => (
                     <>  
                         <Controls setTransform={setTransform} />
                         <TransformComponent
-                            wrapperStyle={{ height: '100vh', width: '100%' }}
+                            wrapperStyle={{ height: '100vh', width: '100%', overflow: 'hidden' }}
                             contentStyle={{
                                 height: imageSize.height,
                                 width: imageSize.width,
+                                objectFit: 'contain'
                             }}
                         >
                             <img
                                 src="/images/test.png"
-                                alt="floorplan"
+                                alt={`${title}의 평면도`}
                                 className={`p-12 object-contain ${rotate ? 'rotate-90' : ''}`}
                                 style={{ width: imageSize.width, height: imageSize.height }}
                             />

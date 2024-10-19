@@ -5184,7 +5184,7 @@ __metadata:
     react-kakao-maps-sdk: "npm:^1.1.26"
     react-router-dom: "npm:^6.23.1"
     react-speech-recognition: "npm:^3.10.0"
-    react-zoom-pan-pinch: "npm:^3.6.1"
+    react-zoom-pan-pinch: "npm:3.6.0"
     regenerator-runtime: "npm:^0.14.1"
     styled-components: "npm:^6.1.13"
     tailwind-styled-components: "npm:^2.2.0"
@@ -6984,13 +6984,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-zoom-pan-pinch@npm:^3.6.1":
-  version: 3.6.1
-  resolution: "react-zoom-pan-pinch@npm:3.6.1"
+"react-zoom-pan-pinch@npm:3.6.0":
+  version: 3.6.0
+  resolution: "react-zoom-pan-pinch@npm:3.6.0"
   peerDependencies:
     react: "*"
     react-dom: "*"
-  checksum: 10c0/ec32df7ba9c1b8113fa87e5759c6b697f0f985df1be31b26720c3fdff67dc7f31ac13eabad201d7d5a12f2a4bed637bf7090e8a04f0237618bc751cf37c784d9
+  checksum: 10c0/e7fdec64aeeba25069cf5aa65e6414ac6cb71baa288aee19ce89d45109120ab4c0f9531553606c26b911f9685be59c417dd0ca5f8b95873c05ae1d7eecea857a
   languageName: node
   linkType: hard
 
