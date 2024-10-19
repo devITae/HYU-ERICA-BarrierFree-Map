@@ -7,9 +7,9 @@ interface InfoAlertProps {
 
 const InfoAlert: React.FC<InfoAlertProps> = ({ onClose, targetName }) => {
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 font-medium tracking-tight">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 font-fMedium tracking-tight">
       <div className="bg-white p-5 rounded-md shadow-lg w-80 text-sm">
-        <h2 className="text-lg font-semibold mb-3">
+        <h2 className="text-lg font-fBold mb-3">
           {
             targetName === 'info' ? 
             '정보' : 

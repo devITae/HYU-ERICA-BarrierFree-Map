@@ -2,10 +2,10 @@ import tw from 'twin.macro'
 import styled from 'styled-components'
 
 const CategoryItem = styled.button<{ isActive: boolean }>(({ isActive }) => [
-    tw`flex-col bg-white py-1 px-3 mr-2 mb-2 border border-gray-300 shadow-sm rounded-2xl cursor-pointer 
-      focus:outline-none transition-all duration-100 text-[0.9rem] justify-center items-center`,
-    isActive && tw`bg-blue-500 text-white`,
-  ])
+  tw`flex-col bg-white py-1 px-3 mr-2 mb-2 border border-gray-300 shadow-sm rounded-2xl cursor-pointer 
+    focus:outline-none transition-all duration-100 text-[0.9rem] justify-center items-center`,
+  isActive && tw`bg-blue-500 text-white font-fBold`,
+])
   
 const CItemWrapper = styled.div`
   ${tw`flex justify-center items-center`}
@@ -24,7 +24,7 @@ interface CategoryTabProps {
 const CategoryTab: React.FC<CategoryTabProps> = ({ selectedCategory, setSelectedCategory, onclick }) => {
 
     return (
-        <div className='absolute top-[60px] left-[10px] overflow-hidden z-[2]'>
+        <div className='absolute top-[60px] left-[10px] overflow-hidden z-[2] font-fMedium'>
           <CategoryItem
             onClick={() => setSelectedCategory("entire")}
             isActive={selectedCategory === "entire"}

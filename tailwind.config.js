@@ -16,9 +16,9 @@ module.exports = {
       },
     },
     fontFamily: {
-      bold: ['KoddiUDOn-Bold'],
-      medium: ['KoddiUDOn-Regular'],
-      extrabold: ['KoddiUDOn-ExtraBold'],
+      fBold: ['KoddiUDOn-Bold'],
+      fMedium: ['KoddiUDOn-Regular'],
+      fExtrabold: ['KoddiUDOn-ExtraBold'],
     },
   },
   plugins: [

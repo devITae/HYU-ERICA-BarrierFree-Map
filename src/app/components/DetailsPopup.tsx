@@ -27,7 +27,7 @@ const DetailsPopup = (content : string , data : amenities) => {
     return (
         <>
             <div className='pl-5 pr-5 pt-5 w-[230px]'>  
-                <div className='flex mb-4'>{content}</div>
+                <div className='flex mb-4 font-fBold'>{content}</div>
                 <CheckboxWrapper>
                     <CheckboxItem
                         id="wheel-checkbox"

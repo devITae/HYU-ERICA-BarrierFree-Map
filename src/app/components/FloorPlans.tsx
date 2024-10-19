@@ -107,7 +107,7 @@ function FloorPlans() {
                             src='/images/arrow_back_black_36dp.svg'
                             alt='이전 화면으로 가기' />
                     </button>
-                    <h1 className="ml-3 text-lg font-bold tracking-tighter">{title}</h1>
+                    <h1 className="ml-3 text-lg font-fBold">{title}</h1>
                 </div>
             </header>
             {/* 지도 이미지를 표시하는 div 입니다 */}
