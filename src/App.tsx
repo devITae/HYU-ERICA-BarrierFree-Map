@@ -334,7 +334,10 @@ function App() {
             <>
             {/* 헤더 */}
             <header className="fixed flex justify-between items-center top-0 left-0 w-full bg-white shadow-lg h-12 px-4 z-50 select-none touch-none">
-              <div className='flex items-center'>
+              <div 
+                className='flex items-center cursor-pointer'
+                onClick={() => window.location.reload()}
+              >
                   <img className='w-5 mr-2' src='/images/logo.png' />
                   <h1 className="text-lg font-bold tracking-tighter">길편하냥</h1>
               </div>
