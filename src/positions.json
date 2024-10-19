@@ -9,7 +9,7 @@
             "toilet": true,
             "elevator": false,
             "dots": false,
-            "floorplan": true,
+            "floorplan": false,
             "caution": "화장실이 지하에 있으며, 계단 이용만 가능합니다."
         },
         {   

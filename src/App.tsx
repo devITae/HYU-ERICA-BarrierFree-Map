@@ -20,6 +20,10 @@ const CItemWrapper = styled.div`
   ${tw`flex justify-center items-center`}
 `
 
+const Button = styled.button`
+  ${tw`w-full py-2 text-white text-center bg-blue-500 rounded-lg disabled:bg-gray-300`}
+`
+
 function App() {
   const mapRef = useRef<kakao.maps.Map>(null)
   const { transcript, listening, toggleListening } = useSpeechToText()
@@ -303,22 +307,25 @@ function App() {
           <>
             {/* 세부 정보 팝업 UI */}
             {DetailsPopup(content, amenityData)}
-            <div className='flex justify-center text-[0.8rem] px-5 pb-5 pt-2'>
-              <Link 
-                className='w-full py-2 mr-3 text-white text-center bg-blue-500 rounded-lg'
-                to={`/floorplan/${id}`}
+            <div className='flex justify-center text-[0.8rem] px-5 pb-5 pt-1'>
+              <Link
+                className='w-full mr-3'
+                to={!amenityData.floorplan ? '#' : `/floorplan/${id}`}
                 state={{
                   title: content
                 }}
               >
-                건물 평면도
+                <Button 
+                  disabled={!amenityData.floorplan}
+                >
+                  건물 평면도
+                </Button>
               </Link>
-              <button 
-                className='w-full py-2 text-white bg-blue-500 rounded-lg' 
+              <Button
                 onClick={() => setIsVisibleId(null)}
               >
                 닫기
-              </button>
+              </Button>
             </div>
           </>
         }
@@ -339,7 +346,7 @@ function App() {
                 onClick={() => window.location.reload()}
               >
                   <img className='w-5 mr-2' src='/images/logo.png' />
-                  <h1 className="text-lg font-bold tracking-tighter">길편하냥</h1>
+                  <h1 className="text-lg font-fBold tracking-tight">길편하냥</h1>
               </div>
               <div className='flex right-0 items-center'>
                 <button 
@@ -374,12 +381,12 @@ function App() {
               </div>
     
               {isSearchVisible && (
-                <div className="absolute top-12 left-0 w-full bg-white p-4 shadow-md z-50">
-                  <h2 className="flex text-md mb-2">장소 검색</h2>
+                <div className="absolute top-12 left-0 w-full bg-white p-4 shadow-md z-50 font-fMedium">
+                  <h2 className="flex text-md mb-2 font-fBold">장소 검색</h2>
                     <div className='h-12 flex justify-center items-center gap-2'>
                       <input
                         type="text"
-                        placeholder="장소를 검색하세요"
+                        placeholder="장소를 검색하세요."
                         className="w-full h-11 border border-[#002060] rounded-md p-2"
                         value={inputValue || transcript}
                         onChange={handleChange}
@@ -430,7 +437,7 @@ function App() {
               </header>
               
               {/* 지도 */}
-              <div id='mapwrap' className='w-full h-screen-vh font-medium tracking-tight select-none touch-none'>
+              <div id='mapwrap' className='w-full h-screen-vh font-fMedium tracking-tight select-none touch-none'>
                 {/* 지도 위에 표시될 마커 카테고리 */}
                 <Map
                   id='map'
