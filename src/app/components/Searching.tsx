@@ -30,22 +30,36 @@ const Searching: React.FC<SearchingProps> = (
     return (
         <>
             {value &&
-                <ul className='w-full mt-3'>
-                    {pos && pos.map(({id, title, lat, lng}) => {
-                        if (title.includes(value)) {
+                <ul id='searchedList' className='w-full mt-3'>
+                    {pos && (() => {
+                        const filteredPos = pos.filter(({title}) => title.includes(value))
+
+                        // 검색 결과가 1개일 때 자동으로 선택
+                        if (filteredPos.length === 1) {
+                            const {id, lat, lng} = filteredPos[0]
+                            resultHandle(id, lat, lng)
+                        } else if (filteredPos.length === 0) {
                             return (
-                                <li 
-                                    key={id} 
-                                    className='border-b border-gray-300 cursor-pointer hover:bg-gray-200' 
-                                    onClick={() => resultHandle(id, lat, lng)}
-                                >
-                                    <div className='p-2'>
-                                        {title}
-                                    </div>
-                                </li>
+                                <>
+                                    <li className='p-2'>
+                                        검색 결과가 없습니다.
+                                    </li>
+                                </>
                             )
                         }
-                    })}
+
+                        return filteredPos.map(({id, title, lat, lng}) => (
+                            <li
+                                key={id}
+                                className='border-b border-gray-300 cursor-pointer hover:bg-gray-200'
+                                onClick={() => resultHandle(id, lat, lng)}
+                            >
+                                <div className='p-2'>
+                                    {title}
+                                </div>
+                            </li>
+                        ))
+                    })()}
                     {pos === undefined && (
                         <li className='p-2'>
                             검색 결과가 없습니다.
