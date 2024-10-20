@@ -22,9 +22,8 @@ interface CategoryTabProps {
 }
 
 const CategoryTab: React.FC<CategoryTabProps> = ({ selectedCategory, setSelectedCategory, onclick }) => {
-
     return (
-        <div className='absolute top-[60px] left-[10px] overflow-hidden z-[2] font-fMedium'>
+        <div className='absolute top-[60px] left-[13px] overflow-hidden z-[2] font-fMedium'>
           <CategoryItem
             onClick={() => setSelectedCategory("entire")}
             isActive={selectedCategory === "entire"}
