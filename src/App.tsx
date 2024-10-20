@@ -59,6 +59,7 @@ function App() {
 
   const handleChange = (e: { target: { value: SetStateAction<string> } }) => {
     setInputValue(e.target.value)
+    setShowResults(false)
   }
   
   const openReportPage = () => {
