@@ -4,7 +4,6 @@ import { Map, MapMarker } from 'react-kakao-maps-sdk'
 import tw from 'twin.macro'
 import styled from 'styled-components'
 
-import { useSpeechToText } from '@/components/useSpeechToText'
 import CategoryTab from '@/components/CategoryTab'
 import Searching from '@/components/Searching'
 import InfoAlert from '@/components/InfoAlert'
@@ -26,7 +25,6 @@ const Button = styled.button`
 
 function App() {
   const mapRef = useRef<kakao.maps.Map>(null)
-  const { transcript, listening, toggleListening } = useSpeechToText()
   const [isVisibleId, setIsVisibleId] = useState<number | null>(null)
   const [inputValue, setInputValue] = useState('')
   const [isSearchVisible, setSearchVisible] = useState(false)
@@ -388,18 +386,18 @@ function App() {
                         type="text"
                         placeholder="장소를 검색하세요."
                         className="w-full h-11 border border-[#002060] rounded-md p-2"
-                        value={inputValue || transcript}
+                        value={inputValue}
                         onChange={handleChange}
                         onKeyDown={(e) => { if (e.key === 'Enter') setShowResults(true) }}
                       />
                       <CItemWrapper>
                         <button
-                          onClick={() => toggleListening()}
+                          onClick={() => handleAlertOpen('mic')}
                           className='h-11 w-11 bg-white border border-[#002060] rounded-md p-2'
                         > 
                           <img
                             src='/images/mic.png'
-                            alt={listening ? '음성인식 중지' : '음성인식 시작'}
+                            alt='음성 인식하여 검색어 입력하기'
                           />
                         </button>
                       </CItemWrapper>
@@ -418,7 +416,7 @@ function App() {
                     </div>
                     {showResults && 
                       <Searching
-                        value={inputValue || transcript}
+                        value={inputValue}
                         plusLat={plusLat}
                         setIsVisibleId={setIsVisibleId}
                         setSearchVisible={setSearchVisible}
@@ -432,6 +430,8 @@ function App() {
                   <InfoAlert
                     onClose={handleAlertClose}
                     targetName={targetAlertName}
+                    setInputValue={setInputValue}
+                    setShowResults={setShowResults}
                   />
                 )}
               </header>

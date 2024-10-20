@@ -1,22 +1,54 @@
 import React from 'react'
+import { useSpeechToText } from "./useSpeechToText"
 
 interface InfoAlertProps {
-  onClose: () => void
   targetName: string
+  onClose: () => void
+  setInputValue: (value: string) => void
+  setShowResults: (value: boolean) => void
 }
 
-const InfoAlert: React.FC<InfoAlertProps> = ({ onClose, targetName }) => {
+const InfoAlert: React.FC<InfoAlertProps> = ({ targetName, onClose, setInputValue, setShowResults }) => {
+  const { transcript, listening, toggleListening } = useSpeechToText()
+
+  const handleButton = () => {
+    if (listening) {
+      const value = transcript.replace(/(\s*)/g, "")
+      if (value !== '') {
+        setInputValue(value)
+        setShowResults(true)
+      }
+      onClose()
+    }
+    toggleListening()
+  }
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 font-fMedium tracking-tight">
+    <div
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 font-fMedium tracking-tight"
+    >
       <div className="bg-white p-5 rounded-md shadow-lg w-80 text-sm">
-        <h2 className="text-lg font-fBold mb-3">
-          {
-            targetName === 'info' ? 
-            '정보' : 
-            '앱 설치 안내'
-          }
-        </h2>
+        <div className='flex justify-between items-center mb-3'>
+          <h2 className="text-lg font-fBold tracking-tighter">
+            {
+              targetName === 'info' ? 
+                '정보' : (targetName === 'pwa' ? '앱 설치 안내' : '음성 인식')
+            }
+          </h2>
+          { targetName === 'mic' && (
+            <>
+              <button onClick={onClose}>
+                <img 
+                  src='/images/x_button.svg'
+                  alt='닫기'
+                  className='w-7'
+                />
+              </button>
+            </>
+          )}
+        </div>
         {
+          // 개발 정보
           targetName === 'info' && (
             <>
               <p className='mb-4'>한양대학교 ERICA캠퍼스의 배리어프리맵<br/>웹서비스인 '오픈하냥' 입니다.</p>
@@ -24,16 +56,35 @@ const InfoAlert: React.FC<InfoAlertProps> = ({ onClose, targetName }) => {
               <p>Frontend: 이재형 (컴퓨터학부 21)</p>
               <p>Backend: 정윤성 (컴퓨터학부 20)</p>
               <p>Designer: 임동섭 (경영학부 21)</p>
-              <p className='mt-4'>[도움]<br/>한양대학교 ERICA 인권센터 & 소중한대</p>
+              <p className='mt-4'>
+                [도움]
+                <br/>
+                <a 
+                  className='text-blue-500' 
+                  href='https://ehrc.hanyang.ac.kr/'
+                >
+                  한양대학교 ERICA 인권센터 
+                </a> & 소중한대
+              </p>
+              <p className='mt-4'>[오픈소스]<br/>
+                <a className='text-blue-500' href='https://github.com/devITae/HYU-ERICA-BarrierFree-Map'>
+                  GitHub (Frontend)
+                </a>
+                <br/>
+                <a className='text-blue-500' href='https://github.com/devITae/HYU-ERICA-BarrierFree-Map'>
+                  GitHub (Backend)
+                </a>
+              </p>
               <p className='mt-4'>[문의]<br/>
                 <a className='text-blue-500' href='mailto:alpha@hanyang.ac.kr'>
-                  alpha@hanyang.ac.kr
+                  ehrc@hanyang.ac.kr
                 </a>
               </p>
             </>
           )
         }
         {
+          // PWA 설치 안내
           targetName === 'pwa' && (
             <>
               <p className='mb-4'>
@@ -50,14 +101,43 @@ const InfoAlert: React.FC<InfoAlertProps> = ({ onClose, targetName }) => {
             </>
           )
         }
-        <div className="mt-4 flex justify-end">
-          <button 
-            className="bg-blue-500 text-white px-4 py-2 rounded-md"
-            onClick={onClose}
-          >
-            닫기
-          </button>
-        </div>
+        {
+          // 음성 인식 UI
+          targetName === 'mic' && (
+            <>
+              <img
+                  className='w-20 mx-auto mt-5' 
+                  src='/images/mic.png'
+              />
+              <p className='text-center py-5'>{listening ? transcript : '음성인식을 시작하세요.'}</p>
+            </>
+          )
+        }
+        {
+          targetName !== 'mic' ? (
+            // 기본 닫기 버튼
+            <>
+              <div className="mt-4 flex justify-end">
+                <button 
+                  className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                  onClick={onClose}
+                >
+                  닫기
+                </button>
+              </div>
+            </>
+          ) : (
+            // 음성 인식 UI
+            <>
+              <button 
+                className="bg-blue-500 text-white w-full px-4 py-2 rounded-md"
+                onClick={handleButton}
+              >
+                음성 인식 {listening ? '중지' : '시작'}
+              </button>
+            </>
+          )
+        }
       </div>
     </div>
   )
