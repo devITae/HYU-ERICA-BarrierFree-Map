@@ -38,6 +38,24 @@ const Searching: React.FC<SearchingProps> = (
                         if (filteredPos.length === 1) {
                             const {id, lat, lng} = filteredPos[0]
                             resultHandle(id, lat, lng)
+                        } else if (value === '소프트웨어융합대학' || value === '소융대') {
+                            // 이스터 에그
+                            return (
+                                <>
+                                    <li className='p-2'>
+                                        소융대 건물 지어주세요 ㅠㅠ
+                                    </li>
+                                </>
+                            )
+                        } else if (value === '인권센터') {
+                            // 이스터 에그
+                            return (
+                                <>
+                                    <li className='p-2'>
+                                        학생회관 1층으로 오세요!<br/>언제나 환영합니다☺️
+                                    </li>
+                                </>
+                            )
                         } else if (filteredPos.length === 0) {
                             return (
                                 <>
