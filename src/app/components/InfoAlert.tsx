@@ -109,7 +109,9 @@ const InfoAlert: React.FC<InfoAlertProps> = ({ targetName, onClose, setInputValu
                   className='w-20 mx-auto mt-5' 
                   src='/images/mic.png'
               />
-              <p className='text-center py-5'>{listening ? transcript : '음성인식을 시작하세요.'}</p>
+              <p className='text-center py-5'>
+                {listening ? transcript : '음성 인식을 시작하세요.'}
+              </p>
             </>
           )
         }
