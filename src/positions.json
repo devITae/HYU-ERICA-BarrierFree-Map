@@ -58,7 +58,7 @@
             "elevator": false,
             "dots": false,
             "floorplan": true,
-            "caution": "제2공학관을 통해야만 휠체어 진입이 가능합니다."
+            "caution": "제2공학관을 통해 휠체어 진입이 가능합니다."
         },
         {   
             "id": 109,
@@ -342,7 +342,7 @@
             "lat": 37.29684790553162,
             "lng": 126.83517638803356,
             "wheel": true,
-            "toilet": false,
+            "toilet": true,
             "elevator": true,
             "dots": true,
             "floorplan": true,
