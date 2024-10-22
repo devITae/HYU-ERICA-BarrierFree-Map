@@ -23,6 +23,10 @@ const Button = styled.button`
   ${tw`w-full py-2 text-white text-center bg-blue-500 rounded-lg disabled:bg-gray-300`}
 `
 
+const HeaderButton = styled.button`
+  ${tw`p-1 ml-2 w-[1.9rem] h-[1.9rem]`}
+`
+
 function App() {
   const mapRef = useRef<kakao.maps.Map>(null)
   const [isVisibleId, setIsVisibleId] = useState<number | null>(null)
@@ -305,7 +309,11 @@ function App() {
         {isVisibleId === id &&
           <>
             {/* 세부 정보 팝업 UI */}
-            {DetailsPopup(content, amenityData)}
+            <DetailsPopup 
+              id={id} 
+              title={content} 
+              data={amenityData}
+            />
             <div className='flex justify-center text-[0.8rem] px-5 pb-5 pt-1'>
               <Link
                 className='w-full mr-3'
@@ -341,16 +349,16 @@ function App() {
             {/* 헤더 */}
             <header className="fixed flex justify-between items-center top-0 left-0 w-full bg-white shadow-lg h-12 px-4 z-50 select-none touch-none">
               <div 
-                className='flex items-center cursor-pointer'
+                className='pl-[0.2rem] flex items-center cursor-pointer'
                 onClick={() => window.location.reload()}
               >
                   <img className='w-5 mr-2' src='/images/logo.png' />
                   <h1 className="text-lg font-fBold tracking-tight">길편하냥</h1>
               </div>
               <div className='flex right-0 items-center'>
-                <button 
+                <HeaderButton 
                   id='install-about'
-                  className='p-1 ml-2 w-7 h-7 pwa:invisible'
+                  className='pwa:invisible'
                   onClick={() => handleAlertOpen('pwa')}
                 >
                     <img 
@@ -358,25 +366,23 @@ function App() {
                       className='fill-black'
                       alt='앱 설치' 
                     />
-                </button>
-                <button 
-                  className='p-1 ml-2 w-7 h-7'
+                </HeaderButton>
+                <HeaderButton 
                   onClick={() => handleAlertOpen('info')}
                 >
                     <img 
                       src='/images/info.svg'
                       alt='사이트 정보' 
                     />
-                </button>
-                <button 
-                  className='p-1 ml-2 w-7 h-7'
+                </HeaderButton>
+                <HeaderButton 
                   onClick={toggleSearch}
                 >
                     <img 
                       src='/images/search.svg'
                       alt={!isSearchVisible ? '검색창 열기' : '검색창 닫기'} 
                     />
-                </button>
+                </HeaderButton>
               </div>
     
               {isSearchVisible && (
@@ -439,7 +445,6 @@ function App() {
               
               {/* 지도 */}
               <div id='mapwrap' className='w-full h-screen-vh font-fMedium tracking-tight select-none touch-none'>
-                {/* 지도 위에 표시될 마커 카테고리 */}
                 <Map
                   id='map'
                   ref={mapRef}
@@ -463,6 +468,7 @@ function App() {
                   }}
                   onCreate={map => map.addOverlayMapTypeId(kakao.maps.MapTypeId['ROADMAP'])}
                 >
+                  {/* 지도 위에 표시될 마커 */}
                   {pos.map((value) => {
                     const showMarker =
                     selectedCategory === "entire" ||
