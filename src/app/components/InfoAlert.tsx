@@ -9,7 +9,12 @@ interface InfoAlertProps {
 }
 
 const InfoAlert: React.FC<InfoAlertProps> = ({ targetName, onClose, setInputValue, setShowResults }) => {
-  const { transcript, listening, toggleListening } = useSpeechToText()
+  const { transcript, listening, toggleListening, abortListening, browserSupportsSpeechRecognition } = useSpeechToText()
+
+  const handleCloseButton = () => {
+    abortListening()
+    onClose()
+  }
 
   const handleButton = () => {
     if (listening) {
@@ -37,7 +42,7 @@ const InfoAlert: React.FC<InfoAlertProps> = ({ targetName, onClose, setInputValu
           </h2>
           { targetName === 'mic' && (
             <>
-              <button onClick={onClose}>
+              <button onClick={handleCloseButton}>
                 <img 
                   src='/images/x_button.svg'
                   alt='닫기'
@@ -110,7 +115,9 @@ const InfoAlert: React.FC<InfoAlertProps> = ({ targetName, onClose, setInputValu
                   src='/images/mic.png'
               />
               <p className='text-center py-5'>
-                {listening ? transcript : '음성 인식을 시작하세요.'}
+                {browserSupportsSpeechRecognition === true ? 
+                  (listening ? transcript : '음성 인식을 시작하세요.') 
+                  : '지원하지 않는 브라우저입니다.'}
               </p>
             </>
           )

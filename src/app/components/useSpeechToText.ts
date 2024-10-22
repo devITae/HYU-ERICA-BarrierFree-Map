@@ -1,7 +1,7 @@
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 
 export const useSpeechToText = () => {
-    const { transcript, listening, browserSupportsSpeechRecognition } = useSpeechRecognition()
+    const { transcript, listening, browserSupportsSpeechRecognition, resetTranscript } = useSpeechRecognition()
 
     const toggleListening = () => {
         if (!browserSupportsSpeechRecognition) {
@@ -14,10 +14,14 @@ export const useSpeechToText = () => {
             SpeechRecognition.stopListening()
         } else {
             // transcript를 초기화하고 음성 인식을 시작합니다.
-            SpeechRecognition.abortListening()
+            //SpeechRecognition.abortListening()
+            resetTranscript()
             SpeechRecognition.startListening({ language: 'ko-KR', continuous: true })
         }
     }
 
-    return { transcript, listening, toggleListening }
+    const abortListening = () => {
+        SpeechRecognition.abortListening()
+    }
+    return { transcript, listening, toggleListening, abortListening, browserSupportsSpeechRecognition }
 }
