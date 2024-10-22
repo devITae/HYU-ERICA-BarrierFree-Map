@@ -2,6 +2,12 @@ import tw from 'twin.macro'
 import styled from 'styled-components'
 import { amenities } from '@/data/amenities'
 
+interface DetailsPopupProps {
+    id: number
+    title: string
+    data: amenities
+}
+
 const CheckboxWrapper = styled.div`
     ${tw`flex items-center bg-blue-50 rounded-lg p-2 mb-2`}
 `
@@ -17,17 +23,21 @@ const CheckboxLabel = styled.label`
     input:checked + & {
         background-image: url('/images/checkbox.png');
     }
+    
+    input:checked + #caution& {
+        background-image: url('/images/cautionBox.png');
+    }
 `
 
 const CheckboxTextLabel = styled.label`
     ${tw`ml-2 text-sm`}
 `
 
-const DetailsPopup = (content : string , data : amenities) => {
+const DetailsPopup : React.FC<DetailsPopupProps> = ({ id, title, data }) => {
     return (
         <>
             <div className='pl-5 pr-5 pt-5 w-[230px]'>  
-                <div className='flex mb-4 font-fBold'>{content}</div>
+                <div className='flex mb-4 font-fBold'>{title}</div>
                 <CheckboxWrapper>
                     <CheckboxItem
                         id="wheel-checkbox"
@@ -53,12 +63,29 @@ const DetailsPopup = (content : string , data : amenities) => {
                 </CheckboxWrapper>
 
                 <CheckboxWrapper>
-                    <CheckboxItem
-                        id="toilet-checkbox"
-                        checked={data.toilet}
-                        type="checkbox" value="" 
-                    />
-                    <CheckboxLabel htmlFor="toilet-checkbox" />
+                    { /* 학술정보관, 아고라 화장실 예외 표시 */ }
+                    {id === 401 || id === 100 ? (
+                        <>
+                            <CheckboxItem
+                                id="toilet-checkbox"
+                                checked={data.toilet}
+                                type="checkbox" value="" 
+                            />
+                            <CheckboxLabel 
+                                id='caution' 
+                                htmlFor="toilet-checkbox" 
+                            />
+                        </>
+                    ) : (
+                        <>
+                            <CheckboxItem
+                                id="toilet-checkbox"
+                                checked={data.toilet}
+                                type="checkbox" value="" 
+                            />
+                            <CheckboxLabel htmlFor="toilet-checkbox" />
+                        </>
+                    )}    
                     <CheckboxTextLabel>
                         장애인 화장실
                     </CheckboxTextLabel>
