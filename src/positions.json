@@ -198,11 +198,11 @@
             "lat": 37.29829501621543,
             "lng": 126.83585841032942,
             "wheel": true,
-            "toilet": false,
+            "toilet": true,
             "elevator": false,
             "dots": false,
             "floorplan": true,
-            "caution": ""
+            "caution": "휠체어 이용 시 2층 이용만 가능합니다."
         },
         {
             "id": 301,
