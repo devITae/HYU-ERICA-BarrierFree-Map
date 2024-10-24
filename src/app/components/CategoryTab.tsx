@@ -30,7 +30,7 @@ const CategoryTab: React.FC<CategoryTabProps> = ({ selectedCategory, setSelected
           >
             <CItemWrapper>
               <CategoryItemImg src='/images/map.svg' />
-              전체
+                전체
             </CItemWrapper>
           </CategoryItem>
           <CategoryItem
@@ -39,7 +39,7 @@ const CategoryTab: React.FC<CategoryTabProps> = ({ selectedCategory, setSelected
           >
             <CItemWrapper>
               <CategoryItemImg src='/images/parking.png'/>
-              주차장
+                주차장
             </CItemWrapper>
           </CategoryItem>
           <CategoryItem
@@ -48,7 +48,7 @@ const CategoryTab: React.FC<CategoryTabProps> = ({ selectedCategory, setSelected
           >
             <CItemWrapper>
               <CategoryItemImg src='/images/toilet.png' />
-              화장실
+                화장실
             </CItemWrapper>
           </CategoryItem>
           <CategoryItem
@@ -57,7 +57,7 @@ const CategoryTab: React.FC<CategoryTabProps> = ({ selectedCategory, setSelected
           >
             <CItemWrapper>
               <CategoryItemImg src='/images/elevator.png' />
-              승강기
+                승강기
             </CItemWrapper>
           </CategoryItem>
           <CategoryItem
@@ -66,7 +66,7 @@ const CategoryTab: React.FC<CategoryTabProps> = ({ selectedCategory, setSelected
           >
             <CItemWrapper>
               <CategoryItemImg src='/images/ramp.png' />
-              경사로
+                경사로
             </CItemWrapper>
           </CategoryItem>
           <CategoryItem
@@ -75,7 +75,7 @@ const CategoryTab: React.FC<CategoryTabProps> = ({ selectedCategory, setSelected
           >
             <CItemWrapper>
               <CategoryItemImg src='/images/report.png' />
-              불편신고
+                불편신고
             </CItemWrapper>
           </CategoryItem>
         </div>

@@ -416,7 +416,7 @@ function App() {
                         >
                           <img
                             src='/images/search2.png'
-                            alt='검색버튼'
+                            alt='검색'
                           />
                         </button>
                       </CItemWrapper>
@@ -445,6 +445,27 @@ function App() {
               
               {/* 지도 */}
               <div id='mapwrap' className='w-full h-screen-vh font-fMedium tracking-tight select-none touch-none'>
+                {/* 지도 위에 표시될 마커 카테고리 */}
+                <CategoryTab 
+                  selectedCategory={selectedCategory}
+                  setSelectedCategory={setSelectedCategory}
+                  onclick={openReportPage}
+                />
+                { /* 지도 확대, 축소 컨트롤 div 입니다 */ }
+                <MapControls 
+                  zoomIn={zoomIn} 
+                  zoomOut={zoomOut} 
+                />
+                { /** 현재 위치로 이동 버튼 */ }
+                <div className='absolute bottom-[45px] right-3 rounded-md border border-gray-400 overflow-hidden z-[2]'>
+                  <button className='p-2 bg-white flex items-center justify-center'>
+                    <img 
+                      src='/images/location.png'
+                      alt='현재 위치로 이동'
+                      className='w-6' 
+                      onClick={() => accessCurrentLocation()} />
+                  </button>
+                </div>
                 <Map
                   id='map'
                   ref={mapRef}
@@ -544,27 +565,6 @@ function App() {
                     />
                   )}
                 </Map>
-                {/* 지도 위에 표시될 마커 카테고리 */}
-                <CategoryTab 
-                  selectedCategory={selectedCategory}
-                  setSelectedCategory={setSelectedCategory}
-                  onclick={openReportPage}
-                />
-                { /* 지도 확대, 축소 컨트롤 div 입니다 */ }
-                <MapControls 
-                  zoomIn={zoomIn} 
-                  zoomOut={zoomOut} 
-                />
-                { /** 현재 위치로 이동 버튼 */ }
-                <div className='absolute bottom-[45px] right-3 rounded-md border border-gray-400 overflow-hidden z-[2]'>
-                  <button className='p-2 bg-white flex items-center justify-center'>
-                    <img 
-                      src='/images/location.png'
-                      alt='현재 위치로 이동'
-                      className='w-6' 
-                      onClick={() => accessCurrentLocation()} />
-                  </button>
-                </div>
               </div>
             </>
           } />
