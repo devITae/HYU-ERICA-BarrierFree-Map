@@ -1,7 +1,7 @@
 import tw from 'twin.macro'
 import styled from 'styled-components'
 import { amenities } from '@/data/amenities'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface DetailsPopupProps {
     id: number
@@ -19,7 +19,7 @@ const CheckboxItem = styled.input`
 `
 
 const CheckboxLabel = styled.label`
-    ${tw`block w-4 h-4 bg-no-repeat bg-center bg-contain cursor-pointer`}
+    ${tw`block w-4 h-4 bg-no-repeat bg-center bg-contain cursor-pointer not-sr-only`}
         background-image: url('/images/xbox.png');
 
     input:checked + & {
@@ -37,15 +37,15 @@ const CheckboxTextLabel = styled.label`
 
 const DetailsPopup: React.FC<DetailsPopupProps> = ({ id, title, data, isVisibleId }) => {
     const titleRef = useRef<HTMLDivElement>(null)
+    const [hasFocused, setHasFocused] = useState(false) // 최초 포커스 여부 관리
 
     useEffect(() => {
-        if (isVisibleId === id) {
-            // ID가 일치하면 포커스 맞추기 또는 다른 동작 수행
-            console.log(`ID ${id}가 선택되었습니다.`)
-            // 예: 스크린리더에게 읽히거나, focus() 호출
-            titleRef.current?.focus()
+        // isVisibleId가 변경되고 해당 ID가 맞을 때만 포커스 설정, 단 최초 1회만
+        if (isVisibleId === id && titleRef.current && !hasFocused) {
+            titleRef.current.focus() // 최초 포커스
+            setHasFocused(true) // 포커스 이후 상태 변경
         }
-    }, [isVisibleId, id])
+    }, [isVisibleId, id, hasFocused])
 
     return (
         <>
@@ -53,10 +53,12 @@ const DetailsPopup: React.FC<DetailsPopupProps> = ({ id, title, data, isVisibleI
                 <div
                     ref={titleRef}
                     tabIndex={-1}
-                    className='flex mb-4 font-fBold'
-                    aria-label={`다음은 ${title}에 대한 시설정보 입니다`}
+                    className='flex mb-4 font-fBold not-sr-only'
                 >
                     {title}
+                </div>
+                <div className='sr-only'>
+                    다음은 {title}에 대한 시설정보 입니다
                 </div>
                 <CheckboxWrapper>
                     <CheckboxItem
@@ -65,10 +67,11 @@ const DetailsPopup: React.FC<DetailsPopupProps> = ({ id, title, data, isVisibleI
                         type="checkbox" value="" 
                     />
                     <CheckboxLabel htmlFor="wheel-checkbox" />
-                    <CheckboxTextLabel
-                        aria-label={`${title}엔 휠체어의 진입이 ${data.wheel ? '가능합니다.' : '불가합니다.'}`}
-                    >
+                    <CheckboxTextLabel>
                         휠체어 진입가능
+                        <div className='sr-only'>
+                            {title}엔 휠체어의 진입이 {data.wheel ? '가능합니다.' : '불가합니다.'}
+                        </div>
                     </CheckboxTextLabel>
                 </CheckboxWrapper>
 
@@ -79,10 +82,11 @@ const DetailsPopup: React.FC<DetailsPopupProps> = ({ id, title, data, isVisibleI
                         type="checkbox" value="" 
                     />
                     <CheckboxLabel htmlFor="elevator-checkbox" />
-                    <CheckboxTextLabel
-                        aria-label={`${title}에 승강기가 ${data.wheel ? '있습니다' : '없습니다.'}`}
-                    >
+                    <CheckboxTextLabel>
                         승강기
+                        <div className='sr-only'>
+                            {title}에 승강기가 {data.wheel ? '있습니다' : '없습니다.'}
+                        </div>
                     </CheckboxTextLabel>
                 </CheckboxWrapper>
 
@@ -98,8 +102,10 @@ const DetailsPopup: React.FC<DetailsPopupProps> = ({ id, title, data, isVisibleI
                             <CheckboxLabel 
                                 id='caution' 
                                 htmlFor="toilet-checkbox" 
-                                aria-label={`장애인 화장실 이용에 주의가 필요합니다.`}
                             />
+                            <div className='sr-only'>
+                                장애인 화장실 이용에 주의가 필요합니다.
+                            </div>
                         </>
                     ) : (
                         <>
@@ -111,10 +117,11 @@ const DetailsPopup: React.FC<DetailsPopupProps> = ({ id, title, data, isVisibleI
                             <CheckboxLabel htmlFor="toilet-checkbox" />
                         </>
                     )}    
-                    <CheckboxTextLabel
-                        aria-label={`${title}에 장애인 화장실이 ${data.wheel ? '있습니다' : '없습니다.'}`}
-                    >
+                    <CheckboxTextLabel>
                         장애인 화장실
+                        <div className='sr-only'>
+                            {title}에 장애인 화장실이 {data.wheel ? '있습니다' : '없습니다.'}
+                        </div>
                     </CheckboxTextLabel>
                 </CheckboxWrapper>
 
@@ -125,10 +132,11 @@ const DetailsPopup: React.FC<DetailsPopupProps> = ({ id, title, data, isVisibleI
                         type="checkbox" value="" 
                     />
                     <CheckboxLabel htmlFor="dots-checkbox" />
-                    <CheckboxTextLabel
-                        aria-label={`${title}에 점자 안내판이 ${data.wheel ? '있습니다' : '없습니다.'}`}
-                    >
+                    <CheckboxTextLabel>
                         점자안내판 (촉지도)
+                        <div className='sr-only'>
+                            {title}에 점자 안내판이 {data.wheel ? '있습니다' : '없습니다.'}
+                        </div>
                     </CheckboxTextLabel>
                 </CheckboxWrapper>
 
@@ -136,10 +144,13 @@ const DetailsPopup: React.FC<DetailsPopupProps> = ({ id, title, data, isVisibleI
                     data.caution !== '' ? (
                         <>
                             <div className='flex items-center rounded-lg px-3 py-2 mb-2 bg-red-100'>
-                                <img className='w-6 h-6 user-drag-none' src='/images/caution.png' alt='다음은 이용 시 주의사항 입니다.' />
-                                <div className='ml-2 text-[0.75rem]'>
-                                    {data.caution}
-                                </div>
+                                <img 
+                                    className='w-6 h-6 user-drag-none' 
+                                    src='/images/caution.png' 
+                                    alt='다음은 이용 시 주의사항 입니다.' />
+                                    <div className='ml-2 text-[0.75rem]'>
+                                        {data.caution}
+                                    </div>
                             </div>
                         </>
                     ) : null
