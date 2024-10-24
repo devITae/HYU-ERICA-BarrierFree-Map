@@ -37,15 +37,19 @@ const CheckboxTextLabel = styled.label`
 
 const DetailsPopup: React.FC<DetailsPopupProps> = ({ id, title, data, isVisibleId }) => {
     const titleRef = useRef<HTMLDivElement>(null)
-    const [hasFocused, setHasFocused] = useState(false) // 최초 포커스 여부 관리
+    const [viewingId, setViewingID] = useState<number | null>(null) // 현재 보고 있는 ID
+    //const [hasFocused, setHasFocused] = useState(false) // 최초 포커스 여부 관리
 
     useEffect(() => {
         // isVisibleId가 변경되고 해당 ID가 맞을 때만 포커스 설정, 단 최초 1회만
-        if (isVisibleId === id && titleRef.current && !hasFocused) {
+        //if (isVisibleId === id && titleRef.current && !hasFocused) {
+        if (isVisibleId === id && id !== viewingId && titleRef.current) {
+            //setHasFocused(true) // 포커스 이후 상태 변경\
+            setViewingID(id)
             titleRef.current.focus() // 최초 포커스
-            setHasFocused(true) // 포커스 이후 상태 변경
+            console.log('focus')
         }
-    }, [isVisibleId, id, hasFocused])
+    }, [isVisibleId, id, viewingId])
 
     return (
         <>
@@ -53,7 +57,7 @@ const DetailsPopup: React.FC<DetailsPopupProps> = ({ id, title, data, isVisibleI
                 <div
                     ref={titleRef}
                     tabIndex={-1}
-                    className='flex mb-4 font-fBold not-sr-only'
+                    className='flex mb-4 font-fBold not-sr-only outline-none'
                 >
                     {title}
                 </div>
