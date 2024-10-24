@@ -29,6 +29,7 @@ const HeaderButton = styled.button`
 
 function App() {
   const mapRef = useRef<kakao.maps.Map>(null)
+  const refInput = useRef<HTMLInputElement>(null)
   const [isVisibleId, setIsVisibleId] = useState<number | null>(null)
   const [inputValue, setInputValue] = useState('')
   const [isSearchVisible, setSearchVisible] = useState(false)
@@ -150,6 +151,13 @@ function App() {
       setIsVisibleId(id)
     }, 240)
   }
+
+  // 검색창 열때 input에 포커스
+  useEffect(() => {
+    if (refInput.current) {
+      refInput.current?.focus()
+    }
+  }, [isSearchVisible])
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
@@ -313,6 +321,7 @@ function App() {
               id={id} 
               title={content} 
               data={amenityData}
+              isVisibleId={isVisibleId}
             />
             <div className='flex justify-center text-[0.8rem] px-5 pb-5 pt-1'>
               <Link
@@ -390,6 +399,7 @@ function App() {
                   <h2 className="flex text-md mb-2 font-fBold">장소 검색</h2>
                     <div className='h-12 flex justify-center items-center gap-2'>
                       <input
+                        ref={refInput}
                         type="text"
                         placeholder="장소를 검색하세요."
                         className="w-full h-11 border border-[#002060] rounded-md p-2"
