@@ -32,8 +32,8 @@ export default defineConfig({
 
       // PWA Settings
       manifest: {
-        name: '오픈하냥',
-        short_name: '오픈하냥',
+        name: '길편하냥',
+        short_name: '길편하냥',
         description: '한양대학교 ERICA캠퍼스 배리어프리맵',
         theme_color: '#ffffff',
         icons: [
