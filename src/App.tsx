@@ -40,6 +40,7 @@ function App() {
   const [mapLevel, setMapLevel] = useState(3)
   const [plusLat, setPlusLat] = useState(0.002)
   const [targetAlertName, setTargetAlertName] = useState('info')
+  const [hasFocused, setHasFocused] = useState(false) // 최초 포커스 여부 관리
 
   const isAndroidPWA = window.matchMedia('(display-mode: standalone)').matches
   if (isAndroidPWA) {
@@ -322,6 +323,8 @@ function App() {
               title={content} 
               data={amenityData}
               isVisibleId={isVisibleId}
+              hasFocused={hasFocused}
+              setHasFocused={setHasFocused}
             />
             <div className='flex justify-center text-[0.8rem] px-5 pb-5 pt-1'>
               <Link
@@ -361,8 +364,17 @@ function App() {
                 className='pl-[0.2rem] flex items-center cursor-pointer'
                 onClick={() => window.location.reload()}
               >
-                  <img className='w-5 mr-2' src='/images/logo.png' />
-                  <h1 className="text-lg font-fBold tracking-tight">길편하냥</h1>
+                  <img 
+                    className='w-5 mr-2' 
+                    src='/images/logo.png' 
+                    alt='길편하냥 로고'
+                  />
+                  <h1
+                    aria-label='길편하냥 타이틀 텍스트'
+                    className="text-lg font-fBold tracking-tight"
+                  >
+                    길편하냥
+                  </h1>
               </div>
               <div className='flex right-0 items-center'>
                 <HeaderButton 
@@ -373,7 +385,7 @@ function App() {
                     <img 
                       src='/images/download-square.svg'
                       className='fill-black'
-                      alt='앱 설치' 
+                      alt='앱 설치 안내' 
                     />
                 </HeaderButton>
                 <HeaderButton 

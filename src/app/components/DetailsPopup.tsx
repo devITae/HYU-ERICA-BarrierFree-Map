@@ -1,13 +1,15 @@
 import tw from 'twin.macro'
 import styled from 'styled-components'
 import { amenities } from '@/data/amenities'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 
 interface DetailsPopupProps {
     id: number
     title: string
     data: amenities
     isVisibleId: number | null
+    hasFocused: boolean
+    setHasFocused: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const CheckboxWrapper = styled.div`
@@ -35,48 +37,50 @@ const CheckboxTextLabel = styled.label`
     ${tw`ml-2 text-sm`}
 `
 
-const DetailsPopup: React.FC<DetailsPopupProps> = ({ id, title, data, isVisibleId }) => {
-    const titleRef = useRef<HTMLDivElement>(null)
+const DetailsPopup: React.FC<DetailsPopupProps> = ({ id, title, data, isVisibleId, hasFocused, setHasFocused }) => {
+    const divRef = useRef<HTMLDivElement>(null)
     //const [viewingId, setViewingID] = useState<number | null>(null) // 현재 보고 있는 ID
-    const [hasFocused, setHasFocused] = useState(false) // 최초 포커스 여부 관리
 
     useEffect(() => {
-        // isVisibleId가 변경되고 해당 ID가 맞을 때만 포커스 설정, 단 최초 1회만
-        if (isVisibleId === id && titleRef.current && !hasFocused) {
-        //if (id !== viewingId && isVisibleId === id && titleRef.current) {
-            setHasFocused(true) // 포커스 이후 상태 변경
-            //setViewingID(id)
-            titleRef.current.focus() // 최초 포커스
-            console.log('focus')
+        if (isVisibleId === id && divRef.current && !hasFocused) {
+            divRef.current.focus();
+            setHasFocused(true);
+            console.log('focus set for id:', id);
         }
-    }, [isVisibleId, id, hasFocused])
+        // 디버깅을 위한 상태 출력
+        console.log('Effect triggered - isVisibleId:', isVisibleId, 'id:', id, 'hasFocused:', hasFocused);
+    }, [id, isVisibleId, hasFocused, setHasFocused]);
 
     return (
         <>
-            <div className='pl-5 pr-5 pt-5 w-[230px]'>  
+            <div 
+                ref={divRef}
+                className='pl-5 pr-5 pt-5 w-[230px]'
+            >  
+                <div className='sr-only'>
+                    {`다음은 ${title}에 대한 시설정보 입니다`}
+                </div>
                 <div
-                    ref={titleRef}
                     tabIndex={-1}
                     aria-hidden={true}
                     className='flex mb-4 font-fBold border-transparent focus:border-transparent focus:ring-0'
                 >
                     {title}
                 </div>
-                <div className='sr-only' aria-live='polite'>
-                    다음은 {title}에 대한 시설정보 입니다
-                </div>
+                
                 <CheckboxWrapper>
                     <CheckboxItem
                         id="wheel-checkbox"
                         checked={data.wheel}
-                        type="checkbox" value="" 
+                        type="checkbox" value=""
+                        aria-hidden={true}
                     />
-                    <CheckboxLabel htmlFor="wheel-checkbox" />
+                    <CheckboxLabel htmlFor="wheel-checkbox" aria-hidden={true} />
                     <CheckboxTextLabel aria-hidden={true} >
                         휠체어 진입가능
                     </CheckboxTextLabel>
-                    <div className='sr-only' aria-live='polite'>
-                        {title}엔 휠체어의 진입이 {data.wheel ? '가능합니다.' : '불가합니다.'}
+                    <div className='sr-only'>
+                        {`${title}엔 휠체어의 진입이 ${data.wheel ? '가능합니다.' : '불가합니다.'}`}
                     </div>
                 </CheckboxWrapper>
 
@@ -85,13 +89,14 @@ const DetailsPopup: React.FC<DetailsPopupProps> = ({ id, title, data, isVisibleI
                         id="elevator-checkbox"
                         checked={data.elevator}
                         type="checkbox" value="" 
+                        aria-hidden={true}
                     />
-                    <CheckboxLabel htmlFor="elevator-checkbox" />
+                    <CheckboxLabel htmlFor="elevator-checkbox" aria-hidden={true} />
                     <CheckboxTextLabel aria-hidden={true} >
                         승강기
                     </CheckboxTextLabel>
-                    <div className='sr-only' aria-live='polite'>
-                        {title}에 승강기가 {data.wheel ? '있습니다' : '없습니다.'}
+                    <div className='sr-only'>
+                        {`${title}에 승강기가 ${data.elevator ? '있습니다' : '없습니다.'}`}
                     </div>
                 </CheckboxWrapper>
 
@@ -103,12 +108,14 @@ const DetailsPopup: React.FC<DetailsPopupProps> = ({ id, title, data, isVisibleI
                                 id="toilet-checkbox"
                                 checked={data.toilet}
                                 type="checkbox" value="" 
+                                aria-hidden={true}
                             />
                             <CheckboxLabel
                                 id='caution' 
                                 htmlFor="toilet-checkbox" 
+                                aria-hidden={true}
                             />
-                            <div className='sr-only' aria-live='polite'>
+                            <div className='sr-only'>
                                 장애인 화장실 이용에 주의가 필요합니다.
                             </div>
                         </>
@@ -118,15 +125,16 @@ const DetailsPopup: React.FC<DetailsPopupProps> = ({ id, title, data, isVisibleI
                                 id="toilet-checkbox"
                                 checked={data.toilet}
                                 type="checkbox" value="" 
+                                aria-hidden={true}
                             />
-                            <CheckboxLabel htmlFor="toilet-checkbox" />
+                            <CheckboxLabel htmlFor="toilet-checkbox" aria-hidden={true} />
                         </>
                     )}    
                     <CheckboxTextLabel aria-hidden={true} >
                         장애인 화장실
                     </CheckboxTextLabel>
-                    <div className='sr-only' aria-live='polite'>
-                        {title}에 장애인 화장실이 {data.wheel ? '있습니다' : '없습니다.'}
+                    <div className='sr-only'>
+                        {`${title}에 장애인 화장실이 ${data.toilet ? '있습니다' : '없습니다.'}`}
                     </div>
                 </CheckboxWrapper>
 
@@ -135,13 +143,14 @@ const DetailsPopup: React.FC<DetailsPopupProps> = ({ id, title, data, isVisibleI
                         id="dots-checkbox"
                         checked={data.dots}
                         type="checkbox" value="" 
+                        aria-hidden={true}
                     />
-                    <CheckboxLabel htmlFor="dots-checkbox" />
+                    <CheckboxLabel htmlFor="dots-checkbox" aria-hidden={true} />
                     <CheckboxTextLabel aria-hidden={true} >
                         점자안내판 (촉지도)
                     </CheckboxTextLabel>
-                    <div className='sr-only' aria-live='polite'>
-                        {title}에 점자 안내판이 {data.wheel ? '있습니다' : '없습니다.'}
+                    <div className='sr-only'>
+                        {`${title}에 점자 안내판이 ${data.dots ? '있습니다' : '없습니다.'}`}
                     </div>
                 </CheckboxWrapper>
 
