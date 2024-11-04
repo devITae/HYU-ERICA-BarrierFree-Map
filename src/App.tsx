@@ -70,7 +70,7 @@ function App() {
   
   const openReportPage = () => {
     window.open(
-      'https://m.naver.com',
+      'https://naver.me/xbAgSdy4',
       '_black',
       'noopener noreferrer',
     )
