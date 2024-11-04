@@ -96,7 +96,7 @@ const DetailsPopup: React.FC<DetailsPopupProps> = ({ id, title, data, isVisibleI
                         승강기
                     </CheckboxTextLabel>
                     <div className='sr-only'>
-                        {`${title}에 승강기가 ${data.elevator ? '있습니다' : '없습니다.'}`}
+                        {`${title}에 승강기가 ${data.elevator ? '있습니다.' : '없습니다.'}`}
                     </div>
                 </CheckboxWrapper>
 
@@ -134,7 +134,7 @@ const DetailsPopup: React.FC<DetailsPopupProps> = ({ id, title, data, isVisibleI
                         장애인 화장실
                     </CheckboxTextLabel>
                     <div className='sr-only'>
-                        {`${title}에 장애인 화장실이 ${data.toilet ? '있습니다' : '없습니다.'}`}
+                        {`${title}에 장애인 화장실이 ${data.toilet ? '있습니다.' : '없습니다.'}`}
                     </div>
                 </CheckboxWrapper>
 
@@ -150,7 +150,7 @@ const DetailsPopup: React.FC<DetailsPopupProps> = ({ id, title, data, isVisibleI
                         점자안내판 (촉지도)
                     </CheckboxTextLabel>
                     <div className='sr-only'>
-                        {`${title}에 점자 안내판이 ${data.dots ? '있습니다' : '없습니다.'}`}
+                        {`${title}에 점자 안내판이 ${data.dots ? '있습니다.' : '없습니다.'}`}
                     </div>
                 </CheckboxWrapper>
 
