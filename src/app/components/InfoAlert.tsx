@@ -56,7 +56,7 @@ const InfoAlert: React.FC<InfoAlertProps> = ({ targetName, onClose, setInputValu
           // 개발 정보
           targetName === 'info' && (
             <>
-              <p className='mb-4'>한양대학교 ERICA캠퍼스의 배리어프리맵<br/>웹서비스인 '오픈하냥' 입니다.</p>
+              <p className='mb-4'>한양대학교 ERICA캠퍼스의 배리어프리맵<br/>웹서비스인 '길편하냥' 입니다.</p>
               <p>[개발자]</p>
               <p>Frontend: 이재형 (컴퓨터학부 21)</p>
               <p>Backend: 정윤성 (컴퓨터학부 20)</p>
