@@ -489,9 +489,13 @@ function App() {
                   center={mapState.center} // 지도의 중심 좌표
                   isPanto={mapState.isPanto} // 지도의 중심 좌표를 변경할 때 애니메이션 효과를 줄지 여부
                   style={{'width': '100%', 'height': '100vh'}} // 지도 크기
-                  level={3}                                   // 지도 확대 레벨
-                  minLevel={5}                                // 지도 최소 레벨
-                  maxLevel={2}                               // 지도 최대 레벨
+                  level={ 
+                    (navigator.userAgent.indexOf('iPhone') 
+                    || navigator.userAgent.indexOf('Android')) > -1 
+                    ? 4 : 3 //pc 화면 : 3 / 모바일 : 4  
+                  }  // 지도 확대 레벨
+                  minLevel={5}  // 지도 최소 레벨
+                  maxLevel={2}  // 지도 최대 레벨
                   onDragEnd={(map) => {
                     const latlng = map.getCenter()
                     setMapState((prev) => ({
