@@ -30,17 +30,39 @@ const HeaderButton = styled.button`
 function App() {
   const mapRef = useRef<kakao.maps.Map>(null)
   const refInput = useRef<HTMLInputElement>(null)
-  const [isVisibleId, setIsVisibleId] = useState<number | null>(null)
-  const [inputValue, setInputValue] = useState('')
-  const [isSearchVisible, setSearchVisible] = useState(false)
-  const [showAlert, setShowAlert] = useState(false)
-  const [showResults, setShowResults] = useState(false)
-  const [rampSize, setRampSize] = useState(17)
-  const [parkingSize, setParkingSize] = useState(27)
-  const [mapLevel, setMapLevel] = useState(3)
-  const [plusLat, setPlusLat] = useState(0.002)
-  const [targetAlertName, setTargetAlertName] = useState('info')
+  const [isVisibleId, setIsVisibleId] = useState<number | null>(null) // Popup ID
+  const [inputValue, setInputValue] = useState('') // 검색창 입력값
+  const [isSearchVisible, setSearchVisible] = useState(false) // 검색창 표시 여부
+  const [showAlert, setShowAlert] = useState(false) // 알림창 표시 여부
+  const [showResults, setShowResults] = useState(false) // 검색 결과 표시 여부
+  const [rampSize, setRampSize] = useState(17) // 경사로 마커 사이즈
+  const [parkingSize, setParkingSize] = useState(27) // 주차장 마커 사이즈
+  const [mapLevel, setMapLevel] = useState(3) // 지도 확대 레벨
+  const [plusLat, setPlusLat] = useState(0.002) // Popup 실행 시 마커 위치 조정값
+  const [targetAlertName, setTargetAlertName] = useState('info') // Alert 창 종류
   const [hasFocused, setHasFocused] = useState(false) // 최초 포커스 여부 관리
+
+  // 현재 위치를 저장할 state
+  const [state, setState] = useState({
+    center: {
+      lat: 37.29781,
+      lng: 126.835358,
+    },
+    errMsg: null,
+    isLoading: true,
+  })
+
+  // 지도의 중심을 저장할 state
+  const [mapState, setMapState] = useState({
+    center: {
+      lat: 37.29781,
+      lng: 126.835358,
+    },
+    isPanto: false,
+  })
+
+  // 카테고리 선택을 저장할 state
+  const [selectedCategory, setSelectedCategory] = useState("entire")
 
   const isAndroidPWA = window.matchMedia('(display-mode: standalone)').matches
   if (isAndroidPWA) {
@@ -98,27 +120,6 @@ function App() {
     if (!map) return
     map.setLevel(map.getLevel() + 1)
   }
-
-  // 현재 위치를 저장할 state
-  const [state, setState] = useState({
-    center: {
-      lat: 37.29781,
-      lng: 126.835358,
-    },
-    errMsg: null,
-    isLoading: true,
-  })
-
-  // 지도의 중심을 저장할 state
-  const [mapState, setMapState] = useState({
-    center: {
-      lat: 37.29781,
-      lng: 126.835358,
-    },
-    isPanto: false,
-  })
-
-  const [selectedCategory, setSelectedCategory] = useState("entire")
 
   function accessCurrentLocation() {
     if (state.center === mapState.center) {
@@ -193,52 +194,46 @@ function App() {
   }, [mapLevel])
 
   useEffect(() => {
-    // Dynamically load the Kakao Maps API script
-    const loadKakaoMapScript = () => {
-      return new Promise<void>((resolve) => {
-        if (document.getElementById('kakao-map-script')) {
-          resolve() // script already loaded
-          return
-        }
+    kakao.maps.load(() => {
+      const tileset = new kakao.maps.Tileset({
+        width: 256,
+        height: 256,
+        getTile: (x, y, z) => {
+          const div = document.createElement('div');
+          const whiteBox = document.createElement('div');
+          whiteBox.style.background = '#fff';
 
-        const script = document.createElement('script');
-        script.id = 'kakao-map-script';
-        script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VITE_KAKAOMAP_API_KEY}`
-        script.onload = () => resolve()
-        document.head.appendChild(script)
+          if (z === 2 && x >= 1676 && x <= 1688 && y >= 3759 && y <= 3770) {
+            return div;
+          } else if (z === 3 && x >= 838 && x <= 844 && y >= 1879 && y <= 1885) {
+            return div;
+          } else if (z === 4 && x >= 419 && x <= 422 && y >= 940 && y <= 942) {
+            return div;
+          } else if (z === 5 && x >= 209 && x <= 211 && y >= 469 && y <= 471) {
+            return div;
+          } else {
+            // 범위를 벗어난 경우 흰색으로 처리
+            return whiteBox;
+          }
+        },
       })
-    }
+      kakao.maps.Tileset.add('ROADMAP', tileset)
+    })
+  }, [])
 
-    // After the script is loaded, initialize the map and the tileset
-    const initializeMapAndTileset = () => {
-      kakao.maps.load(() => {
-        const tileset = new kakao.maps.Tileset({
-          width: 256,
-          height: 256,
-          getTile: (x, y, z) => {
-            const div = document.createElement('div');
-            const whiteBox = document.createElement('div');
-            whiteBox.style.background = '#fff';
-
-            if (z === 2 && x >= 1676 && x <= 1688 && y >= 3759 && y <= 3770) {
-              return div;
-            } else if (z === 3 && x >= 838 && x <= 844 && y >= 1879 && y <= 1885) {
-              return div;
-            } else if (z === 4 && x >= 419 && x <= 422 && y >= 940 && y <= 942) {
-              return div;
-            } else if (z === 5 && x >= 209 && x <= 211 && y >= 469 && y <= 471) {
-              return div;
-            } else {
-              // 범위를 벗어난 경우 흰색으로 처리
-              return whiteBox;
-            }
-          },
-        })
-        kakao.maps.Tileset.add('ROADMAP', tileset)
-      })
-    }
-
-    loadKakaoMapScript().then(() => initializeMapAndTileset())
+  useEffect(() => {
+    // 스크린 리더가 카카오 로고 및 스케일 요소 읽지 않도록 설정
+    window.addEventListener('load', () => {
+      const targetElement = document.querySelector(
+        'div[style="position: absolute; cursor: default; z-index: 1; margin: 0px 6px; height: 19px; line-height: 14px; left: 0px; bottom: 0px; color: rgb(0, 0, 0);"]'
+      )
+    
+      if (targetElement) {
+        targetElement.setAttribute('aria-hidden', 'true') // 스크린 리더 무시 설정
+        targetElement.setAttribute('role', 'presentation')
+        targetElement.setAttribute('tabindex', '-1') // 포커스 제거
+      }
+    })
   }, [])
 
   useEffect(() => {
@@ -414,7 +409,7 @@ function App() {
                         ref={refInput}
                         type="text"
                         placeholder="장소를 검색하세요."
-                        className="w-full h-11 border border-[#002060] rounded-md p-2"
+                        className="w-full h-11 border border-[#002060] rounded-md p-2 pointer-events-auto touch-auto"
                         value={inputValue}
                         onChange={handleChange}
                         onKeyDown={(e) => { if (e.key === 'Enter') setShowResults(true) }}
