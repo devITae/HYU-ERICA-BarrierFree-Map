@@ -60,7 +60,7 @@ const InfoAlert: React.FC<InfoAlertProps> = ({ targetName, onClose, setInputValu
               <p>[개발자]</p>
               <p>Frontend: 이재형 (컴퓨터학부 21)</p>
               <p>Backend: 정윤성 (컴퓨터학부 20)</p>
-              <p>Designer: 임동섭 (경영학부 21)</p>
+              <p>Designer: 임동섭 (경영학부 22)</p>
               <p className='mt-4'>
                 [도움]
                 <br/>
