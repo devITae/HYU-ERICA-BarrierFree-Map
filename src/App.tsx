@@ -1,5 +1,6 @@
 import { useState, useEffect, SetStateAction, useRef, lazy, Suspense } from 'react'
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
+//import { useQuery } from '@tanstack/react-query'
 import { Map, MapMarker } from 'react-kakao-maps-sdk'
 import tw from 'twin.macro'
 import styled from 'styled-components'
@@ -11,6 +12,7 @@ import DetailsPopup from '@/components/DetailsPopup'
 import MapControls from '@/components/MapControls'
 
 import { amenities } from '@/data/amenities'
+//import { buildingAPI } from '@/network/positions'
 import { pos, parking, ramp } from './positions.json'
 
 const FloorPlan = lazy(() => import('@/components/FloorPlans'))
@@ -72,6 +74,18 @@ function App() {
     }
   }
 
+  /** API 호출
+  const positions = useQuery({
+    queryKey: ['building'],
+    queryFn: buildingAPI,
+    staleTime: 5 * 60 * 1000,
+  })
+
+  const pos = positions.data?.pos ?? []
+  const ramp = positions.data?.ramp ?? []
+  const parking = positions.data?.parking ?? []
+  */
+  
   const toggleSearch = () => {
     setSearchVisible(!isSearchVisible)
   }
