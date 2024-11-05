@@ -198,7 +198,7 @@ function App() {
       setParkingSize(27)
     } else if(mapLevel === 4) {
       setRampSize(14)
-      setPlusLat(0.0035)
+      setPlusLat(0.0040)
       setParkingSize(22)
     } else if(mapLevel === 5) {
       setRampSize(10)
