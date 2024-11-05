@@ -2,15 +2,29 @@ import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { TransformComponent, TransformWrapper, useControls } from 'react-zoom-pan-pinch'
 import MapControls from '@/components/MapControls'
+import tw from 'twin.macro'
+import styled from 'styled-components'
+
+const CategoryItem = styled.button<{ isActive: boolean }>(({ isActive }) => [
+    tw`flex-col bg-white py-1 px-3 mr-2 mb-2 border border-gray-300 shadow-sm rounded-2xl cursor-pointer 
+        focus:outline-none transition-all duration-100 text-[0.9rem] justify-center items-center`,
+    isActive && tw`bg-blue-500 text-white font-fBold`,
+])
+    
+const CItemWrapper = styled.div`
+    ${tw`flex justify-center items-center`}
+`  
 
 function FloorPlans() {
     const location = useLocation()
     const navigate = useNavigate()
-    //const { id } = useParams()
     const title = location.state?.title
+    //const { id } = useParams()
+    //const url = 'https://bfmap.vercel.app'
 
     const [rotate, setRotate] = useState(false)
     const [imageSize, setImageSize] = useState({ width: '100%', height: '100vh' })
+    const [floor, setFloor] = useState('1F')
 
     useEffect(() => {
         const setViewportHeight = () => {
@@ -110,7 +124,30 @@ function FloorPlans() {
                     <h1 className="ml-3 text-lg font-fBold tracking-tight">{title}</h1>
                 </div>
             </header>
-            {/* 지도 이미지를 표시하는 div 입니다 */}
+            <div className='absolute top-[60px] left-[13px] overflow-hidden z-[2] font-fMedium'>
+                { /** 층 선택 버튼 */ }
+                { /**    
+                 * floors.map((floorName) => (
+                 *    <CategoryItem
+                 *      key={floorName}
+                 *      onClick={() => setFloor(floorName)}
+                 *      isActive={floor === floorName}
+                 *    >
+                 *      <CItemWrapper>
+                 *          {floorName}
+                 *      </CItemWrapper>
+                 *    </CategoryItem>
+                */}
+                <CategoryItem
+                    onClick={() => setFloor('1F')}
+                    isActive={floor === '1F'}
+                >
+                    <CItemWrapper>
+                        {floor}
+                    </CItemWrapper>
+                </CategoryItem>
+            </div>
+            {/* 이미지를 표시하는 div 입니다 */}
             <div>
                 <TransformWrapper 
                     initialScale={1} 
@@ -133,6 +170,7 @@ function FloorPlans() {
                         >
                             <img
                                 src="/images/test.png"
+                                // src={`${url}/images/${id}/${floor}.png`}
                                 alt={`${title}의 평면도`}
                                 className={`p-12 object-contain ${rotate ? 'rotate-90' : ''}`}
                                 style={{ width: imageSize.width, height: imageSize.height }}
