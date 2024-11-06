@@ -82,12 +82,13 @@ const InfoAlert: React.FC<InfoAlertProps> = ({ targetName, onClose, setInputValu
                 </a>
                 <br/>
               </p>
-
-              <p className='mt-4'>[문의]<br/>
-                <a className='text-blue-500' href='mailto:alpha@hanyang.ac.kr'>
-                  ehrc@hanyang.ac.kr
-                </a>
-              </p>
+              {/** 
+                <p className='mt-4'>[문의]<br/>
+                  <a className='text-blue-500' href='mailto:alpha@hanyang.ac.kr'>
+                    ehrc@hanyang.ac.kr
+                  </a>
+                </p>
+              */}
             </>
           )
         }
