@@ -189,6 +189,7 @@ function FloorPlans() {
                     centerOnInit={true}
                     centerZoomedOut={true}
                     limitToBounds={true} // 이미지 바깥을 벗어난 줌을 막기 위해 추가
+                    disabled={(isImageLoaded && !isLoadError) ? false : true}
                 >
                     {({ setTransform }) => (
                     <>  
