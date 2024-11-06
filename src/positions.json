@@ -1,9 +1,9 @@
 {
     "pos": [
-        {   
+        {
             "id": 100,
             "title": "아고라 홍보관",
-            "lat": 37.3003040337446, 
+            "lat": 37.3003040337446,
             "lng": 126.83727801591303,
             "wheel": true,
             "toilet": true,
@@ -12,139 +12,200 @@
             "floorplan": false,
             "caution": "화장실이 지하에 있으며, 계단 이용만 가능합니다."
         },
-        {   
+        {
             "id": 101,
             "title": "본관",
-            "lat": 37.29902786948328, 
+            "lat": 37.29902786948328,
             "lng": 126.83318092474559,
             "wheel": true,
             "toilet": true,
             "elevator": true,
             "dots": true,
             "floorplan": true,
-            "caution": ""
+            "caution": "",
+            "floors": [
+                "1F",
+                "2F",
+                "3F",
+                "4F"
+            ]
         },
         {
             "id": 102,
             "title": "학생복지관",
-            "lat": 37.29801823353328, 
+            "lat": 37.29801823353328,
             "lng": 126.83444636212754,
             "wheel": true,
             "toilet": false,
             "elevator": true,
             "dots": false,
             "floorplan": true,
-            "caution": "경사로가 있는 곳이 건물의 2층입니다."
+            "caution": "경사로가 있는 곳이 건물의 2층입니다.",
+            "floors": [
+                "1F",
+                "2F",
+                "3F",
+                "4F",
+                "5F"
+            ]
         },
-        {   
+        {
             "id": 103,
             "title": "학생회관",
-            "lat": 37.297496146398146, 
+            "lat": 37.297496146398146,
             "lng": 126.83481405961977,
             "wheel": true,
             "toilet": false,
             "elevator": false,
             "dots": false,
             "floorplan": true,
-            "caution": "휠체어 이용 시 1층 이용만 가능합니다."
+            "caution": "휠체어 이용 시 1층 이용만 가능합니다.",
+            "floors": [
+                "1F",
+                "2F",
+                "3F",
+                "4F",
+                "5F"
+            ]
         },
-        {   
+        {
             "id": 105,
             "title": "건축디자인관",
-            "lat": 37.297013463533645, 
+            "lat": 37.297013463533645,
             "lng": 126.83276243000171,
             "wheel": true,
             "toilet": false,
             "elevator": false,
             "dots": false,
-            "floorplan": true,
+            "floorplan": false,
             "caution": "제2공학관을 통해 휠체어 진입이 가능합니다."
         },
-        {   
+        {
             "id": 109,
             "title": "디자인문화관",
-            "lat": 37.29684064414487, 
+            "lat": 37.29684064414487,
             "lng": 126.83161804854504,
             "wheel": true,
             "toilet": true,
             "elevator": true,
             "dots": true,
             "floorplan": true,
-            "caution": ""
+            "caution": "",
+            "floors": [
+                "1F"
+            ]
         },
-        {   
+        {
             "id": 110,
             "title": "디자인교육관",
-            "lat": 37.297029355162685, 
+            "lat": 37.297029355162685,
             "lng": 126.8312623554136,
             "wheel": true,
             "toilet": true,
             "elevator": true,
             "dots": true,
             "floorplan": true,
-            "caution": ""
+            "caution": "",
+            "floors": [
+                "1F",
+                "2F",
+                "3F",
+                "4F"
+            ]
         },
-        {   
+        {
             "id": 111,
             "title": "디자인연구관",
-            "lat": 37.29738189703901, 
+            "lat": 37.29738189703901,
             "lng": 126.83206234456621,
             "wheel": true,
             "toilet": true,
             "elevator": false,
             "dots": false,
             "floorplan": true,
-            "caution": ""
+            "caution": "",
+            "floors": [
+                "1F",
+                "2F",
+                "3F"
+            ]
         },
-        {   
+        {
             "id": 201,
             "title": "경상관",
-            "lat": 37.299876497421025, 
+            "lat": 37.299876497421025,
             "lng": 126.835976221991,
             "wheel": true,
             "toilet": true,
             "elevator": true,
             "dots": false,
             "floorplan": true,
-            "caution": "화장실 입구가 협소합니다."
+            "caution": "화장실 입구가 협소합니다.",
+            "floors": [
+                "1F",
+                "2F",
+                "3F",
+                "4F",
+                "5F"
+            ]
         },
-        {   
+        {
             "id": 202,
             "title": "국제문화관",
-            "lat": 37.29958034372007, 
+            "lat": 37.29958034372007,
             "lng": 126.83520990172566,
             "wheel": true,
             "toilet": true,
             "elevator": true,
             "dots": false,
             "floorplan": true,
-            "caution": ""
+            "caution": "",
+            "floors": [
+                "1F",
+                "2F",
+                "3F",
+                "4F",
+                "5F"
+            ]
         },
-        {   
+        {
             "id": 203,
             "title": "사회교육관/학군단",
-            "lat": 37.2999756726293, 
+            "lat": 37.2999756726293,
             "lng": 126.83440259558338,
             "wheel": true,
             "toilet": false,
             "elevator": false,
             "dots": false,
             "floorplan": true,
-            "caution": "이용에 불편함이 있습니다."
+            "caution": "이용에 불편함이 있습니다.",
+            "floors": [
+                "1F",
+                "2F",
+                "3F",
+                "4F"
+            ]
         },
-        {   
+        {
             "id": 204,
             "title": "언론정보관",
-            "lat": 37.30035053442978, 
+            "lat": 37.30035053442978,
             "lng": 126.83507005376936,
             "wheel": true,
             "toilet": true,
             "elevator": true,
             "dots": false,
             "floorplan": true,
-            "caution": ""
+            "caution": "",
+            "floors": [
+                "B1",
+                "1F",
+                "2F",
+                "3F",
+                "4F"
+            ]
         },
-        {   
+        {
             "id": 205,
             "title": "제1과학기술관",
             "lat": 37.29884259713409,
@@ -154,21 +215,38 @@
             "elevator": true,
             "dots": false,
             "floorplan": true,
-            "caution": "화장실 입구가 협소합니다."
+            "caution": "화장실 입구가 협소합니다.",
+            "floors": [
+                "B1",
+                "1F",
+                "2F",
+                "3F",
+                "4F",
+                "5F"
+            ]
         },
         {
             "id": 206,
             "title": "컨퍼런스홀",
-            "lat": 37.29908027576492, 
+            "lat": 37.29908027576492,
             "lng": 126.83684077910677,
             "wheel": true,
             "toilet": true,
             "elevator": true,
             "dots": false,
             "floorplan": true,
-            "caution": "복지관 방향 출입문으로만 휠체어 진입이 가능합니다."
+            "caution": "복지관 방향 출입문으로만 휠체어 진입이 가능합니다.",
+            "floors": [
+                "B1",
+                "1F",
+                "2F",
+                "3F",
+                "3MF",
+                "4F",
+                "5F"
+            ]
         },
-        {   
+        {
             "id": 207,
             "title": "제2과학기술관",
             "lat": 37.29869117284439,
@@ -178,9 +256,18 @@
             "elevator": true,
             "dots": false,
             "floorplan": true,
-            "caution": ""
+            "caution": "",
+            "floors": [
+                "B2",
+                "B1",
+                "1F",
+                "2F",
+                "3F",
+                "4F",
+                "5F"
+            ]
         },
-        {   
+        {
             "id": 208,
             "title": "HY-IPT 맞춤의약연구원",
             "lat": 37.298529917465736,
@@ -190,9 +277,15 @@
             "elevator": true,
             "dots": true,
             "floorplan": true,
-            "caution": ""
+            "caution": "",
+            "floors": [
+                "1F",
+                "2F",
+                "3F",
+                "4F"
+            ]
         },
-        {   
+        {
             "id": 209,
             "title": "제1학술관",
             "lat": 37.29829501621543,
@@ -202,7 +295,12 @@
             "elevator": false,
             "dots": false,
             "floorplan": true,
-            "caution": "휠체어 이용 시 2층 이용만 가능합니다."
+            "caution": "휠체어 이용 시 2층 이용만 가능합니다.",
+            "floors": [
+                "1F",
+                "2F",
+                "3F"
+            ]
         },
         {
             "id": 301,
@@ -214,7 +312,13 @@
             "elevator": true,
             "dots": true,
             "floorplan": true,
-            "caution": ""
+            "caution": "",
+            "floors": [
+                "1F",
+                "2F",
+                "3F",
+                "4F"
+            ]
         },
         {
             "id": 104,
@@ -225,7 +329,7 @@
             "toilet": true,
             "elevator": true,
             "dots": true,
-            "floorplan": true,
+            "floorplan": false,
             "caution": ""
         },
         {
@@ -238,7 +342,15 @@
             "elevator": false,
             "dots": true,
             "floorplan": true,
-            "caution": "3,4층은 제1공학관의 연결통로로 이용이 가능합니다."
+            "caution": "3,4층은 제1공학관의 연결통로로 이용이 가능합니다.",
+            "floors": [
+                "B1",
+                "1F",
+                "2F",
+                "3F",
+                "4F",
+                "5F"
+            ]
         },
         {
             "id": 304,
@@ -250,7 +362,15 @@
             "elevator": true,
             "dots": true,
             "floorplan": true,
-            "caution": ""
+            "caution": "",
+            "floors": [
+                "B1",
+                "1F",
+                "2F",
+                "3F",
+                "4F",
+                "5F"
+            ]
         },
         {
             "id": 305,
@@ -262,7 +382,15 @@
             "elevator": true,
             "dots": true,
             "floorplan": true,
-            "caution": "지하 1층에는 장애인 화장실이 없습니다."
+            "caution": "지하 1층에는 장애인 화장실이 없습니다.",
+            "floors": [
+                "B1",
+                "1F",
+                "2F",
+                "3F",
+                "4F",
+                "5F"
+            ]
         },
         {
             "id": 306,
@@ -273,7 +401,7 @@
             "toilet": true,
             "elevator": false,
             "dots": false,
-            "floorplan": true,
+            "floorplan": false,
             "caution": "입구 왼쪽의 경사로로 출입이 가능합니다."
         },
         {
@@ -285,7 +413,7 @@
             "toilet": true,
             "elevator": true,
             "dots": true,
-            "floorplan": true,
+            "floorplan": false,
             "caution": "장애인 화장실은 1층에만 있습니다."
         },
         {
@@ -298,7 +426,16 @@
             "elevator": true,
             "dots": false,
             "floorplan": true,
-            "caution": "장애인 화장실은 1층에만 있습니다."
+            "caution": "장애인 화장실은 1층에만 있습니다.",
+            "floors": [
+                "B1",
+                "1F",
+                "2F",
+                "3F",
+                "4F",
+                "5F",
+                "6F"
+            ]
         },
         {
             "id": 309,
@@ -310,7 +447,14 @@
             "elevator": true,
             "dots": true,
             "floorplan": true,
-            "caution": "장애인 화장실은 1층에만 있습니다."
+            "caution": "장애인 화장실은 1층에만 있습니다.",
+            "floors": [
+                "B1",
+                "1F",
+                "2F",
+                "3F",
+                "4F"
+            ]
         },
         {
             "id": 311,
@@ -322,7 +466,16 @@
             "elevator": true,
             "dots": true,
             "floorplan": true,
-            "caution": ""
+            "caution": "",
+            "floors": [
+                "B1",
+                "1F",
+                "2F",
+                "3F",
+                "4F",
+                "5F",
+                "6F"
+            ]
         },
         {
             "id": 316,
@@ -334,9 +487,13 @@
             "elevator": false,
             "dots": true,
             "floorplan": true,
-            "caution": ""
+            "caution": "",
+            "floors": [
+                "1F",
+                "2F"
+            ]
         },
-        {   
+        {
             "id": 401,
             "title": "학술정보관 (도서관)",
             "lat": 37.29684790553162,
@@ -346,7 +503,13 @@
             "elevator": true,
             "dots": true,
             "floorplan": true,
-            "caution": "1층 남자화장실에만 장애인 화장실이 있습니다."
+            "caution": "1층 남자화장실에만 장애인 화장실이 있습니다.",
+            "floors": [
+                "1F",
+                "2F",
+                "3F",
+                "4F"
+            ]
         },
         {
             "id": 402,
@@ -358,7 +521,12 @@
             "elevator": false,
             "dots": false,
             "floorplan": true,
-            "caution": "본 건물과 뮤즈홀 사이에 경사로가 있습니다."
+            "caution": "본 건물과 뮤즈홀 사이에 경사로가 있습니다.",
+            "floors": [
+                "1F",
+                "2F",
+                "3F"
+            ]
         },
         {
             "id": 403,
@@ -370,7 +538,12 @@
             "elevator": false,
             "dots": true,
             "floorplan": true,
-            "caution": "장애인 화장실은 1층에만 있습니다."
+            "caution": "장애인 화장실은 1층에만 있습니다.",
+            "floors": [
+                "1F",
+                "2F",
+                "3F"
+            ]
         },
         {
             "id": 501,
@@ -382,7 +555,13 @@
             "elevator": true,
             "dots": true,
             "floorplan": true,
-            "caution": ""
+            "caution": "",
+            "floors": [
+                "B1",
+                "1F",
+                "2F",
+                "3F"
+            ]
         },
         {
             "id": 502,
@@ -394,7 +573,12 @@
             "elevator": true,
             "dots": true,
             "floorplan": true,
-            "caution": ""
+            "caution": "",
+            "floors": [
+                "1F",
+                "2F",
+                "3F"
+            ]
         },
         {
             "id": 503,
@@ -406,7 +590,12 @@
             "elevator": true,
             "dots": true,
             "floorplan": true,
-            "caution": ""
+            "caution": "",
+            "floors": [
+                "1F",
+                "2F",
+                "3F"
+            ]
         },
         {
             "id": 504,
@@ -417,11 +606,11 @@
             "toilet": true,
             "elevator": true,
             "dots": false,
-            "floorplan": true,
+            "floorplan": false,
             "caution": ""
         }
     ],
-    "parking" : [
+    "parking": [
         {
             "lat": 37.29939928882698,
             "lng": 126.83785800590576,
@@ -503,7 +692,7 @@
             "memo": "디대"
         }
     ],
-    "ramp" : [
+    "ramp": [
         {
             "lat": 37.300168878794786,
             "lng": 126.83727830708563,
