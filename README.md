@@ -1,30 +1,32 @@
-# React + TypeScript + Vite
+# HYU-ERICA-BarrierFree-Map
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<img width="500" src="./public/images/twitter.png">
 
-Currently, two official plugins are available:
+> 한양대학교 ERICA캠퍼스 배리어프리맵 프로젝트 '길편하냥'
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Screenshots
+<img src="./public/screenshots.png">
 
-## Expanding the ESLint configuration
+## Features
+- 배리어프리 시설 정보 조회
+  - 장애인 주차장, 장애인 화장실, 승강기, 건물 진입 경사로 등
+- 장소 검색
+  - 음성 인식으로도 검색 가능
+- 웹 접근성 준수
+  - 각각의 요소들을 스크린 리더가 읽을 수 있음
+- 건물 구조도 조회
+- PWA 지원
+  - Android, iOS, iPadOS 등에서 웹 앱 설치 가능
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Developers
+- Frontend : [이재형](https://github.com/devITae) (컴퓨터학부 21)
+- Backend : [정윤성](https://github.com/yunsseong) (컴퓨터학부 20)
+- Design : 임동섭 (경영학부 22)
 
-- Configure the top-level `parserOptions` property like this:
+## License
+- 한국장애인개발원 - 유니버설디자인서체 ['KoddiUD 온고딕'](https://www.koddi.or.kr/ud/sub1_2)
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- [MIT License](https://github.com/devITae/HYU-ERICA-BarrierFree-Map/blob/main/LICENSE)
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Thanks to
+[한양대학교 ERICA 인권센터](https://ehrc.hanyang.ac.kr) & 인권센터 서포터즈 '소중한대'
