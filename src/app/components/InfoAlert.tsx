@@ -40,27 +40,31 @@ const InfoAlert: React.FC<InfoAlertProps> = ({ targetName, onClose, setInputValu
                 '정보' : (targetName === 'pwa' ? '앱 설치 안내' : '음성 인식')
             }
           </h2>
-          { targetName === 'mic' && (
-            <>
-              <button onClick={handleCloseButton}>
-                <img 
-                  src='/images/x_button.svg'
-                  alt='닫기'
-                  className='w-7'
-                />
-              </button>
-            </>
-          )}
+          { // 음성 인식 닫기 버튼
+            targetName === 'mic' && (
+              <>
+                <button onClick={handleCloseButton}>
+                  <img 
+                    src='/images/x_button.svg'
+                    alt='닫기'
+                    className='w-7'
+                  />
+                </button>
+              </>
+            )
+          }
         </div>
-        {
-          // 개발 정보
+
+        { // 개발 정보
           targetName === 'info' && (
             <>
               <p className='mb-4'>한양대학교 ERICA캠퍼스의 배리어프리맵<br/>웹서비스인 '길편하냥' 입니다.</p>
+
               <p>[개발자]</p>
               <p>Frontend: 이재형 (컴퓨터학부 21)</p>
               <p>Backend: 정윤성 (컴퓨터학부 20)</p>
               <p>Designer: 임동섭 (경영학부 22)</p>
+
               <p className='mt-4'>
                 [도움]
                 <br/>
@@ -71,15 +75,14 @@ const InfoAlert: React.FC<InfoAlertProps> = ({ targetName, onClose, setInputValu
                   한양대학교 ERICA 인권센터 
                 </a> & 소중한대
               </p>
+              
               <p className='mt-4'>[오픈소스]<br/>
                 <a className='text-blue-500' href='https://github.com/devITae/HYU-ERICA-BarrierFree-Map'>
-                  GitHub (Frontend)
+                  GitHub (Client)
                 </a>
                 <br/>
-                <a className='text-blue-500' href='https://github.com/devITae/HYU-ERICA-BarrierFree-Map'>
-                  GitHub (Backend)
-                </a>
               </p>
+
               <p className='mt-4'>[문의]<br/>
                 <a className='text-blue-500' href='mailto:alpha@hanyang.ac.kr'>
                   ehrc@hanyang.ac.kr
@@ -88,8 +91,8 @@ const InfoAlert: React.FC<InfoAlertProps> = ({ targetName, onClose, setInputValu
             </>
           )
         }
-        {
-          // PWA 설치 안내
+
+        { // PWA 설치 안내
           targetName === 'pwa' && (
             <>
               <p className='mb-4'>
@@ -106,6 +109,7 @@ const InfoAlert: React.FC<InfoAlertProps> = ({ targetName, onClose, setInputValu
             </>
           )
         }
+        
         {
           // 음성 인식 UI
           targetName === 'mic' && (
@@ -122,6 +126,7 @@ const InfoAlert: React.FC<InfoAlertProps> = ({ targetName, onClose, setInputValu
             </>
           )
         }
+
         {
           targetName !== 'mic' ? (
             // 기본 닫기 버튼
