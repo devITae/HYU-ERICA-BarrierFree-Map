@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useCallback, useEffect, useState } from 'react'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { TransformComponent, TransformWrapper, useControls } from 'react-zoom-pan-pinch'
 import MapControls from '@/components/MapControls'
 import tw from 'twin.macro'
@@ -18,13 +18,51 @@ const CItemWrapper = styled.div`
 function FloorPlans() {
     const location = useLocation()
     const navigate = useNavigate()
-    const title = location.state?.title
-    //const { id } = useParams()
-    //const url = 'https://bfmap.vercel.app'
 
+    const { id } = useParams()
+    const title = location.state?.title
+    const floors = location.state?.floors || []
+
+    const [isImageLoaded, setIsImageLoaded] = useState(false)
+    const [isLoadError, setIsLoadError] = useState(false)
     const [rotate, setRotate] = useState(false)
     const [imageSize, setImageSize] = useState({ width: '100%', height: '100vh' })
     const [floor, setFloor] = useState('1F')
+    const [imageSrc, setImageSrc] = useState('')
+
+    const fetchImage = useCallback(async () => {
+        setIsImageLoaded(false) // 로딩 상태로 전환
+        setIsLoadError(false) // 에러 상태 해제
+        try {
+            const response = await fetch(`http://yunsseong.uk:7777/images/${id}/${floor}.png`, {
+                // mode: 'no-cors' // Mixed Content 우회를 위해 no-cors 모드 설정
+            })
+            
+            if (!response.ok) {
+                throw new Error('이미지를 불러올 수 없습니다.');
+            }
+            
+            const blob = await response.blob()
+            const url = URL.createObjectURL(blob)
+            setImageSrc(url) // Blob URL을 상태에 저장
+            setIsImageLoaded(true) // 로딩 상태 해제
+        } catch (error) {
+            console.error('이미지를 로드하는데 실패했습니다:', error)
+            setIsImageLoaded(false)
+            setIsLoadError(true)
+        } 
+    }, [floor, id])
+    
+    useEffect(() => {
+        // 이미지 URL을 HTTP에서 다운로드
+        fetchImage()
+        // 컴포넌트가 언마운트될 때 Blob URL 해제
+        return () => {
+            if (imageSrc) {
+                URL.revokeObjectURL(imageSrc)
+            }
+        }
+    }, [fetchImage, floor, imageSrc])
 
     useEffect(() => {
         const setViewportHeight = () => {
@@ -47,6 +85,17 @@ function FloorPlans() {
             setImageSize({ width: `100%`, height: '100vh' })
         }
     }, [rotate])
+
+    // If no state is passed, redirect back to the previous page or a default route
+    useEffect(() => {
+        if (!title) {
+            navigate('/'); // Redirect to home or another page if no id
+        }
+    }, [title, navigate])
+    
+    const handleFloorButton = (floorName: string) => {
+        setFloor(floorName)
+    }
 
     const handleContextMenu = (e: { preventDefault: () => void }) => {
         e.preventDefault()
@@ -99,14 +148,6 @@ function FloorPlans() {
         )
     }
 
-    // If no state is passed, redirect back to the previous page or a default route
-    useEffect(() => {
-        if (!title) {
-            navigate('/'); // Redirect to home or another page if no id
-        }
-    }, [title, navigate])
-
-
     return (
         <>
             <header className="fixed flex justify-between items-center top-0 left-0 w-full bg-white shadow-lg h-12 px-4 z-50 select-none touch-none">
@@ -125,27 +166,19 @@ function FloorPlans() {
                 </div>
             </header>
             <div className='absolute top-[60px] left-[13px] overflow-hidden z-[2] font-fMedium'>
-                { /** 층 선택 버튼 */ }
-                { /**    
-                 * floors.map((floorName) => (
-                 *    <CategoryItem
-                 *      key={floorName}
-                 *      onClick={() => setFloor(floorName)}
-                 *      isActive={floor === floorName}
-                 *    >
-                 *      <CItemWrapper>
-                 *          {floorName}
-                 *      </CItemWrapper>
-                 *    </CategoryItem>
-                */}
-                <CategoryItem
-                    onClick={() => setFloor('1F')}
-                    isActive={floor === '1F'}
-                >
-                    <CItemWrapper>
-                        {floor}
-                    </CItemWrapper>
-                </CategoryItem>
+                {
+                    floors.map((floorName : string) => (
+                        <CategoryItem
+                            key={floorName}
+                            onClick={() => handleFloorButton(floorName)}
+                            isActive={floor === floorName}
+                        >
+                            <CItemWrapper>
+                                {floorName}
+                            </CItemWrapper>
+                        </CategoryItem>
+                    ))
+                }
             </div>
             {/* 이미지를 표시하는 div 입니다 */}
             <div>
@@ -168,13 +201,25 @@ function FloorPlans() {
                                 objectFit: 'contain'
                             }}
                         >
-                            <img
-                                src="/images/test.png"
-                                // src={`${url}/images/${id}/${floor}.png`}
-                                alt={`${title}의 평면도`}
-                                className={`p-12 object-contain ${rotate ? 'rotate-90' : ''}`}
-                                style={{ width: imageSize.width, height: imageSize.height }}
-                            />
+                            {isLoadError && (
+                                <div className="flex items-center justify-center w-screen h-screen">
+                                    <p className="text-center font-fMedium text-lg">로딩 중 오류가 발생했습니다.</p>
+                                </div>
+                            )}
+                            {!isImageLoaded && !isLoadError && (
+                                <div className="flex items-center justify-center w-screen h-screen">
+                                    <p className="text-center font-fMedium text-lg">로딩중...</p>
+                                </div>
+                            )}
+                            {isImageLoaded && !isLoadError && (
+                                <img
+                                    //src="/images/test.png"
+                                    src={imageSrc}
+                                    alt={isImageLoaded ? `${title}의 평면도` : '사진이 로딩중 입니다.'}
+                                    className={`p-12 object-contain ${rotate ? 'rotate-90' : ''}`}
+                                    style={{ width: imageSize.width, height: imageSize.height }}
+                                />
+                            )}
                         </TransformComponent>
                     </> 
                     )}
