@@ -39,10 +39,16 @@ function App() {
   const [showResults, setShowResults] = useState(false) // 검색 결과 표시 여부
   const [rampSize, setRampSize] = useState(17) // 경사로 마커 사이즈
   const [parkingSize, setParkingSize] = useState(27) // 주차장 마커 사이즈
-  const [mapLevel, setMapLevel] = useState(3) // 지도 확대 레벨
   const [plusLat, setPlusLat] = useState(0.002) // Popup 실행 시 마커 위치 조정값
   const [targetAlertName, setTargetAlertName] = useState('info') // Alert 창 종류
   const [hasFocused, setHasFocused] = useState(false) // 최초 포커스 여부 관리
+
+  // 지도 확대 레벨을 저장할 state
+  const [mapLevel, setMapLevel] = useState(
+    (navigator.userAgent.indexOf('iPhone') 
+      || navigator.userAgent.indexOf('Android')) > -1 
+      ? 4 : 3 // 초기 값 : pc 화면 : 3 / 모바일 : 4  
+  )
 
   // 현재 위치를 저장할 state
   const [state, setState] = useState({
@@ -198,7 +204,7 @@ function App() {
       setParkingSize(27)
     } else if(mapLevel === 4) {
       setRampSize(14)
-      setPlusLat(0.0043)
+      setPlusLat(0.0039)
       setParkingSize(22)
     } else if(mapLevel === 5) {
       setRampSize(10)
@@ -341,6 +347,7 @@ function App() {
                 to={!amenityData.floorplan ? '#' : `/floorplan/${id}`}
                 state={{
                   title: content
+                  // floors: amenityData.floorplan
                 }}
               >
                 <Button 
@@ -503,11 +510,7 @@ function App() {
                   center={mapState.center} // 지도의 중심 좌표
                   isPanto={mapState.isPanto} // 지도의 중심 좌표를 변경할 때 애니메이션 효과를 줄지 여부
                   style={{'width': '100%', 'height': '100vh'}} // 지도 크기
-                  level={ 
-                    (navigator.userAgent.indexOf('iPhone') 
-                    || navigator.userAgent.indexOf('Android')) > -1 
-                    ? 4 : 3 //pc 화면 : 3 / 모바일 : 4  
-                  }  // 지도 확대 레벨
+                  level={mapLevel}  // 지도 확대 레벨
                   minLevel={5}  // 지도 최소 레벨
                   maxLevel={2}  // 지도 최대 레벨
                   onDragEnd={(map) => {
