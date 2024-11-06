@@ -5,4 +5,5 @@ export type amenities = {
     dots: boolean
     caution: string
     floorplan: boolean
+    floors: Array<string>
 }

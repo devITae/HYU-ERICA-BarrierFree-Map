@@ -346,8 +346,8 @@ function App() {
                 className='w-full mr-3'
                 to={!amenityData.floorplan ? '#' : `/floorplan/${id}`}
                 state={{
-                  title: content
-                  // floors: amenityData.floorplan
+                  title: content,
+                  floors: amenityData.floors
                 }}
               >
                 <Button 
@@ -548,6 +548,7 @@ function App() {
                             toilet: value.toilet,
                             dots: value.dots,
                             floorplan: value.floorplan,
+                            floors: value.floors || [],
                             caution: value.caution
                           }}
                         />
