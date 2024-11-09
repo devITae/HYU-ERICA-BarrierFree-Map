@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { TransformComponent, TransformWrapper, useControls } from 'react-zoom-pan-pinch'
 import MapControls from '@/components/MapControls'
+import { apiHandler } from '@/network/apiHandler'
 import tw from 'twin.macro'
 import styled from 'styled-components'
 
@@ -30,39 +31,34 @@ function FloorPlans() {
     const [floor, setFloor] = useState('1F')
     const [imageSrc, setImageSrc] = useState('')
 
-    const fetchImage = useCallback(async () => {
-        setIsImageLoaded(false) // 로딩 상태로 전환
-        setIsLoadError(false) // 에러 상태 해제
-        try {
-            const response = await fetch(`http://yunsseong.uk:7777/images/${id}/${floor}.png`, {
-                // mode: 'no-cors' // Mixed Content 우회를 위해 no-cors 모드 설정
-            })
-            
-            if (!response.ok) {
-                throw new Error('이미지를 불러올 수 없습니다.');
-            }
-            
-            const blob = await response.blob()
-            const url = URL.createObjectURL(blob)
-            setImageSrc(url) // Blob URL을 상태에 저장
-            setIsImageLoaded(true) // 로딩 상태 해제
-        } catch (error) {
-            console.error('이미지를 로드하는데 실패했습니다:', error)
-            setIsImageLoaded(false)
-            setIsLoadError(true)
-        } 
-    }, [floor, id])
-    
     useEffect(() => {
+        const loadImage = async () => {
+            const imagePath = `/api/images/${id}/${floor}.png`
+            setIsImageLoaded(false) // 로딩 상태로 전환
+            setIsLoadError(false) // 에러 상태 해제
+
+            try {
+                const blob = await apiHandler<Blob>(imagePath, 'blob')
+                const imageUrl = URL.createObjectURL(blob)
+                setImageSrc(imageUrl)
+                setIsImageLoaded(true)
+            } catch (error) {
+                console.error('이미지를 로드하는데 실패했습니다:', error)
+                setIsImageLoaded(false)
+                setIsLoadError(true)
+            }
+        }
+
         // 이미지 URL을 HTTP에서 다운로드
-        fetchImage()
+        loadImage()
+
         // 컴포넌트가 언마운트될 때 Blob URL 해제
         return () => {
             if (imageSrc) {
                 URL.revokeObjectURL(imageSrc)
             }
         }
-    }, [fetchImage, floor, imageSrc])
+    }, [floor, id, imageSrc])
 
     useEffect(() => {
         const setViewportHeight = () => {
@@ -93,8 +89,10 @@ function FloorPlans() {
         }
     }, [title, navigate])
     
-    const handleFloorButton = (floorName: string) => {
-        setFloor(floorName)
+    const handleFloorButton = (newFloor: string) => {
+        if (newFloor !== floor) {
+            setFloor(newFloor)
+        }
     }
 
     const handleContextMenu = (e: { preventDefault: () => void }) => {
