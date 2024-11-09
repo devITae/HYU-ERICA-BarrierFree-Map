@@ -58,7 +58,8 @@ function FloorPlans() {
                 URL.revokeObjectURL(imageSrc)
             }
         }
-    }, [floor, id, imageSrc])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [floor, id])
 
     useEffect(() => {
         const setViewportHeight = () => {
