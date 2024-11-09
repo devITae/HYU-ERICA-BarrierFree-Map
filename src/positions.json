@@ -87,7 +87,7 @@
             "lng": 126.83161804854504,
             "wheel": true,
             "toilet": true,
-            "elevator": true,
+            "elevator": false,
             "dots": true,
             "floorplan": true,
             "caution": "",
@@ -123,7 +123,7 @@
             "elevator": false,
             "dots": false,
             "floorplan": true,
-            "caution": "",
+            "caution": "3층은 교육관 통로를 통해 이용이 가능합니다.",
             "floors": [
                 "1F",
                 "2F",
