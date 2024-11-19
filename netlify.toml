@@ -1,6 +1,5 @@
-// netlify.toml
 [build]
-  command = "yarn build"
+  command = "yarn"
   publish = "dist"
 
 [context.production.environment]
