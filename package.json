@@ -55,8 +55,5 @@
     "twin": {
       "preset": "styled-components"
     }
-  },
-  "engines": {
-    "node": "20.x"
   }
 }
