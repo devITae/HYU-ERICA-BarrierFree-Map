@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "@emotion/styled": "^11.13.0",
-    "@jridgewell/gen-mapping": "^0.3.6",
+    "@jridgewell/gen-mapping": "^0.3.5",
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.2.22",
     "@types/react-speech-recognition": "^3.9.5",
@@ -40,7 +40,9 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
     "postcss": "^8.4.49",
+    "postcss-import": "^16.1.0",
     "styled-components": "^6.1.13",
+    "sucrase": "^3.35.0",
     "tailwind-styled-components": "^2.2.0",
     "tailwindcss": "^3.4.13",
     "twin.macro": "^3.4.1",
@@ -53,5 +55,8 @@
     "twin": {
       "preset": "styled-components"
     }
+  },
+  "engines": {
+    "node": "20.x"
   }
 }

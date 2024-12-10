@@ -1584,13 +1584,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jridgewell/gen-mapping@npm:^0.3.2, @jridgewell/gen-mapping@npm:^0.3.5, @jridgewell/gen-mapping@npm:^0.3.6":
-  version: 0.3.6
-  resolution: "@jridgewell/gen-mapping@npm:0.3.6"
+"@jridgewell/gen-mapping@npm:^0.3.2, @jridgewell/gen-mapping@npm:^0.3.5":
+  version: 0.3.5
+  resolution: "@jridgewell/gen-mapping@npm:0.3.5"
   dependencies:
-    "@jridgewell/sourcemap-codec": "npm:1.4.16-beta.0"
+    "@jridgewell/set-array": "npm:^1.2.1"
+    "@jridgewell/sourcemap-codec": "npm:^1.4.10"
     "@jridgewell/trace-mapping": "npm:^0.3.24"
-  checksum: 10c0/7abc82a1befcf9ddb6bed244ef56a955a8452db1d99730704366a47bbd409f996e59b1dba3a258c6b7d11da2436a85699375a5a9d1981f9cc8f1d7b67752c413
+  checksum: 10c0/1be4fd4a6b0f41337c4f5fdf4afc3bd19e39c3691924817108b82ffcb9c9e609c273f936932b9fba4b3a298ce2eb06d9bff4eb1cc3bd81c4f4ee1b4917e25feb
   languageName: node
   linkType: hard
 
@@ -1598,6 +1599,13 @@ __metadata:
   version: 3.1.2
   resolution: "@jridgewell/resolve-uri@npm:3.1.2"
   checksum: 10c0/d502e6fb516b35032331406d4e962c21fe77cdf1cbdb49c6142bcbd9e30507094b18972778a6e27cbad756209cfe34b1a27729e6fa08a2eb92b33943f680cf1e
+  languageName: node
+  linkType: hard
+
+"@jridgewell/set-array@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "@jridgewell/set-array@npm:1.2.1"
+  checksum: 10c0/2a5aa7b4b5c3464c895c802d8ae3f3d2b92fcbe84ad12f8d0bfbb1f5ad006717e7577ee1fd2eac00c088abe486c7adb27976f45d2941ff6b0b92b2c3302c60f4
   languageName: node
   linkType: hard
 
@@ -1611,14 +1619,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jridgewell/sourcemap-codec@npm:1.4.16-beta.0":
-  version: 1.4.16-beta.0
-  resolution: "@jridgewell/sourcemap-codec@npm:1.4.16-beta.0"
-  checksum: 10c0/67d50669c419a5cfa31844ec00357924d167d1bec0cbdacdaad45f1dd66a7e34ab88c25ca0ef07a6f0b7ee829306041a857945816891b5306acf223bb1d85a84
-  languageName: node
-  linkType: hard
-
-"@jridgewell/sourcemap-codec@npm:^1.4.14":
+"@jridgewell/sourcemap-codec@npm:^1.4.10, @jridgewell/sourcemap-codec@npm:^1.4.14":
   version: 1.5.0
   resolution: "@jridgewell/sourcemap-codec@npm:1.5.0"
   checksum: 10c0/2eb864f276eb1096c3c11da3e9bb518f6d9fc0023c78344cdc037abadc725172c70314bdb360f2d4b7bffec7f5d657ce006816bc5d4ecb35e61b66132db00c18
@@ -4430,7 +4431,7 @@ __metadata:
   dependencies:
     "@emotion/react": "npm:^11.13.3"
     "@emotion/styled": "npm:^11.13.0"
-    "@jridgewell/gen-mapping": "npm:^0.3.6"
+    "@jridgewell/gen-mapping": "npm:^0.3.5"
     "@tanstack/react-query": "npm:^5.59.19"
     "@types/react": "npm:^18.3.2"
     "@types/react-dom": "npm:^18.2.22"
@@ -4446,6 +4447,7 @@ __metadata:
     eslint-plugin-react-hooks: "npm:^4.6.0"
     eslint-plugin-react-refresh: "npm:^0.4.6"
     postcss: "npm:^8.4.49"
+    postcss-import: "npm:^16.1.0"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     react-kakao-maps-sdk: "npm:^1.1.26"
@@ -4454,6 +4456,7 @@ __metadata:
     react-zoom-pan-pinch: "npm:3.6.0"
     regenerator-runtime: "npm:^0.14.1"
     styled-components: "npm:^6.1.13"
+    sucrase: "npm:^3.35.0"
     tailwind-styled-components: "npm:^2.2.0"
     tailwindcss: "npm:^3.4.13"
     twin.macro: "npm:^3.4.1"
@@ -5968,6 +5971,19 @@ __metadata:
   peerDependencies:
     postcss: ^8.0.0
   checksum: 10c0/518aee5c83ea6940e890b0be675a2588db68b2582319f48c3b4e06535a50ea6ee45f7e63e4309f8754473245c47a0372632378d1d73d901310f295a92f26f17b
+  languageName: node
+  linkType: hard
+
+"postcss-import@npm:^16.1.0":
+  version: 16.1.0
+  resolution: "postcss-import@npm:16.1.0"
+  dependencies:
+    postcss-value-parser: "npm:^4.0.0"
+    read-cache: "npm:^1.0.0"
+    resolve: "npm:^1.1.7"
+  peerDependencies:
+    postcss: ^8.0.0
+  checksum: 10c0/60e6499354079a3f46242b861412a40c54be7ab99f4ad55096a07ffe5e57fcc01c2c626b5d1fbc7a18cd23adc82b320c205059d0c7ab09e91baba8dc45c88e29
   languageName: node
   linkType: hard
 
