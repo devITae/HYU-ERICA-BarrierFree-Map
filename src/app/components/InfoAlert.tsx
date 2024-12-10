@@ -104,8 +104,9 @@ const InfoAlert: React.FC<InfoAlertProps> = ({ targetName, onClose, setInputValu
 
               <p className='mb-4'>
                 Android (Galaxy)
-                <p>1. 삼성 인터넷 또는 크롬으로 접속</p>
+                <p>1. 기본 브라우저로 접속 (삼성 인터넷, 크롬 등)</p>
                 <p>2. 상단 설치 버튼 클릭</p>
+                <p>3. (없을 시) 메뉴 - '홈 화면에 추가'</p>
               </p>
             </>
           )
