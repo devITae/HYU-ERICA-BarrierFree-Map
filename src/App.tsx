@@ -118,17 +118,6 @@ function App() {
     )
   }
 
-  function success(pos: { coords: { latitude: number, longitude: number } }) {
-    const coordinates = pos.coords
-    console.log(
-      `Your location is: ${coordinates.latitude}} ${coordinates.longitude}`
-    );
-  }
-  
-  function error(error: { message: unknown }) {
-    console.warn(`Error: ${error.message}`)
-  }
-
   const zoomIn = () => {
     const map = mapRef.current
     if (!map) return
@@ -173,7 +162,7 @@ function App() {
       setIsVisibleId(id)
     }, 240)
   }
-
+  
   // 검색창 열때 input에 포커스
   useEffect(() => {
     if (refInput.current) {
@@ -257,34 +246,40 @@ function App() {
   }, [])
 
   useEffect(() => {
+    let watchId: number
+  
     if (navigator.geolocation) {
-      navigator.permissions.query({ name:'geolocation' }).then((result) => {
-        if (result.state === 'granted') {
-          // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              setState((prev) => ({
-                ...prev,
-                center: {
-                  lat: position.coords.latitude, // 위도
-                  lng: position.coords.longitude, // 경도
-                },
-                isLoading: false,
-              }))
+      watchId = navigator.geolocation.watchPosition(
+        (position) => {
+          setState((prev) => ({
+            ...prev,
+            center: {
+              lat: position.coords.latitude, // 위도
+              lng: position.coords.longitude, // 경도
             },
-          )
-        } else if(result.state === 'denied'){
-          console.log("denial")
-        } else {
-          console.log("prompt")
-          navigator.geolocation.getCurrentPosition(success, error, {
-            timeout: 4000,
-            maximumAge: 0
-          })
+            isLoading: false,
+          }))
+        },
+        (error) => {
+          console.error("Error watching location:", error.message);
+        },
+        {
+          timeout: 4000,
+          maximumAge: 0,
+          enableHighAccuracy: true,
         }
-      })
-    } 
+      )
+    } else {
+      console.warn("Geolocation is not supported by this browser.")
+    }
+  
+    return () => {
+      if (watchId) {
+        navigator.geolocation.clearWatch(watchId);
+      }
+    }
   }, [])
+  
 
   useEffect(() => {
     /*navigator.geolocation.getCurrentPosition((pos) => {
