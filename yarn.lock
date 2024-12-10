@@ -1584,6 +1584,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@jridgewell/gen-mapping@npm:0.3.7":
+  version: 0.3.7
+  resolution: "@jridgewell/gen-mapping@npm:0.3.7"
+  dependencies:
+    "@jridgewell/sourcemap-codec": "npm:1.4.16-beta.0"
+    "@jridgewell/trace-mapping": "npm:^0.3.24"
+  checksum: 10c0/62efb8a76c4dd8262ef694eeb9315bc4ee2afe5315c941f4e772dada83327d6df7fff326dacf1dd5e88dd2f3a59a633cd35edd1eb16d2a6c9c5529d7c22d9b97
+  languageName: node
+  linkType: hard
+
 "@jridgewell/gen-mapping@npm:^0.3.2, @jridgewell/gen-mapping@npm:^0.3.5":
   version: 0.3.5
   resolution: "@jridgewell/gen-mapping@npm:0.3.5"
@@ -1616,6 +1626,13 @@ __metadata:
     "@jridgewell/gen-mapping": "npm:^0.3.5"
     "@jridgewell/trace-mapping": "npm:^0.3.25"
   checksum: 10c0/6a4ecc713ed246ff8e5bdcc1ef7c49aaa93f7463d948ba5054dda18b02dcc6a055e2828c577bcceee058f302ce1fc95595713d44f5c45e43d459f88d267f2f04
+  languageName: node
+  linkType: hard
+
+"@jridgewell/sourcemap-codec@npm:1.4.16-beta.0":
+  version: 1.4.16-beta.0
+  resolution: "@jridgewell/sourcemap-codec@npm:1.4.16-beta.0"
+  checksum: 10c0/67d50669c419a5cfa31844ec00357924d167d1bec0cbdacdaad45f1dd66a7e34ab88c25ca0ef07a6f0b7ee829306041a857945816891b5306acf223bb1d85a84
   languageName: node
   linkType: hard
 
@@ -4431,7 +4448,7 @@ __metadata:
   dependencies:
     "@emotion/react": "npm:^11.13.3"
     "@emotion/styled": "npm:^11.13.0"
-    "@jridgewell/gen-mapping": "npm:^0.3.5"
+    "@jridgewell/gen-mapping": "npm:0.3.7"
     "@tanstack/react-query": "npm:^5.59.19"
     "@types/react": "npm:^18.3.2"
     "@types/react-dom": "npm:^18.2.22"
