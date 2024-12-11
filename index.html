@@ -24,6 +24,15 @@
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=%VITE_KAKAOMAP_API_KEY%&autoload=false"
     ></script>
   </head>
+    <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MX9VSS8J8P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-MX9VSS8J8P');
+  </script>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
