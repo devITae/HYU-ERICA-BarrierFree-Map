@@ -107,7 +107,7 @@ const InfoAlert: React.FC<InfoAlertProps> = ({ targetName, onClose, setInputValu
                 <p>1. 기본 브라우저로 접속</p>
                 <p>2. 상단 주소창의 설치 버튼 클릭</p>
                 <p className='mb-2'/>
-                <p>3. 없을 시, 메뉴(⋮) 클릭 후</p>
+                <p>3. 없을 시, 메뉴( ⋮ ) 클릭 후</p>
                 <p>(크롬/웨일) '홈 화면에 추가'</p>
                 <p>(삼성 인터넷) '현재 페이지 추가' - '앱스 화면'</p>
               </p>
