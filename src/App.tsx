@@ -37,6 +37,7 @@ function App() {
   const [isSearchVisible, setSearchVisible] = useState(false) // 검색창 표시 여부
   const [showAlert, setShowAlert] = useState(false) // 알림창 표시 여부
   const [showResults, setShowResults] = useState(false) // 검색 결과 표시 여부
+  const [markerSize, setMarkerSize] = useState({width: 25, height: 36}) // 경사로 마커 사이즈
   const [rampSize, setRampSize] = useState(17) // 경사로 마커 사이즈
   const [parkingSize, setParkingSize] = useState(27) // 주차장 마커 사이즈
   const [plusLat, setPlusLat] = useState(0.002) // Popup 실행 시 마커 위치 조정값
@@ -184,18 +185,22 @@ function App() {
 
   useEffect(() => {
     if(mapLevel === 2) {
+      setMarkerSize({width: 25, height: 36})
       setRampSize(19)
       setPlusLat(0.001)
       setParkingSize(35)
     } else if(mapLevel === 3) {
+      setMarkerSize({width: 25, height: 36})
       setRampSize(17)
       setPlusLat(0.002)
       setParkingSize(27)
     } else if(mapLevel === 4) {
+      setMarkerSize({width: 22, height: 31})
       setRampSize(14)
       setPlusLat(0.0039)
       setParkingSize(22)
     } else if(mapLevel === 5) {
+      setMarkerSize({width: 17, height: 25})
       setRampSize(10)
       setPlusLat(0.0073)
       setParkingSize(18)
@@ -318,7 +323,7 @@ function App() {
       <MapMarker
         image={{
           src: '/images/marker.png',
-          size: { width: 25, height: 36 },
+          size: markerSize, // 마커 사이즈
         }}
         zIndex={-2} // 마커와의 겹침 문제 해결
         position={position} // 마커를 표시할 위치
