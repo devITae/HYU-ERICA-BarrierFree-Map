@@ -60,13 +60,13 @@ const InfoAlert: React.FC<InfoAlertProps> = ({ targetName, onClose, setInputValu
             <>
               <p className='mb-4'>한양대학교 ERICA캠퍼스의 배리어프리맵<br/>웹서비스인 '길편하냥' 입니다.</p>
 
-              <p>[개발자]</p>
+              <p>[개발진]</p>
               <p>Frontend: 이재형 (컴퓨터학부 21)</p>
               <p>Backend: 정윤성 (컴퓨터학부 20)</p>
               <p>Designer: 임동섭 (경영학부 22)</p>
 
               <p className='mt-4'>
-                [도움]
+                [도움 주신 분들]
                 <br/>
                 <a 
                   className='text-blue-500' 
@@ -74,6 +74,8 @@ const InfoAlert: React.FC<InfoAlertProps> = ({ targetName, onClose, setInputValu
                 >
                   한양대학교 ERICA 인권센터 
                 </a> & 소중한대
+                <br/>
+                한양대학교 ERICA 대외협력실 대외협력팀
               </p>
               
               <p className='mt-4'>[오픈소스]<br/>
