@@ -64,13 +64,13 @@ const InfoAlert: React.FC<InfoAlertProps> = ({ targetName, onClose, setInputValu
                 웹서비스 '길편하냥' 입니다.
               </p>
 
-              <strong>[개발진]</strong>
+              <p>[개발진]</p>
               <p>Frontend: 이재형 (컴퓨터학부 21)</p>
               <p>Backend: 정윤성 (컴퓨터학부 20)</p>
               <p>Designer: 임동섭 (경영학부 22)</p>
 
               <p className='mt-4'>
-                <strong>[도움 주신 분들]</strong>
+                <p>[도움 주신 분들]</p>
                 <p className='tracking-tighter'>
                   <a 
                     className='text-blue-500' 
@@ -84,7 +84,7 @@ const InfoAlert: React.FC<InfoAlertProps> = ({ targetName, onClose, setInputValu
               </p>
               
               <p className='mt-4'>
-                <strong>[오픈소스]</strong><br/>
+                <p>[오픈소스]</p>
                 <a className='text-blue-500' href='https://github.com/devITae/HYU-ERICA-BarrierFree-Map'>
                   GitHub (FE)
                 </a>
