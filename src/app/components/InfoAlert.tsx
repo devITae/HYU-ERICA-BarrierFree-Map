@@ -58,29 +58,35 @@ const InfoAlert: React.FC<InfoAlertProps> = ({ targetName, onClose, setInputValu
         { // 개발 정보
           targetName === 'info' && (
             <>
-              <p className='mb-4'>한양대학교 ERICA캠퍼스의 배리어프리맵<br/>웹서비스인 '길편하냥' 입니다.</p>
+              <p className='mb-4'>
+                한양대학교 ERICA캠퍼스의 배리어프리맵
+                <br/>
+                웹서비스 '길편하냥' 입니다.
+              </p>
 
-              <p>[개발진]</p>
+              <strong>[개발진]</strong>
               <p>Frontend: 이재형 (컴퓨터학부 21)</p>
               <p>Backend: 정윤성 (컴퓨터학부 20)</p>
               <p>Designer: 임동섭 (경영학부 22)</p>
 
               <p className='mt-4'>
-                [도움 주신 분들]
-                <br/>
-                <a 
-                  className='text-blue-500' 
-                  href='https://ehrc.hanyang.ac.kr/'
-                >
-                  한양대학교 ERICA 인권센터 
-                </a> & 소중한대
-                <br/>
-                한양대학교 ERICA 대외협력실 대외협력팀
+                <strong>[도움 주신 분들]</strong>
+                <p className='tracking-tighter'>
+                  <a 
+                    className='text-blue-500' 
+                    href='https://ehrc.hanyang.ac.kr/'
+                  >
+                    한양대학교 ERICA 인권센터 
+                  </a> & 소중한대 11기
+                  <br/>
+                  한양대학교 ERICA 대외협력실 대외협력팀
+                </p>
               </p>
               
-              <p className='mt-4'>[오픈소스]<br/>
+              <p className='mt-4'>
+                <strong>[오픈소스]</strong><br/>
                 <a className='text-blue-500' href='https://github.com/devITae/HYU-ERICA-BarrierFree-Map'>
-                  GitHub (Client)
+                  GitHub (FE)
                 </a>
                 <br/>
               </p>
