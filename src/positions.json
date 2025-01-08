@@ -215,7 +215,7 @@
             "elevator": true,
             "dots": false,
             "floorplan": true,
-            "caution": "화장실 입구가 협소합니다.",
+            "caution": "1층에 장애인 화장실이 있으며, 입구가 협소합니다.",
             "floors": [
                 "B1",
                 "1F",
@@ -342,7 +342,7 @@
             "elevator": false,
             "dots": true,
             "floorplan": true,
-            "caution": "3,4층은 제1공학관의 연결통로로 이용이 가능합니다.",
+            "caution": "제1공학관(3-4층) 또는 제4공학관(전층)의 연결통로로 이용이 가능합니다.",
             "floors": [
                 "B1",
                 "1F",
