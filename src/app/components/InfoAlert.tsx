@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { useSpeechToText } from "./useSpeechToText"
-
+import { pos } from '../../positions.json'
 interface InfoAlertProps {
-  pos: Array<amenities> | undefined
   targetName: string
   onClose: () => void
   setInputValue: (value: string) => void
   setShowResults: (value: boolean) => void
 }
 
-const InfoAlert: React.FC<InfoAlertProps> = ({ pos, targetName, onClose, setInputValue, setShowResults }) => {
+const InfoAlert: React.FC<InfoAlertProps> = ({ targetName, onClose, setInputValue, setShowResults }) => {
   const { transcript, listening, toggleListening, abortListening, browserSupportsSpeechRecognition } = useSpeechToText()
 
   const [lastWord, setLastWord] = useState<string>('')
@@ -32,13 +31,13 @@ const InfoAlert: React.FC<InfoAlertProps> = ({ pos, targetName, onClose, setInpu
   }
 
   useEffect(() => {
-    if (listening && transcript) {
+    if (listening && transcript && pos) {
       // transcript에서 공백 기준으로 맨 마지막 단어만 추출
       // 방법1: 정규식으로 마지막 공백 이전의 모든 문자(.*\s+)를 제거
       setLastWord(transcript.replace(/.*\s+/, ''))
 
       // 검색 결과에 존재하면 바로 검색 후 음성인식 종료
-      const filteredPos = pos.filter((item: amenities) => item.title.includes(lastWord))
+      const filteredPos = pos.filter(({title}) => title.includes(lastWord))
       if (lastWord.length > 1 && filteredPos.length > 0) {
         setInputValue(lastWord)
         setShowResults(true)
@@ -46,7 +45,7 @@ const InfoAlert: React.FC<InfoAlertProps> = ({ pos, targetName, onClose, setInpu
         toggleListening()
       }
     }
-  }, [listening, transcript, setInputValue, setShowResults, pos, onClose, toggleListening, lastWord])
+  }, [listening, transcript, setInputValue, setShowResults, onClose, toggleListening, lastWord])
 
   return (
     <div

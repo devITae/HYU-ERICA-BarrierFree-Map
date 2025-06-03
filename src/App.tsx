@@ -473,7 +473,6 @@ function App() {
                 )}
                 {showAlert && (
                   <InfoAlert
-                    pos={pos}
                     onClose={handleAlertClose}
                     targetName={targetAlertName}
                     setInputValue={setInputValue}
