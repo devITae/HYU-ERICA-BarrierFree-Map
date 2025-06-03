@@ -301,7 +301,7 @@ function App() {
       }))
     })
   }, [])
-  
+
   useEffect(() => {
     const setViewportHeight = () => {
       const vh = window.innerHeight * 0.01;
@@ -315,7 +315,7 @@ function App() {
       window.removeEventListener("resize", setViewportHeight)
     }
   }, [])
-  
+
   const EventMarkerContainer = ({ id, position, content, amenityData }: {
       id: number, position: { lat: number, lng: number }, content: string, amenityData: amenities
     }) => {  
@@ -473,6 +473,7 @@ function App() {
                 )}
                 {showAlert && (
                   <InfoAlert
+                    pos={pos}
                     onClose={handleAlertClose}
                     targetName={targetAlertName}
                     setInputValue={setInputValue}
