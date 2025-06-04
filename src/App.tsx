@@ -31,6 +31,7 @@ const HeaderButton = styled.button`
 
 function App() {
   const mapRef = useRef<kakao.maps.Map>(null)
+  const divRampRef = useRef<HTMLDivElement>(null)
   const refInput = useRef<HTMLInputElement>(null)
   const [isVisibleId, setIsVisibleId] = useState<number | null>(null) // Popup ID
   const [inputValue, setInputValue] = useState('') // 검색창 입력값
@@ -163,7 +164,28 @@ function App() {
       setIsVisibleId(id)
     }, 240)
   }
-  
+
+  function handleRampMapMarker(idx: number, lat: number, lng: number) {  
+    setMapState(() => ({
+      center: { 
+        lat: lat, 
+        lng: lng
+      },
+      isPanto: true,
+    }))
+
+    // 렌더링 겹침 문제 해결 위해 시간 차를 두고 setIsVisibleId(id) 실행
+    setTimeout(() => {
+      setIsVisibleId(idx + 1000)
+      // 경사로 포커스
+      if(divRampRef.current){
+        divRampRef.current.focus()
+        setHasFocused(true)
+        console.log('focus set for id:', idx + 1000)
+      }
+    }, 240)
+  }
+
   // 검색창 열때 input에 포커스
   useEffect(() => {
     if (refInput.current) {
@@ -557,18 +579,37 @@ function App() {
                   })}
 
                   { /** 경사로 마커 */
-                    ramp.map((value) => {
+                    ramp.map((value, idx) => {
                       const showMarker = (selectedCategory === "entire" || selectedCategory === "ramp")
                       return (
                         showMarker && (
                           <MapMarker
+                            key={`ramp-${idx + 1000}`}
                             image={{
                               src: "/images/rampMarker.png",
                               size: { width: rampSize, height: rampSize },
                             }}
+                            onClick={() => handleRampMapMarker(idx, value.lat, value.lng)}
                             position={{ lat: value.lat, lng: value.lng }}
                             zIndex={-2}
-                          />
+                          >
+                            {isVisibleId === idx + 1000 && (
+                              <div
+                                ref={divRampRef}
+                                className="p-2 text-sm w-[11rem] h-[5rem] text-center"
+                              >
+                                {/* 팝업 내부 원하는 내용 */}
+                                <p className='font-fBold text-[0.83rem] text-blue-900'>[건물 진입 경사로]</p>
+                                <p className='text-[0.83rem]'>{value.memo}</p>
+                                <button
+                                  onClick={() => setIsVisibleId(null)}
+                                  className="font-fBold mt-2 text-xs w-full text-blue-500"
+                                >
+                                  닫기
+                                </button>
+                              </div>
+                            )}
+                          </MapMarker>
                         )
                       )
                     }
