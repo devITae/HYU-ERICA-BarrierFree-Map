@@ -47,6 +47,18 @@ const Searching: React.FC<SearchingProps> = (
                                     </li>
                                 </>
                             )
+                        } else if (value === '장애' || value === '장애학생' || value === '장애학생지원센터' || value === '맑은누리' || value === '희망터') {
+                            return (
+                                <>
+                                    <li className='p-2'>
+                                        장애학생지원센터(맑은누리)는 학생복지관 1층 입니다!
+                                        <br/>희망터(쉼터)는 제1공학관 1층 102호에 있습니다.
+                                        <br/>
+                                        <br/>전화번호: 031-400-4502
+                                        <br/>E-mail : diverse@hanyang.ac.kr
+                                    </li>
+                                </>
+                            )
                         } else if (value === '인권센터') {
                             // 이스터 에그
                             return (
@@ -69,10 +81,15 @@ const Searching: React.FC<SearchingProps> = (
                         return filteredPos.map(({id, title, lat, lng}) => (
                             <li
                                 key={id}
-                                className='border-b border-gray-300 cursor-pointer hover:bg-gray-200'
+                                className='p-2 border-b border-gray-300 cursor-pointer hover:bg-gray-200 flex items-center'
                                 onClick={() => resultHandle(id, lat, lng)}
                             >
-                                <div className='p-2'>
+                                <div
+                                    className='w-10 font-fBold bg-blue-800 text-white p-1 mr-1.5 text-sm rounded-[0.4rem] text-center justify-center'
+                                >
+                                    {id}
+                                </div>
+                                <div className=''>
                                     {title}
                                 </div>
                             </li>

@@ -353,7 +353,7 @@ function App() {
         onClick={() => handleMapMarker(id, position.lat, position.lng)} // 마커를 클릭했을 때 InfoWindow를 표시
       >
         {isVisibleId === id &&
-          <>
+          <div className='w-[16.7rem]'>
             {/* 세부 정보 팝업 UI */}
             <DetailsPopup 
               id={id} 
@@ -384,7 +384,7 @@ function App() {
                 닫기
               </Button>
             </div>
-          </>
+          </div>
         }
       </MapMarker>
     )
