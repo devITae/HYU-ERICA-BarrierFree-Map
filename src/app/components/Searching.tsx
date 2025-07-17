@@ -1,6 +1,14 @@
 import { Dispatch, SetStateAction } from 'react'
 import { pos } from '../../positions.json'
 
+interface PosItem {
+    id: number
+    title: string
+    nickname: string[]
+    lat: number
+    lng: number
+}
+
 interface SearchingProps {
     value: string
     setIsVisibleId: Dispatch<SetStateAction<number | null>>
@@ -39,7 +47,7 @@ const Searching: React.FC<SearchingProps> = (
         if (value === '소프트웨어융합대학' || value === '소융대') {
             return (
                 <li className='p-2'>
-                소융대 건물 지어주세요 ㅠㅠ
+                    소융대 건물 지어주세요 ㅠㅠ
                 </li>
             )
         }
@@ -86,7 +94,7 @@ const Searching: React.FC<SearchingProps> = (
                     onClick={() => resultHandle(id, lat, lng)}
                 >
                     <div className='w-10 font-fBold bg-blue-800 text-white p-1 mr-1.5 text-sm rounded-[0.4rem] text-center'>
-                    {id}
+                        {id}
                     </div>
                     <div>{title}</div>
                 </li>
@@ -94,7 +102,9 @@ const Searching: React.FC<SearchingProps> = (
             ) : (
                 /* 일치하는 title · nickname 모두 없을 때 */
                 !renderSpecialCases() && (
-                <li className='p-2'>검색 결과가 없습니다.</li>
+                    <li className='p-2'>
+                        검색 결과가 없습니다.
+                    </li>
                 )
             )}
             </ul>
