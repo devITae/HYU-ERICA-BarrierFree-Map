@@ -209,22 +209,22 @@ function App() {
     if(mapLevel === 2) {
       setMarkerSize({width: 25, height: 36})
       setRampSize(19)
-      setPlusLat(0.0017)
+      setPlusLat(0.0012)
       setParkingSize(35)
     } else if(mapLevel === 3) {
       setMarkerSize({width: 25, height: 36})
       setRampSize(17)
-      setPlusLat(0.0029)
+      setPlusLat(0.0025)
       setParkingSize(27)
     } else if(mapLevel === 4) {
       setMarkerSize({width: 22, height: 31})
       setRampSize(14)
-      setPlusLat(0.0055)
+      setPlusLat(0.0048)
       setParkingSize(22)
     } else if(mapLevel === 5) {
       setMarkerSize({width: 17, height: 25})
       setRampSize(10)
-      setPlusLat(0.011)
+      setPlusLat(0.0091)
       setParkingSize(18)
     }
   }, [mapLevel])
