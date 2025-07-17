@@ -32,20 +32,25 @@ const InfoAlert: React.FC<InfoAlertProps> = ({ targetName, onClose, setInputValu
 
   useEffect(() => {
     if (listening && transcript && pos) {
-      // transcript에서 공백 기준으로 맨 마지막 단어만 추출
-      // 방법1: 정규식으로 마지막 공백 이전의 모든 문자(.*\s+)를 제거
-      setLastWord(transcript.replace(/.*\s+/, ''))
+      // 1) 공백 기준 마지막 단어 추출
+      const last = transcript.replace(/.*\s+/, '').trim()
+      setLastWord(last)
 
-      // 검색 결과에 존재하면 바로 검색 후 음성인식 종료
-      const filteredPos = pos.filter(({title}) => title.includes(lastWord))
-      if (lastWord.length > 1 && filteredPos.length > 0) {
-        setInputValue(lastWord)
+      // 2) title 또는 nickname 중 하나라도 포함되면 매치
+      const filteredPos = pos.filter(({ title, nickname }) =>
+        title.includes(last) ||
+        nickname?.some((alias) => alias.includes(last))
+      )
+
+      // 3) 결과가 있으면 자동 검색 + 음성 인식 중단
+      if (last.length > 1 && filteredPos.length > 0) {
+        setInputValue(last)
         setShowResults(true)
         onClose()
         toggleListening()
       }
     }
-  }, [listening, transcript, setInputValue, setShowResults, onClose, toggleListening, lastWord])
+  }, [listening, transcript, setInputValue, setShowResults, onClose, toggleListening])
 
   return (
     <div
