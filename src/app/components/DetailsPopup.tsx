@@ -16,7 +16,7 @@ const CheckboxWrapper = styled.div<{ id?: boolean, isCaution?: boolean }>`
     ${tw`flex items-center justify-center rounded-lg p-1 px-2`}
 
     ${({ id }) => id ? tw`bg-blue-100` : tw`bg-red-100`}
-    ${({ isCaution }) => isCaution && tw`bg-yellow-200`}
+    ${({ isCaution }) => isCaution && tw`bg-[#ffea9d]`}
 `
 
 const CheckboxItem = styled.input`
@@ -214,7 +214,7 @@ const DetailsPopup: React.FC<DetailsPopupProps> = ({ id, title, data, isVisibleI
                 {
                     data.caution !== '' ? (
                         <>
-                            <div className='flex flex-col rounded-lg p-3 mb-2 bg-yellow-50 shadow-lg'>
+                            <div className='flex flex-col rounded-lg p-3 mb-2 bg-yellow-50 shadow-lg border border-amber-300'>
                                 <div className='flex mb-1'>
                                     <img 
                                         className='w-5 mr-1.5 user-drag-none' 
