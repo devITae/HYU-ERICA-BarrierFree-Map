@@ -1,14 +1,6 @@
 import { Dispatch, SetStateAction } from 'react'
 import { pos } from '../../positions.json'
 
-interface PosItem {
-    id: number
-    title: string
-    nickname: string[]
-    lat: number
-    lng: number
-}
-
 interface SearchingProps {
     value: string
     setIsVisibleId: Dispatch<SetStateAction<number | null>>
@@ -35,7 +27,7 @@ const Searching: React.FC<SearchingProps> = (
         }, 1)
     }
 
-    const filteredPos = pos.filter(({ title, nickname }: PosItem) => {
+    const filteredPos = pos.filter(({ title, nickname }) => {
         if (!value) return false
         const keyword = value.trim()
         const inTitle = title.includes(keyword)
