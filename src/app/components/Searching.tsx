@@ -27,12 +27,13 @@ const Searching: React.FC<SearchingProps> = (
         }, 1)
     }
 
-    const filteredPos = pos.filter(({ title, nickname }) => {
+    const filteredPos = pos.filter(({ title, nickname, id }) => {
         if (!value) return false
         const keyword = value.trim()
         const inTitle = title.includes(keyword)
         const inNickname = nickname?.some((alias) => alias.includes(keyword))
-        return inTitle || inNickname
+        const inId = id.toString().includes(keyword)
+        return inTitle || inNickname || inId
     })
 
     const renderSpecialCases = () => {

@@ -451,7 +451,7 @@ function App() {
                       <input
                         ref={refInput}
                         type="text"
-                        placeholder="장소를 검색하세요."
+                        placeholder="명칭 또는 번호를 입력하세요."
                         className="w-full h-11 border border-[#002060] rounded-md p-2 pointer-events-auto touch-auto"
                         value={inputValue}
                         onChange={handleChange}
