@@ -209,22 +209,22 @@ function App() {
     if(mapLevel === 2) {
       setMarkerSize({width: 25, height: 36})
       setRampSize(19)
-      setPlusLat(0.001)
+      setPlusLat(0.0012)
       setParkingSize(35)
     } else if(mapLevel === 3) {
       setMarkerSize({width: 25, height: 36})
       setRampSize(17)
-      setPlusLat(0.002)
+      setPlusLat(0.0025)
       setParkingSize(27)
     } else if(mapLevel === 4) {
       setMarkerSize({width: 22, height: 31})
       setRampSize(14)
-      setPlusLat(0.0039)
+      setPlusLat(0.0048)
       setParkingSize(22)
     } else if(mapLevel === 5) {
       setMarkerSize({width: 17, height: 25})
       setRampSize(10)
-      setPlusLat(0.0073)
+      setPlusLat(0.0091)
       setParkingSize(18)
     }
   }, [mapLevel])
@@ -353,7 +353,7 @@ function App() {
         onClick={() => handleMapMarker(id, position.lat, position.lng)} // 마커를 클릭했을 때 InfoWindow를 표시
       >
         {isVisibleId === id &&
-          <>
+          <div className='w-[16.7rem]'>
             {/* 세부 정보 팝업 UI */}
             <DetailsPopup 
               id={id} 
@@ -384,7 +384,7 @@ function App() {
                 닫기
               </Button>
             </div>
-          </>
+          </div>
         }
       </MapMarker>
     )
@@ -451,7 +451,7 @@ function App() {
                       <input
                         ref={refInput}
                         type="text"
-                        placeholder="장소를 검색하세요."
+                        placeholder="명칭 또는 번호를 입력하세요."
                         className="w-full h-11 border border-[#002060] rounded-md p-2 pointer-events-auto touch-auto"
                         value={inputValue}
                         onChange={handleChange}
