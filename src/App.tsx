@@ -1,4 +1,4 @@
-import { useState, useEffect, SetStateAction, useRef, lazy, Suspense } from 'react'
+import { useState, useMemo, useEffect, SetStateAction, useRef, lazy, Suspense } from 'react'
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
 //import { useQuery } from '@tanstack/react-query'
 import { Map, MapMarker } from 'react-kakao-maps-sdk'
@@ -38,7 +38,7 @@ function App() {
   const [isSearchVisible, setSearchVisible] = useState(false) // 검색창 표시 여부
   const [showAlert, setShowAlert] = useState(false) // 알림창 표시 여부
   const [showResults, setShowResults] = useState(false) // 검색 결과 표시 여부
-  const [markerSize, setMarkerSize] = useState({width: 25, height: 36}) // 경사로 마커 사이즈
+  const [markerSize, setMarkerSize] = useState({width: 25, height: 36}) // 건물 마커 사이즈
   const [rampSize, setRampSize] = useState(17) // 경사로 마커 사이즈
   const [parkingSize, setParkingSize] = useState(27) // 주차장 마커 사이즈
   const [plusLat, setPlusLat] = useState(0.002) // Popup 실행 시 마커 위치 조정값
@@ -207,22 +207,22 @@ function App() {
 
   useEffect(() => {
     if(mapLevel === 2) {
-      setMarkerSize({width: 25, height: 36})
+      setMarkerSize({width: 27, height: 27}) // 25, 36
       setRampSize(19)
       setPlusLat(0.0012)
       setParkingSize(35)
     } else if(mapLevel === 3) {
-      setMarkerSize({width: 25, height: 36})
+      setMarkerSize({width: 26, height: 26}) // 25, 36
       setRampSize(17)
       setPlusLat(0.0025)
       setParkingSize(27)
     } else if(mapLevel === 4) {
-      setMarkerSize({width: 22, height: 31})
+      setMarkerSize({width: 24, height: 24}) // 22, 31
       setRampSize(14)
       setPlusLat(0.0048)
       setParkingSize(22)
     } else if(mapLevel === 5) {
-      setMarkerSize({width: 17, height: 25})
+      setMarkerSize({width: 17, height: 17}) // 17, 25
       setRampSize(10)
       setPlusLat(0.0091)
       setParkingSize(18)
@@ -338,16 +338,36 @@ function App() {
     }
   }, [])
 
+  function makeMarker(id: number, diameter = 40): string {
+    const canvas = document.createElement('canvas')
+    canvas.width = diameter
+    canvas.height = diameter
+    const ctx = canvas.getContext('2d')!
+    ctx.fillStyle = '#1f5ab8d1'
+    ctx.beginPath()
+    ctx.arc(diameter / 2, diameter / 2, diameter / 2, 0, Math.PI * 2)
+    ctx.fill()
+
+    ctx.font = `bold ${diameter * 0.48}px Pretendard, sans-serif`
+    ctx.fillStyle = '#fff'
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'middle'
+    ctx.fillText(String(id), diameter / 2, diameter / 2)
+
+    return canvas.toDataURL()
+  }
+
   const EventMarkerContainer = ({ id, position, content, amenityData }: {
       id: number, position: { lat: number, lng: number }, content: string, amenityData: amenities
-    }) => {  
+    }) => {
+    const markerSrc = useMemo(() => makeMarker(id), [id])
     return (
       <MapMarker
         image={{
-          src: '/images/marker.png',
+          src: markerSrc, //'/images/marker.png',
           size: markerSize, // 마커 사이즈
         }}
-        zIndex={-2} // 마커와의 겹침 문제 해결
+        zIndex={-3} // 마커와의 겹침 문제 해결
         position={position} // 마커를 표시할 위치
         clickable={true} // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정
         onClick={() => handleMapMarker(id, position.lat, position.lng)} // 마커를 클릭했을 때 InfoWindow를 표시
