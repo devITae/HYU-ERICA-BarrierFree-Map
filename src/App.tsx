@@ -730,9 +730,9 @@ function App() {
                     (selectedCategory === "toilet" && value.toilet)
                     
                     const ring = Array.isArray(value.polygon)
-                      ? value.polygon.map(([lat, lng]: [number, number]) => ({ lat, lng }))
+                      ? (value.polygon as [number, number][]).map(([lat, lng]) => ({lat, lng}))
                       : []
-                    
+
                     return (
                       showMarker && (
                         <EventMarkerContainer
