@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect, SetStateAction, useRef, lazy, Suspense } from 'react'
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
 //import { useQuery } from '@tanstack/react-query'
-import { Map, MapMarker, Polygon, DrawingManager, Toolbox } from 'react-kakao-maps-sdk'
+import { Map, MapMarker, Polygon } from 'react-kakao-maps-sdk' // DrawingManager, Toolbox
 import tw from 'twin.macro'
 import styled from 'styled-components'
 
@@ -45,10 +45,8 @@ function App() {
   const [targetAlertName, setTargetAlertName] = useState('info') // Alert 창 종류
   const [hasFocused, setHasFocused] = useState(false) // 최초 포커스 여부 관리
   //const [isMouseOver, setIsMouseOver] = useState(false)
-  const [ready] = useState(false)         // DrawingManager 렌더 여부
+
   /** Kakao Maps DrawingManager 관련 코드
-   * 
-   *   
   const [OT, setOT] = useState<unknown>(null)           // kakao.maps.drawing.OverlayType
   const [ready, setReady] = useState(false)         // DrawingManager 렌더 여부
   const managerRef =
@@ -705,7 +703,8 @@ function App() {
                     //handleMapCreate()
                   }}
                 >
-                  {ready && (
+                  {/**
+                   * ready && (
                     <DrawingManager
                       ref={managerRef}
                       drawingModes={drawingModes}
@@ -720,7 +719,8 @@ function App() {
                     >
                       <Toolbox />
                     </DrawingManager>
-                  )}
+                  )} 
+                  **/}
                   {/* 지도 위에 표시될 마커 */}
                   {pos.map((value) => {
                     const showMarker =
