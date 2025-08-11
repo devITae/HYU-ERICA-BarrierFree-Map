@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect, SetStateAction, useRef, lazy, Suspense } from 'react'
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
 //import { useQuery } from '@tanstack/react-query'
-import { Map, MapMarker } from 'react-kakao-maps-sdk'
+import { Map, MapMarker, Polygon, DrawingManager, Toolbox } from 'react-kakao-maps-sdk'
 import tw from 'twin.macro'
 import styled from 'styled-components'
 
@@ -44,6 +44,116 @@ function App() {
   const [plusLat, setPlusLat] = useState(0.002) // Popup 실행 시 마커 위치 조정값
   const [targetAlertName, setTargetAlertName] = useState('info') // Alert 창 종류
   const [hasFocused, setHasFocused] = useState(false) // 최초 포커스 여부 관리
+  //const [isMouseOver, setIsMouseOver] = useState(false)
+  const [ready] = useState(false)         // DrawingManager 렌더 여부
+  /** Kakao Maps DrawingManager 관련 코드
+   * 
+   *   
+  const [OT, setOT] = useState<unknown>(null)           // kakao.maps.drawing.OverlayType
+  const [ready, setReady] = useState(false)         // DrawingManager 렌더 여부
+  const managerRef =
+    useRef<
+      kakao.maps.drawing.DrawingManager<
+        | kakao.maps.drawing.OverlayType.ARROW
+        | kakao.maps.drawing.OverlayType.CIRCLE
+        | kakao.maps.drawing.OverlayType.ELLIPSE
+        | kakao.maps.drawing.OverlayType.MARKER
+        | kakao.maps.drawing.OverlayType.POLYLINE
+        | kakao.maps.drawing.OverlayType.RECTANGLE
+        | kakao.maps.drawing.OverlayType.POLYGON
+      >
+  >(null)
+
+  const xyToLatLng = ({ x, y }: { x: number; y: number }) => ({ lat: y, lng: x });
+  // 방법 1) getData() 사용 (도형 좌표/옵션을 순수 데이터로 반환)
+  const dumpByGetData = () => {
+    const mgr = managerRef.current;
+    if (!mgr) return;
+    const data = mgr.getData(); // arrow, circle, ellipse, marker, polygon, polyline, rectangle
+    const out = {
+      polygon: data.polygon.map(({ points }) => points.map(xyToLatLng)),
+      polyline: data.polyline.map(({ points }) => points.map(xyToLatLng)),
+      arrow: (data as unknown).arrow?.map(({ points }: unknown) => points.map(xyToLatLng)) ?? [],
+      rectangle: data.rectangle.map(({ sPoint, ePoint }) => {
+        const sw = xyToLatLng(sPoint);
+        const ne = xyToLatLng(ePoint);
+        // 네 꼭짓점(시계방향)으로 변환
+        return [
+          sw,
+          { lat: sw.lat, lng: ne.lng },
+          ne,
+          { lat: ne.lat, lng: sw.lng },
+        ];
+      }),
+      circle: data.circle.map(({ center, radius }) => ({ center: xyToLatLng(center), radius })),
+      ellipse: data.ellipse.map(({ center, rx, ry }) => ({ center: xyToLatLng(center), rx, ry })),
+      marker: data.marker.map(({ x, y }) => ({ lat: y, lng: x })),
+    };
+    console.log('BY getData()', out);
+  };
+
+  // {lat, lng}[] -> [lat, lng][] 로 변환
+  function toPairs(
+    coords: Array<{ lat: number; lng: number }>,
+    opt: { dedupeClose?: boolean; precision?: number } = {}
+  ): [number, number][] {
+    const { dedupeClose = true, precision = 14 } = opt
+    const eps = 10 ** -precision
+
+    const pairs = coords.map(({ lat, lng }) => [
+      +lat.toFixed(precision),
+      +lng.toFixed(precision),
+    ]) as [number, number][]
+
+    if (dedupeClose && pairs.length > 1) {
+      const [fLat, fLng] = pairs[0]
+      const [lLat, lLng] = pairs[pairs.length - 1]
+      if (Math.abs(fLat - lLat) < eps && Math.abs(fLng - lLng) < eps) {
+        pairs.pop() // 폴리곤 닫힘점 제거
+      }
+    }
+    return pairs
+  }
+  const fmtNum = (n: number, precision = 14) =>
+  n.toFixed(precision).replace(/\.?0+$/, '')
+
+  const pairsToText = (pairs: [number, number][], withKey = true) => {
+    const lines = pairs.map(([lat, lng]) => `  [${fmtNum(lat)}, ${fmtNum(lng)}]`)
+    return withKey ? `"polygon": [\n${lines.join(',\n')}\n]` : `[\n${lines.join(',\n')}\n]`
+  }
+
+  const dumpByGetOverlays = () => {
+    const mgr = managerRef.current
+    if (!mgr) return
+
+    const data = mgr.getData()
+
+    // Kakao drawing의 점은 {x, y} = {lng, lat}
+    const xyToLatLng = ({ x, y }: { x: number; y: number }) => ({ lat: y, lng: x })
+
+    // 폴리곤이 1개라면 단일 배열로, 여러 개면 그대로 배열의 배열로
+    //const out = { polygon: polygons.flat() }                   // 여러 개면 보존
+    const points = data.polygon[0].points.map(xyToLatLng)
+    const text = pairsToText(toPairs(points))
+
+    console.log('BY getData() -> pairs', text)
+  }
+  //const managerRef = useRef<kakao.maps.drawing.DrawingManager | null>(null)
+
+  const handleMapCreate = () => {
+    const overlayType = window.kakao?.maps?.drawing?.OverlayType
+    if (!overlayType) {
+      console.warn('drawing library not loaded')
+      return
+    }
+    setOT(overlayType)
+    setReady(true)
+  }
+
+  const drawingModes = OT
+    ? [OT.ARROW, OT.CIRCLE, OT.ELLIPSE, OT.MARKER, OT.POLYLINE, OT.RECTANGLE, OT.POLYGON]
+    : []
+  */
 
   // 지도 확대 레벨을 저장할 state
   const [mapLevel, setMapLevel] = useState(
@@ -207,23 +317,23 @@ function App() {
 
   useEffect(() => {
     if(mapLevel === 2) {
-      setMarkerSize({width: 27, height: 27}) // 25, 36
-      setRampSize(19)
+      setMarkerSize({width: 25, height: 25}) // 25, 36
+      setRampSize(22)
       setPlusLat(0.0012)
       setParkingSize(35)
     } else if(mapLevel === 3) {
-      setMarkerSize({width: 26, height: 26}) // 25, 36
+      setMarkerSize({width: 23, height: 23}) // 25, 36
       setRampSize(17)
       setPlusLat(0.0025)
       setParkingSize(27)
     } else if(mapLevel === 4) {
-      setMarkerSize({width: 24, height: 24}) // 22, 31
-      setRampSize(14)
+      setMarkerSize({width: 23, height: 23}) // 22, 31
+      setRampSize(12)
       setPlusLat(0.0048)
       setParkingSize(22)
     } else if(mapLevel === 5) {
-      setMarkerSize({width: 17, height: 17}) // 17, 25
-      setRampSize(10)
+      setMarkerSize({width: 18, height: 18}) // 17, 25
+      setRampSize(9)
       setPlusLat(0.0091)
       setParkingSize(18)
     }
@@ -249,6 +359,7 @@ function App() {
             return div;
           } else {
             // 범위를 벗어난 경우 흰색으로 처리
+            //return div;
             return whiteBox;
           }
         },
@@ -357,56 +468,72 @@ function App() {
     return canvas.toDataURL()
   }
 
-  const EventMarkerContainer = ({ id, position, content, amenityData }: {
-      id: number, position: { lat: number, lng: number }, content: string, amenityData: amenities
+  const EventMarkerContainer = ({ id, position, content, amenityData, polygon }: {
+      id: number, position: { lat: number, lng: number }, content: string, amenityData: amenities, polygon: { lat: number, lng: number }[]
     }) => {
     const markerSrc = useMemo(() => makeMarker(id), [id])
     return (
-      <MapMarker
-        image={{
-          src: markerSrc, //'/images/marker.png',
-          size: markerSize, // 마커 사이즈
-        }}
-        zIndex={-3} // 마커와의 겹침 문제 해결
-        position={position} // 마커를 표시할 위치
-        clickable={true} // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정
-        onClick={() => handleMapMarker(id, position.lat, position.lng)} // 마커를 클릭했을 때 InfoWindow를 표시
-      >
-        {isVisibleId === id &&
-          <div className='w-[16.7rem]'>
-            {/* 세부 정보 팝업 UI */}
-            <DetailsPopup 
-              id={id} 
-              title={content} 
-              data={amenityData}
-              isVisibleId={isVisibleId}
-              hasFocused={hasFocused}
-              setHasFocused={setHasFocused}
-            />
-            <div className='flex justify-center text-[0.8rem] px-5 pb-5 pt-1'>
-              <Link
-                className='w-full mr-3'
-                to={!amenityData.floorplan ? '#' : `/floorplan/${id}`}
-                state={{
-                  title: content,
-                  floors: amenityData.floors
-                }}
-              >
-                <Button 
-                  disabled={!amenityData.floorplan}
+      <>
+       <Polygon
+          path={polygon}
+          zIndex={-5} // 마커와의 겹침 문제 해결
+          strokeWeight={2} // 선의 두께입니다
+          strokeColor={"#2a5ade"} // 선의 색깔입니다
+          strokeOpacity={0.35} // 선의 불투명도입니다
+          strokeStyle={"solid"} // 선의 스타일입니다
+          fillColor={"#edf6ff"} // 채우기 색깔입니다
+          fillOpacity={0.1} // 채우기 불투명도입니다
+          //onMouseover={() => setIsMouseOver(true)}
+          //onMouseout={() => setIsMouseOver(false)}
+          //onMousedown={() => handleMapMarker(id, position.lat, position.lng)}
+          onClick={() => handleMapMarker(id, position.lat, position.lng)}
+        />
+        <MapMarker
+          image={{
+            src: markerSrc, //'/images/marker.png',
+            size: markerSize, // 마커 사이즈
+          }}
+          zIndex={-3} // 마커와의 겹침 문제 해결
+          position={position} // 마커를 표시할 위치
+          clickable={true} // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정
+          onClick={() => handleMapMarker(id, position.lat, position.lng)} // 마커를 클릭했을 때 InfoWindow를 표시
+        >
+          {isVisibleId === id &&
+            <div className='w-[16.7rem]'>
+              {/* 세부 정보 팝업 UI */}
+              <DetailsPopup 
+                id={id} 
+                title={content} 
+                data={amenityData}
+                isVisibleId={isVisibleId}
+                hasFocused={hasFocused}
+                setHasFocused={setHasFocused}
+              />
+              <div className='flex justify-center text-[0.8rem] px-5 pb-5 pt-1'>
+                <Link
+                  className='w-full mr-3'
+                  to={!amenityData.floorplan ? '#' : `/floorplan/${id}`}
+                  state={{
+                    title: content,
+                    floors: amenityData.floors
+                  }}
                 >
-                  건물 평면도
+                  <Button 
+                    disabled={!amenityData.floorplan}
+                  >
+                    건물 평면도
+                  </Button>
+                </Link>
+                <Button
+                  onClick={() => setIsVisibleId(null)}
+                >
+                  닫기
                 </Button>
-              </Link>
-              <Button
-                onClick={() => setIsVisibleId(null)}
-              >
-                닫기
-              </Button>
+              </div>
             </div>
-          </div>
-        }
-      </MapMarker>
+          }
+        </MapMarker>
+      </>
     )
   }
 
@@ -546,6 +673,12 @@ function App() {
                       onClick={() => accessCurrentLocation()} />
                   </button>
                 </div>
+                {/**
+                <div style={{ marginTop: 8, display: 'flex', gap: 8 }}>
+                  <button onClick={dumpByGetData}>좌표 내보내기 (getData)</button>
+                  <button onClick={dumpByGetOverlays}>좌표 내보내기 (getOverlays + getPath)</button>
+                </div>
+                 */}
                 <Map
                   id='map'
                   ref={mapRef}
@@ -567,8 +700,27 @@ function App() {
                     const level = map.getLevel()
                     setMapLevel(level)
                   }}
-                  onCreate={map => map.addOverlayMapTypeId(kakao.maps.MapTypeId['ROADMAP'])}
+                  onCreate={map => {
+                    map.addOverlayMapTypeId(kakao.maps.MapTypeId['ROADMAP'])
+                    //handleMapCreate()
+                  }}
                 >
+                  {ready && (
+                    <DrawingManager
+                      ref={managerRef}
+                      drawingModes={drawingModes}
+                      guideTooltip={['draw', 'drag', 'edit']}
+                      //markerOptions={{ draggable: true, removable: true }}
+                      //polylineOptions={{ draggable: true, removable: true, editable: true, strokeColor: '#39f', hintStrokeStyle: 'dash', hintStrokeOpacity: 0.5 }}
+                      //rectangleOptions={{ draggable: true, removable: true, editable: true, strokeColor: '#39f', fillColor: '#39f', fillOpacity: 0.5 }}
+                      //circleOptions={{ draggable: true, removable: true, editable: true, strokeColor: '#39f', fillColor: '#39f', fillOpacity: 0.5 }}
+                      polygonOptions={{ draggable: true, removable: true, editable: true, strokeColor: '#39f', fillColor: '#39f', fillOpacity: 0.5, hintStrokeStyle: 'dash', hintStrokeOpacity: 0.5 }}
+                      //arrowOptions={{ draggable: true, removable: true, editable: true, strokeColor: '#39f', hintStrokeStyle: 'dash', hintStrokeOpacity: 0.5 }}
+                      //ellipseOptions={{ draggable: true, removable: true, editable: true, strokeColor: '#39f', fillColor: '#39f', fillOpacity: 0.5 }}
+                    >
+                      <Toolbox />
+                    </DrawingManager>
+                  )}
                   {/* 지도 위에 표시될 마커 */}
                   {pos.map((value) => {
                     const showMarker =
@@ -576,6 +728,10 @@ function App() {
                     (selectedCategory === "wheel" && value.wheel) ||
                     (selectedCategory === "elevator" && value.elevator) ||
                     (selectedCategory === "toilet" && value.toilet)
+                    
+                    const ring = Array.isArray(value.polygon)
+                      ? value.polygon.map(([lat, lng]: [number, number]) => ({ lat, lng }))
+                      : []
                     
                     return (
                       showMarker && (
@@ -593,6 +749,7 @@ function App() {
                             floors: value.floors || [],
                             caution: value.caution
                           }}
+                          polygon={ring}
                         />
                       )
                     )
