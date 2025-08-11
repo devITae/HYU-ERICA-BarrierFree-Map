@@ -145,9 +145,9 @@ const DetailsPopup: React.FC<DetailsPopupProps> = ({ id, title, data, isVisibleI
                         <p className='py-1 text-[0.82rem]' aria-hidden={true}>
                             장애인 화장실
                         </p>
-                        <CheckboxWrapper id={data.toilet} isCaution={id === 401 || id === 100}>
-                        { /* 학술정보관, 아고라 화장실 예외 표시 */ }
-                            {id === 401 || id === 100 ? (
+                        <CheckboxWrapper id={data.toilet} isCaution={id === 100}>
+                        { /* 아고라 화장실 예외 표시 */ }
+                            {id === 100 ? (
                                 <>
                                     <CheckboxItem
                                         id="toilet-checkbox"
